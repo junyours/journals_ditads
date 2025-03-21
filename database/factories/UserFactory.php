@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use Hash;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 
@@ -23,21 +24,15 @@ class UserFactory extends Factory
     public function definition(): array
     {
         return [
-            'last_name' => null,
-            'first_name' => null,
-            'middle_name' => null,
-            'gender' => null,
-            'email' => null,
+            'last_name' => 'Admin',
+            'first_name' => 'User',
+            'email' => 'admin@gmail.com',
             'email_verified_at' => now(),
-            'password' => null,
-            'contact_number'=> null,
-            'course'=> null,
-            'school'=> null,
-            'school_type'=> null,
+            'password' => Hash::make('password'),
             'remember_token' => Str::random(10),
-            'role' => null,
-            'status' => null,
-            'is_default' => null,
+            'role' => 'admin',
+            'status' => 'active',
+            'is_default' => 0,
         ];
     }
 
@@ -46,7 +41,7 @@ class UserFactory extends Factory
      */
     public function unverified(): static
     {
-        return $this->state(fn (array $attributes) => [
+        return $this->state(fn(array $attributes) => [
             'email_verified_at' => null,
         ]);
     }

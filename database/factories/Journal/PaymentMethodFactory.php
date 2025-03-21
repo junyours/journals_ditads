@@ -17,12 +17,9 @@ class PaymentMethodFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => null,
-            'account_name' => null,
-            'account_number' => null,
-            'qr_code' => null,
-            'type' => null,
-            'status' => null,
+            'name' => 'Cash',
+            'type' => 'cash',
+            'status' => 1,
         ];
     }
 }
