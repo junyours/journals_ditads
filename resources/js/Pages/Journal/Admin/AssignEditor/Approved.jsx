@@ -1,5 +1,5 @@
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout"
-import { router, useForm, usePage } from "@inertiajs/react"
+import { router, usePage } from "@inertiajs/react"
 import {
   Table,
   TableBody,
@@ -7,47 +7,27 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@/components/ui/table"
+} from "@/Components/ui/table"
 import {
   Pagination,
   PaginationContent,
   PaginationItem,
   PaginationNext,
   PaginationPrevious,
-} from "@/components/ui/pagination"
+} from "@/Components/ui/pagination"
 import { useEffect, useRef, useState } from "react"
 import { Input } from "@/Components/ui/input"
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
-import { Download, FileCog, MoreHorizontal, Pencil, Settings2, UserPen } from "lucide-react"
+} from "@/Components/ui/dropdown-menu"
+import { Download, Settings2 } from "lucide-react"
 import { Button } from "@/Components/ui/button"
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog"
-import {
-  Select,
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectLabel,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select"
 
 const Approved = () => {
-  const { assigns, editors } = usePage().props
+  const { assigns } = usePage().props
   const [search, setSearch] = useState("");
   const [open, setOpen] = useState(false)
 

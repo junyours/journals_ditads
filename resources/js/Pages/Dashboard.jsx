@@ -4,7 +4,7 @@ import {
   CardContent,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card"
+} from "@/Components/ui/card"
 import { FolderSync, NotebookPen, Users } from "lucide-react"
 import { usePage } from "@inertiajs/react"
 import { Bar, BarChart, CartesianGrid, XAxis, YAxis } from "recharts"
@@ -12,14 +12,14 @@ import {
   ChartContainer,
   ChartTooltip,
   ChartTooltipContent,
-} from "@/components/ui/chart"
+} from "@/Components/ui/chart"
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select"
+} from "@/Components/ui/select"
 import { useState } from "react"
 
 const Dashboard = () => {

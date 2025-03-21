@@ -1,12 +1,12 @@
-import { AppSidebar } from "@/components/app-sidebar"
+import { AppSidebar } from "@/Components/app-sidebar"
 import { useSecurity } from "@/Components/security-modal"
 import { Button } from "@/Components/ui/button"
-import { Separator } from "@/components/ui/separator"
+import { Separator } from "@/Components/ui/separator"
 import {
     SidebarInset,
     SidebarProvider,
     SidebarTrigger,
-} from "@/components/ui/sidebar"
+} from "@/Components/ui/sidebar"
 import { usePage } from "@inertiajs/react"
 import { Bell } from "lucide-react"
 import { useEffect, useState } from "react"
@@ -15,7 +15,7 @@ import {
     SheetContent,
     SheetHeader,
     SheetTitle,
-} from "@/components/ui/sheet"
+} from "@/Components/ui/sheet"
 
 export default function AuthenticatedLayout({ children, title, button, tab }) {
     const user = usePage().props.auth.user;

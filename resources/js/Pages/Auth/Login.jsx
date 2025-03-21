@@ -5,16 +5,16 @@ import {
     CardFooter,
     CardHeader,
     CardTitle,
-} from "@/components/ui/card"
+} from "@/Components/ui/card"
 import { Input } from "@/Components/ui/input"
 import { Label } from "@/Components/ui/label"
 import GuestLayout from "@/Layouts/GuestLayout"
-import { Checkbox } from "@/components/ui/checkbox"
+import { Checkbox } from "@/Components/ui/checkbox"
 import { Link, useForm } from "@inertiajs/react"
 import {
     Alert,
     AlertDescription,
-} from "@/components/ui/alert"
+} from "@/Components/ui/alert"
 import { InputPassword } from "@/Components/input-password"
 import { Separator } from "@/Components/ui/separator"
 

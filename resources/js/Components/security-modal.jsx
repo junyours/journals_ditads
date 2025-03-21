@@ -6,7 +6,7 @@ import {
   AlertDialogDescription,
   AlertDialogHeader,
   AlertDialogTitle,
-} from "@/components/ui/alert-dialog"
+} from "@/Components/ui/alert-dialog"
 import { Lock } from 'lucide-react';
 import { Button } from './ui/button';
 

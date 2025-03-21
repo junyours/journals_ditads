@@ -7,14 +7,14 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@/components/ui/table"
+} from "@/Components/ui/table"
 import {
   Pagination,
   PaginationContent,
   PaginationItem,
   PaginationNext,
   PaginationPrevious,
-} from "@/components/ui/pagination"
+} from "@/Components/ui/pagination"
 import { useEffect, useRef, useState } from "react"
 import { Input } from "@/Components/ui/input"
 import {
@@ -24,7 +24,7 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
+} from "@/Components/ui/dropdown-menu"
 import { Banknote, Check, Download, HandCoins, PhilippinePeso, ReceiptText, Settings2, Upload, Wallet, X } from "lucide-react"
 import { Button } from "@/Components/ui/button"
 import {
@@ -35,18 +35,18 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@/components/ui/dialog"
+} from "@/Components/ui/dialog"
 import {
   Card,
   CardTitle,
-} from "@/components/ui/card"
+} from "@/Components/ui/card"
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select"
+} from "@/Components/ui/select"
 import { Label } from "@/Components/ui/label"
 import InputError from "@/Components/input-error"
 

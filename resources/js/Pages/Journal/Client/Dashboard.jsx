@@ -6,7 +6,7 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card"
+} from "@/Components/ui/card"
 import { usePage } from "@inertiajs/react"
 import { FolderSync, NotebookPen } from "lucide-react"
 

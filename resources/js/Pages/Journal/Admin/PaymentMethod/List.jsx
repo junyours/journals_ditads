@@ -7,7 +7,7 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
-} from "@/components/ui/dialog"
+} from "@/Components/ui/dialog"
 import { Input } from '@/Components/ui/input'
 import { Label } from '@/Components/ui/label'
 import { router, useForm, usePage } from "@inertiajs/react";
@@ -20,14 +20,14 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@/components/ui/table"
+} from "@/Components/ui/table"
 import {
   Pagination,
   PaginationContent,
   PaginationItem,
   PaginationNext,
   PaginationPrevious,
-} from "@/components/ui/pagination"
+} from "@/Components/ui/pagination"
 import { Switch } from "@/Components/ui/switch";
 import { FileImage, FilePenLine, QrCode, Settings2, Upload } from "lucide-react";
 import {
@@ -38,7 +38,7 @@ import {
   SelectLabel,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select"
+} from "@/Components/ui/select"
 import { Badge } from "@/Components/ui/badge";
 import {
   DropdownMenu,
@@ -47,7 +47,7 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
+} from "@/Components/ui/dropdown-menu"
 
 const List = () => {
   const [open, setOpen] = useState(false)

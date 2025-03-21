@@ -1,4 +1,4 @@
-import { Card } from "@/components/ui/card";
+import { Card } from "@/Components/ui/card";
 import Logo from '../../../public/images/logo.png';
 import { Link } from "@inertiajs/react";
 import { ModeToggle } from "@/Components/mode-toggle";

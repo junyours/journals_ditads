@@ -1,16 +1,16 @@
-import InputError from '@/Components/input-error';
-import InputLabel from '@/Components/InputLabel';
-import PrimaryButton from '@/Components/PrimaryButton';
-import TextInput from '@/Components/TextInput';
+import { Alert, AlertDescription } from '@/Components/ui/alert';
+import { Button } from '@/Components/ui/button';
+import { CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/Components/ui/card';
+import { Label } from '@/Components/ui/label';
 import GuestLayout from '@/Layouts/GuestLayout';
-import { Head, useForm } from '@inertiajs/react';
+import { useForm } from '@inertiajs/react';
 
 export default function ConfirmPassword() {
     const { data, setData, post, processing, errors, reset } = useForm({
         password: '',
     });
 
-    const submit = (e) => {
+    const handleConfirm = (e) => {
         e.preventDefault();
 
         post(route('password.confirm'), {
@@ -20,35 +20,34 @@ export default function ConfirmPassword() {
 
     return (
         <GuestLayout>
-            <Head title="Confirm Password" />
-
-            <div className="mb-4 text-sm text-gray-600">
-                This is a secure area of the application. Please confirm your
-                password before continuing.
-            </div>
-
-            <form onSubmit={submit}>
-                <div className="mt-4">
-                    <InputLabel htmlFor="password" value="Password" />
-
-                    <TextInput
-                        id="password"
-                        type="password"
-                        name="password"
-                        value={data.password}
-                        className="mt-1 block w-full"
-                        isFocused={true}
-                        onChange={(e) => setData('password', e.target.value)}
-                    />
-
-                    <InputError message={errors.password} className="mt-2" />
-                </div>
-
-                <div className="mt-4 flex items-center justify-end">
-                    <PrimaryButton className="ms-4" disabled={processing}>
+            <form onSubmit={handleConfirm}>
+                <CardHeader>
+                    <CardTitle>Confirm Password</CardTitle>
+                    <CardDescription>
+                        This is a secure area of the application. Please confirm your
+                        password before continuing.
+                    </CardDescription>
+                </CardHeader>
+                <CardContent>
+                    <div className="space-y-4">
+                        {errors.email && (
+                            <Alert variant="destructive">
+                                <AlertDescription>
+                                    {errors.email}
+                                </AlertDescription>
+                            </Alert>
+                        )}
+                        <div className="space-y-1">
+                            <Label>Password</Label>
+                            <InputPassword value={data.password} onChange={(e) => setData('password', e.target.value)} required />
+                        </div>
+                    </div>
+                </CardContent>
+                <CardFooter>
+                    <Button className="w-full" disabled={processing}>
                         Confirm
-                    </PrimaryButton>
-                </div>
+                    </Button>
+                </CardFooter>
             </form>
         </GuestLayout>
     );

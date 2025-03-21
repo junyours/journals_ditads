@@ -5,14 +5,14 @@ import {
     CardFooter,
     CardHeader,
     CardTitle,
-} from "@/components/ui/card"
+} from "@/Components/ui/card"
 import { Input } from "@/Components/ui/input"
 import { Label } from "@/Components/ui/label"
 import { Link, useForm } from "@inertiajs/react"
 import {
     Alert,
     AlertDescription,
-} from "@/components/ui/alert"
+} from "@/Components/ui/alert"
 import { Separator } from "@/Components/ui/separator"
 import { InputPassword } from "@/Components/input-password"
 import GuestLayout from '@/Layouts/GuestLayout';

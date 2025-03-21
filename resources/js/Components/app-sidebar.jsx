@@ -1,5 +1,5 @@
 import * as React from "react"
-import { NavUser } from "@/components/nav-user"
+import { NavUser } from "@/Components/nav-user"
 import {
   Sidebar,
   SidebarFooter,
@@ -8,7 +8,7 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
   SidebarRail,
-} from "@/components/ui/sidebar"
+} from "@/Components/ui/sidebar"
 import { usePage } from "@inertiajs/react"
 import Logo from '../../../public/images/logo.png'
 import { NavAdmin } from "./nav-admin"
