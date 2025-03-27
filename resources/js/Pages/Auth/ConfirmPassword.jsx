@@ -1,18 +1,20 @@
+import { InputPassword } from '@/Components/input-password';
 import { Alert, AlertDescription } from '@/Components/ui/alert';
 import { Button } from '@/Components/ui/button';
 import { CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/Components/ui/card';
 import { Label } from '@/Components/ui/label';
 import GuestLayout from '@/Layouts/GuestLayout';
 import { useForm } from '@inertiajs/react';
+import { LoaderCircle } from 'lucide-react';
 
 export default function ConfirmPassword() {
-    const { data, setData, post, processing, errors, reset } = useForm({
+    const { data, setData, post, processing, errors, reset, clearErrors } = useForm({
         password: '',
     });
 
     const handleConfirm = (e) => {
         e.preventDefault();
-
+        clearErrors()
         post(route('password.confirm'), {
             onFinish: () => reset('password'),
         });
@@ -30,10 +32,10 @@ export default function ConfirmPassword() {
                 </CardHeader>
                 <CardContent>
                     <div className="space-y-4">
-                        {errors.email && (
+                        {errors.password && (
                             <Alert variant="destructive">
                                 <AlertDescription>
-                                    {errors.email}
+                                    {errors.password}
                                 </AlertDescription>
                             </Alert>
                         )}
@@ -45,6 +47,7 @@ export default function ConfirmPassword() {
                 </CardContent>
                 <CardFooter>
                     <Button className="w-full" disabled={processing}>
+                        {processing && <LoaderCircle className="size-4 animate-spin" />}
                         Confirm
                     </Button>
                 </CardFooter>

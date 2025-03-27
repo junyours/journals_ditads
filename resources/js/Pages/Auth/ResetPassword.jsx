@@ -5,9 +5,10 @@ import { CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from 
 import { Label } from '@/Components/ui/label';
 import GuestLayout from '@/Layouts/GuestLayout';
 import { useForm } from '@inertiajs/react';
+import { LoaderCircle } from 'lucide-react';
 
 export default function ResetPassword({ token, email }) {
-    const { data, setData, post, processing, errors, reset } = useForm({
+    const { data, setData, post, processing, errors, reset, clearErrors } = useForm({
         token: token,
         email: email,
         password: '',
@@ -16,6 +17,7 @@ export default function ResetPassword({ token, email }) {
 
     const handleReset = (e) => {
         e.preventDefault();
+        clearErrors()
         post(route('password.store'), {
             onFinish: () => reset('password', 'password_confirmation'),
         });
@@ -49,6 +51,7 @@ export default function ResetPassword({ token, email }) {
                 </CardContent>
                 <CardFooter>
                     <Button className="w-full" disabled={processing}>
+                        {processing && <LoaderCircle className="size-4 animate-spin" />}
                         Reset Password
                     </Button>
                 </CardFooter>

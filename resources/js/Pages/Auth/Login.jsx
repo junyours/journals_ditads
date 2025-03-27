@@ -17,9 +17,10 @@ import {
 } from "@/Components/ui/alert"
 import { InputPassword } from "@/Components/input-password"
 import { Separator } from "@/Components/ui/separator"
+import { LoaderCircle } from "lucide-react"
 
 export default function Login({ status, canResetPassword }) {
-    const { data, setData, post, processing, errors, reset, setError } = useForm({
+    const { data, setData, post, processing, errors, clearErrors } = useForm({
         email: '',
         password: '',
         remember: false,
@@ -27,7 +28,7 @@ export default function Login({ status, canResetPassword }) {
 
     const handleLogin = (e) => {
         e.preventDefault();
-        setError({ email: null })
+        clearErrors()
         post(route('login'));
     };
 
@@ -78,6 +79,7 @@ export default function Login({ status, canResetPassword }) {
                 <CardFooter>
                     <div className="w-full space-y-6">
                         <Button className="w-full" disabled={processing}>
+                            {processing && <LoaderCircle className="size-4 animate-spin" />}
                             Login
                         </Button>
                         <div className="flex gap-3 items-center justify-center">

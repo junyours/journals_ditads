@@ -16,9 +16,10 @@ import {
 import { Separator } from "@/Components/ui/separator"
 import { InputPassword } from "@/Components/input-password"
 import GuestLayout from '@/Layouts/GuestLayout';
+import { LoaderCircle } from "lucide-react"
 
 export default function Register() {
-    const { data, setData, post, processing, errors, reset, setError } = useForm({
+    const { data, setData, post, processing, errors, clearErrors } = useForm({
         last_name: '',
         first_name: '',
         email: '',
@@ -28,10 +29,7 @@ export default function Register() {
 
     const handleRegister = (e) => {
         e.preventDefault();
-        setError({
-            email: null,
-            password: null
-        })
+        clearErrors()
         post(route('register'));
     };
 
@@ -80,6 +78,7 @@ export default function Register() {
                 <CardFooter>
                     <div className="w-full space-y-6">
                         <Button className="w-full" disabled={processing}>
+                            {processing && <LoaderCircle className="size-4 animate-spin" />}
                             Register
                         </Button>
                         <div className="flex gap-3 items-center justify-center">

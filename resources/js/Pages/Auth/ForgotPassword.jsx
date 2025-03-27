@@ -5,14 +5,16 @@ import { Input } from '@/Components/ui/input';
 import { Label } from '@/Components/ui/label';
 import GuestLayout from '@/Layouts/GuestLayout';
 import { useForm } from '@inertiajs/react';
+import { LoaderCircle } from 'lucide-react';
 
 export default function ForgotPassword({ status }) {
-    const { data, setData, post, processing, errors } = useForm({
+    const { data, setData, post, processing, errors, clearErrors } = useForm({
         email: '',
     });
 
     const handleSend = (e) => {
         e.preventDefault();
+        clearErrors()
         post(route('password.email'));
     };
 
@@ -49,6 +51,7 @@ export default function ForgotPassword({ status }) {
                 </CardContent>
                 <CardFooter>
                     <Button className="w-full" disabled={processing}>
+                        {processing && <LoaderCircle className="size-4 animate-spin" />}
                         Email Password Reset Link
                     </Button>
                 </CardFooter>

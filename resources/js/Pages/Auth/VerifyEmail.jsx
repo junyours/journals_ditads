@@ -3,6 +3,7 @@ import { Button } from '@/Components/ui/button';
 import { CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/Components/ui/card';
 import GuestLayout from '@/Layouts/GuestLayout';
 import { Link, useForm } from '@inertiajs/react';
+import { LoaderCircle } from 'lucide-react';
 
 export default function VerifyEmail({ status }) {
     const { post, processing } = useForm({});
@@ -37,6 +38,7 @@ export default function VerifyEmail({ status }) {
                 <CardFooter>
                     <div className="w-full space-y-6">
                         <Button className="w-full" disabled={processing}>
+                            {processing && <LoaderCircle className="size-4 animate-spin" />}
                             Resend Verification Email
                         </Button>
                         <Link href={route('logout')} method="post" as="button" className="w-full">
