@@ -4,9 +4,9 @@ namespace App\Http\Controllers\Journal;
 
 use App\Http\Controllers\Controller;
 use App\Models\Journal\AssignEditor;
-use App\Models\Journal\Commission;
 use App\Models\Journal\Payment;
 use App\Models\Journal\PaymentMethod;
+use App\Models\Journal\Receipt;
 use App\Models\Journal\Service;
 use App\Models\User;
 use DB;
@@ -543,29 +543,16 @@ class AdminController extends Controller
         $payment_method_id = PaymentMethod::where('type', 'cash')
             ->first()->id;
 
-        Payment::create([
+        $payment = Payment::create([
             'request_id' => $request->request_id,
             'payment_method_id' => $payment_method_id,
-            'reference_number' => $request->reference_number,
-            'status' => 'approved'
+            'status' => 'approved',
         ]);
 
-        $req = \App\Models\Journal\Request::findOrFail($request->request_id);
-
-        $editor_id = AssignEditor::where('request_id', $req->id)
-            ->first()->editor_id;
-
-        if ($req->commission_amount_rate) {
-            $amount = floatval($req->amount);
-            $commissionRate = intval($req->commission_amount_rate);
-            $commissionAmount = $amount * ($commissionRate / 100);
-
-            Commission::create([
-                'request_id' => $req->id,
-                'editor_id' => $editor_id,
-                'commission_amount' => $commissionAmount,
-            ]);
-        }
+        Receipt::create([
+            'payment_id' => $payment->id,
+            'reference_number' => $request->reference_number,
+        ]);
     }
 
     public function publishDocumentPaid(Request $request)
@@ -687,23 +674,6 @@ class AdminController extends Controller
             $payment->update([
                 'status' => $request->status
             ]);
-
-            $req = \App\Models\Journal\Request::findOrFail($request->id);
-
-            $editor_id = AssignEditor::where('request_id', $req->id)
-                ->first()->editor_id;
-
-            if ($req->commission_amount_rate) {
-                $amount = floatval($req->amount);
-                $commissionRate = intval($req->commission_amount_rate);
-                $commissionAmount = $amount * ($commissionRate / 100);
-
-                Commission::create([
-                    'request_id' => $req->id,
-                    'editor_id' => $editor_id,
-                    'commission_amount' => $commissionAmount,
-                ]);
-            }
         } else if ($request->status === 'rejected') {
             $request->validate([
                 'message' => ['required'],
@@ -738,7 +708,7 @@ class AdminController extends Controller
                     $query->select('id', 'request_id', 'payment_method_id', 'status', 'created_at');
                     $query->with([
                         'payment_method' => function ($query) {
-                            $query->select('id', 'name');
+                            $query->select('id', 'name', 'type');
                         },
                         'receipt' => function ($query) {
                             $query->select('payment_id', 'reference_number', 'receipt_image');

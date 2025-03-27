@@ -29,19 +29,18 @@ import {
   PaginationPrevious,
 } from "@/Components/ui/pagination"
 import { Switch } from "@/Components/ui/switch";
-import { FilePenLine, Settings2 } from "lucide-react";
+import { FilePenLine, LoaderCircle, Plus, Settings2 } from "lucide-react";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/Components/ui/dropdown-menu"
+import axios from "axios";
 
 const List = () => {
   const [open, setOpen] = useState(false)
-  const { data, setData, post, processing, errors, reset, setError } = useForm({
+  const { data, setData, post, processing, errors, reset, clearErrors } = useForm({
     id: null,
     name: "",
     price: ""
@@ -72,11 +71,11 @@ const List = () => {
       reset()
     }
     setOpen(!open)
-    setError({ name: null, price: null })
+    clearErrors()
   }
 
   const handleAdd = () => {
-    setError({ name: null, price: null })
+    clearErrors()
     post(route('admin.service&payment.add.service'), {
       onSuccess: () => {
         handleOpen()
@@ -86,7 +85,7 @@ const List = () => {
   }
 
   const handleUpdate = () => {
-    setError({ name: null, price: null });
+    clearErrors();
     post(route("admin.service&payment.update.service"), {
       onSuccess: () => {
         handleOpen()
@@ -95,8 +94,8 @@ const List = () => {
     });
   };
 
-  const handleToggle = (id, currentStatus) => {
-    const newStatus = currentStatus === 1 ? 0 : 1
+  const handleToggle = async (id, currentStatus) => {
+    const newStatus = currentStatus ? 1 : 0
 
     setStatus((prev) =>
       prev.map((service) =>
@@ -104,7 +103,7 @@ const List = () => {
       )
     )
 
-    router.post(route('admin.service&payment.update.service.status'), { id, status: newStatus }, { preserveScroll: true })
+    await axios.post(route('admin.service&payment.update.service.status'), { id, status: newStatus })
   }
 
   const searchTimeoutRef = useRef(null);
@@ -135,14 +134,15 @@ const List = () => {
   }
 
   return (
-    <AuthenticatedLayout title="Services" button={
-      <Button onClick={() => handleOpen()}>
-        Add
-      </Button>
-    }>
+    <>
       <div className='space-y-4'>
-        <div className='w-full sm:max-w-xs'>
-          <Input value={search} onChange={handleSearch} placeholder="Search" />
+        <div className="flex items-center justify-between">
+          <div className='w-full sm:max-w-xs'>
+            <Input value={search} onChange={handleSearch} placeholder="Search" />
+          </div>
+          <Button onClick={() => handleOpen()} variant='outline'>
+            <Plus />Add
+          </Button>
         </div>
         <Table>
           <TableHeader>
@@ -172,7 +172,7 @@ const List = () => {
                       <Switch
                         checked={status[index]?.status === 1}
                         id={`status-${index}`}
-                        onCheckedChange={() => handleToggle(service.id, service.status)}
+                        onCheckedChange={(val) => handleToggle(service.id, val)}
                       />
                       <Label htmlFor={`status-${index}`}>
                         {status[index]?.status === 1 ? "Available" : "Unavailable"}
@@ -223,7 +223,11 @@ const List = () => {
         )}
       </div>
 
-      <Dialog open={open} onOpenChange={() => handleOpen()}>
+      <Dialog open={open} onOpenChange={() => {
+        if (!processing) {
+          handleOpen()
+        }
+      }}>
         <DialogContent>
           <DialogHeader>
             <DialogTitle>{editData ? "Edit Service" : "Add Service"}</DialogTitle>
@@ -242,13 +246,16 @@ const List = () => {
           </div>
           <DialogFooter>
             <Button onClick={editData ? handleUpdate : handleAdd} disabled={processing}>
+              {processing && <LoaderCircle className="size-4 animate-spin" />}
               {editData ? 'Update' : 'Save'}
             </Button>
           </DialogFooter>
         </DialogContent>
       </Dialog>
-    </AuthenticatedLayout>
+    </>
   )
 }
+
+List.layout = page => <AuthenticatedLayout children={page} title="Services" />
 
 export default List

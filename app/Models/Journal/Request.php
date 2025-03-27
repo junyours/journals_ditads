@@ -5,7 +5,6 @@ namespace App\Models\Journal;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Request extends Model
@@ -18,7 +17,6 @@ class Request extends Model
         'request_number',
         'uploaded_file',
         'amount',
-        'commission_amount_rate',
         'message',
         'status',
     ];
@@ -41,10 +39,5 @@ class Request extends Model
     public function assign_editor(): HasOne
     {
         return $this->hasOne(AssignEditor::class, 'request_id');
-    }
-
-    public function commission(): HasMany
-    {
-        return $this->hasMany(Commission::class, 'request_id');
     }
 }

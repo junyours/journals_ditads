@@ -126,7 +126,7 @@ const Rejected = () => {
   }
 
   return (
-    <AuthenticatedLayout title="Rejected Payment Transactions">
+    <>
       <div className='space-y-4'>
         <div className='w-full sm:max-w-xs'>
           <Input value={search} onChange={handleSearch} placeholder="Search" />
@@ -250,8 +250,10 @@ const Rejected = () => {
           <Textarea value={message} readOnly />
         </DialogContent>
       </Dialog>
-    </AuthenticatedLayout>
+    </>
   )
 }
+
+Rejected.layout = page => <AuthenticatedLayout children={page} title="Rejected Payment Transactions" />
 
 export default Rejected

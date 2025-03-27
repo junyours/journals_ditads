@@ -106,7 +106,7 @@ const Approved = () => {
   }
 
   return (
-    <AuthenticatedLayout title="Approved Payment Transactions">
+    <>
       <div className='space-y-4'>
         <div className='w-full sm:max-w-xs'>
           <Input value={search} onChange={handleSearch} placeholder="Search" />
@@ -195,17 +195,21 @@ const Approved = () => {
             <DialogTitle>Receipt</DialogTitle>
           </DialogHeader>
           <Carousel>
-            <CarouselContent>
+            <CarouselContent className='pb-1'>
               {data?.map((d, i) => (
                 <CarouselItem key={i}>
                   <div className="space-y-4 px-2">
                     <div className="space-y-1">
-                      <Label>{type === 'cash' && 'OR Number' || type === 'e-wallet' && 'Reference Number'}</Label>
+                      <Label>
+                        {type === 'cash' ? 'OR Number' : 'Reference Number'}
+                      </Label>
                       <Input value={d.reference_number} readOnly />
                     </div>
-                    <div className="max-w-[250px] mx-auto h-[300px]">
-                      <img src={`/storage/journal/receipts/${d.receipt_image}`} className="object-contain h-full w-full" />
-                    </div>
+                    {type === 'e-wallet' && (
+                      <div className="max-w-[250px] mx-auto h-[300px]">
+                        <img src={`/storage/journal/receipts/${d.receipt_image}`} className="object-contain h-full w-full" />
+                      </div>
+                    )}
                   </div>
                 </CarouselItem>
               ))}
@@ -213,8 +217,10 @@ const Approved = () => {
           </Carousel>
         </DialogContent>
       </Dialog>
-    </AuthenticatedLayout>
+    </>
   )
 }
+
+Approved.layout = page => <AuthenticatedLayout children={page} title="Approved Payment Transactions" />
 
 export default Approved

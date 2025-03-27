@@ -44,7 +44,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/Components/ui/dropdown-menu"
-import { FilePenLine, Settings2, UserCircle } from "lucide-react";
+import { FilePenLine, Plus, Settings2, UserCircle } from "lucide-react";
 
 const List = () => {
   const [open, setOpen] = useState(false)
@@ -55,31 +55,9 @@ const List = () => {
     middle_name: "",
     gender: "",
     email: "",
-    commission_price_rate: null,
   })
   const { editors } = usePage().props
   const [search, setSearch] = useState("");
-  const [openCommission, setOpenCommission] = useState(false)
-
-  const handleOpenCommission = (editor) => {
-    if (editor) {
-      setData({
-        id: editor.id,
-        commission_price_rate: editor.commission_price_rate ? editor.commission_price_rate : null
-      })
-    } else {
-      reset()
-    }
-    setOpenCommission(!openCommission)
-  }
-
-  const handleUpdateCommission = () => {
-    post(route('admin.user.update.editor.commission'), {
-      onSuccess: () => {
-        handleOpenCommission()
-      },
-    });
-  }
 
   const handleOpen = () => {
     setOpen(!open)
@@ -126,14 +104,15 @@ const List = () => {
   }
 
   return (
-    <AuthenticatedLayout title="Editors" button={
-      <Button onClick={handleOpen}>
-        Add
-      </Button>
-    }>
+    <>
       <div className='space-y-4'>
-        <div className='w-full sm:max-w-xs'>
-          <Input value={search} onChange={handleSearch} placeholder="Search" />
+        <div className="flex items-center justify-between">
+          <div className='w-full sm:max-w-xs'>
+            <Input value={search} onChange={handleSearch} placeholder="Search" />
+          </div>
+          <Button onClick={handleOpen} variant='outline'>
+            <Plus />Add
+          </Button>
         </div>
         <Table>
           <TableHeader>
@@ -143,7 +122,6 @@ const List = () => {
               <TableHead>First Name</TableHead>
               <TableHead>Email Address</TableHead>
               <TableHead>Status</TableHead>
-              <TableHead>Commission Rate</TableHead>
               <TableHead>Action</TableHead>
             </TableRow>
           </TableHeader>
@@ -169,9 +147,6 @@ const List = () => {
                     </Badge>
                   </TableCell>
                   <TableCell>
-                    {editor.commission_price_rate ? editor.commission_price_rate : '0'}%
-                  </TableCell>
-                  <TableCell>
                     <DropdownMenu>
                       <DropdownMenuTrigger asChild>
                         <Button variant="ghost" className="h-8 w-8 p-0">
@@ -183,10 +158,6 @@ const List = () => {
                         <DropdownMenuItem className="cursor-pointer">
                           <UserCircle />Show Profile
                         </DropdownMenuItem>
-                        <DropdownMenuSeparator />
-                        <DropdownMenuItem onClick={() => handleOpenCommission(editor)} className="cursor-pointer">
-                          <FilePenLine />Edit Commission Rate
-                        </DropdownMenuItem>
                       </DropdownMenuContent>
                     </DropdownMenu>
                   </TableCell>
@@ -194,7 +165,7 @@ const List = () => {
               ))
             ) : (
               <TableRow>
-                <TableCell colSpan={7} className="h-24 text-center">
+                <TableCell colSpan={6} className="h-24 text-center">
                   {search ? `No matching found for "${search}"` : "No data available."}
                 </TableCell>
               </TableRow>
@@ -258,18 +229,6 @@ const List = () => {
               <Input type="email" value={data.email} onChange={(e) => setData('email', e.target.value)} />
               <InputError message={errors.email} />
             </div>
-            <div className="space-y-1">
-              <Label>Commission Rate (%)</Label>
-              <Input
-                value={data.commission_price_rate}
-                onChange={(e) => {
-                  let value = e.target.value.replace(/\D/g, '')
-                  if (value.length > 2) value = value.slice(0, 2)
-                  setData('commission_price_rate', value);
-                }}
-              />
-              <InputError message={errors.commission_price_rate} />
-            </div>
           </div>
           <DialogFooter>
             <Button onClick={handleAdd} disabled={processing}>
@@ -278,33 +237,10 @@ const List = () => {
           </DialogFooter>
         </DialogContent>
       </Dialog>
-
-      <Dialog open={openCommission} onOpenChange={() => setOpenCommission()}>
-        <DialogContent>
-          <DialogHeader>
-            <DialogTitle>Edit Commission Rate</DialogTitle>
-          </DialogHeader>
-          <div className="space-y-1">
-            <Label>Commission Rate (%)</Label>
-            <Input
-              value={data.commission_price_rate}
-              onChange={(e) => {
-                let value = e.target.value.replace(/\D/g, '')
-                if (value.length > 2) value = value.slice(0, 2)
-                setData('commission_price_rate', value);
-              }}
-            />
-            <InputError message={errors.commission_price_rate} />
-          </div>
-          <DialogFooter>
-            <Button onClick={handleUpdateCommission} disabled={processing}>
-              Update
-            </Button>
-          </DialogFooter>
-        </DialogContent>
-      </Dialog>
-    </AuthenticatedLayout>
+    </>
   )
 }
+
+List.layout = page => <AuthenticatedLayout children={page} title="Editors" />
 
 export default List

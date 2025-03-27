@@ -29,29 +29,25 @@ import {
   PaginationPrevious,
 } from "@/Components/ui/pagination"
 import { Switch } from "@/Components/ui/switch";
-import { FileImage, FilePenLine, QrCode, Settings2, Upload } from "lucide-react";
+import { FilePenLine, LoaderCircle, Plus, QrCode, Settings2, Upload } from "lucide-react";
 import {
   Select,
   SelectContent,
   SelectGroup,
   SelectItem,
-  SelectLabel,
   SelectTrigger,
   SelectValue,
 } from "@/Components/ui/select"
-import { Badge } from "@/Components/ui/badge";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/Components/ui/dropdown-menu"
 
 const List = () => {
   const [open, setOpen] = useState(false)
-  const { data, setData, post, processing, errors, reset, setError } = useForm({
+  const { data, setData, post, processing, errors, reset, clearErrors } = useForm({
     name: "",
     account_name: "",
     account_number: "",
@@ -90,11 +86,11 @@ const List = () => {
       setPreviewQr(null)
     }
     setOpen(!open)
-    setError({ name: null, account_name: null, account_number: null, qr_code: null })
+    clearErrors()
   }
 
   const handleAdd = () => {
-    setError({ name: null, account_name: null, account_number: null, qr_code: null })
+    clearErrors()
     post(route('admin.service&payment.add.payment.method'), {
       onSuccess: () => {
         handleOpen()
@@ -104,7 +100,7 @@ const List = () => {
   }
 
   const handleUpdate = () => {
-    setError({ name: null, account_name: null, account_number: null, qr_code: null })
+    clearErrors()
     post(route("admin.service&payment.update.payment.method"), {
       onSuccess: () => {
         handleOpen()
@@ -113,8 +109,8 @@ const List = () => {
     });
   };
 
-  const handleToggle = (id, currentStatus) => {
-    const newStatus = currentStatus === 1 ? 0 : 1
+  const handleToggle = async (id, currentStatus) => {
+    const newStatus = currentStatus ? 1 : 0
 
     setStatus((prev) =>
       prev.map((payment) =>
@@ -122,7 +118,7 @@ const List = () => {
       )
     )
 
-    router.post(route('admin.service&payment.update.payment.method.status'), { id, status: newStatus }, { preserveScroll: true })
+    await axios.post(route('admin.service&payment.update.payment.method.status'), { id, status: newStatus })
   }
 
   const searchTimeoutRef = useRef(null);
@@ -153,14 +149,15 @@ const List = () => {
   }
 
   return (
-    <AuthenticatedLayout title="Payment Methods" button={
-      <Button onClick={() => handleOpen()}>
-        Add
-      </Button>
-    }>
+    <>
       <div className='space-y-4'>
-        <div className='w-full sm:max-w-xs'>
-          <Input value={search} onChange={handleSearch} placeholder="Search" />
+        <div className="flex items-center justify-between">
+          <div className='w-full sm:max-w-xs'>
+            <Input value={search} onChange={handleSearch} placeholder="Search" />
+          </div>
+          <Button onClick={() => handleOpen()} variant='outline'>
+            <Plus />Add
+          </Button>
         </div>
         <Table>
           <TableHeader>
@@ -194,7 +191,7 @@ const List = () => {
                       <Switch
                         checked={status[index]?.status === 1}
                         id={`status-${index}`}
-                        onCheckedChange={() => handleToggle(payment.id, payment.status)}
+                        onCheckedChange={(val) => handleToggle(payment.id, val)}
                       />
                       <Label htmlFor={`status-${index}`}>
                         {status[index]?.status === 1 ? "Available" : "Unavailable"}
@@ -245,7 +242,11 @@ const List = () => {
         )}
       </div>
 
-      <Dialog open={open} onOpenChange={() => handleOpen()}>
+      <Dialog open={open} onOpenChange={() => {
+        if (!processing) {
+          handleOpen()
+        }
+      }}>
         <DialogContent className="max-h-full overflow-y-auto">
           <DialogHeader>
             <DialogTitle>{editData ? "Edit Payment Method" : "Add Payment Method"}</DialogTitle>
@@ -324,13 +325,16 @@ const List = () => {
           </div>
           <DialogFooter>
             <Button onClick={editData ? handleUpdate : handleAdd} disabled={processing}>
+              {processing && <LoaderCircle className="size-4 animate-spin" />}
               {editData ? 'Update' : 'Save'}
             </Button>
           </DialogFooter>
         </DialogContent>
       </Dialog>
-    </AuthenticatedLayout>
+    </>
   )
 }
+
+List.layout = page => <AuthenticatedLayout children={page} title="Payment Methods" />
 
 export default List

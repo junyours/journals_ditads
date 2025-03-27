@@ -21,14 +21,14 @@ class ProfileController extends Controller
 
         $user = User::find($user_id);
 
-        if ($user->is_default === 0) {
+        if ($user->is_default === 1) {
             $request->validate([
                 'password' => ['required', Password::defaults(), 'confirmed'],
             ]);
 
             $user->update([
                 'password' => Hash::make($request->password),
-                'is_default' => 1
+                'is_default' => 0
             ]);
         } else {
             $request->validate([

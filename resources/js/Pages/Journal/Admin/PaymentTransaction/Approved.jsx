@@ -4,21 +4,11 @@ import { Input } from "@/Components/ui/input"
 import {
   Dialog,
   DialogContent,
-  DialogDescription,
-  DialogFooter,
   DialogHeader,
   DialogTitle,
 } from "@/Components/ui/dialog"
 import { useEffect, useRef, useState } from "react"
-import {
-  Select,
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/Components/ui/select"
-import { router, useForm, usePage } from "@inertiajs/react"
+import { router, usePage } from "@inertiajs/react"
 import {
   Table,
   TableBody,
@@ -34,37 +24,18 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from "@/Components/ui/pagination"
-import { toast } from "sonner"
-import { Badge } from "@/Components/ui/badge"
-import InputError from "@/Components/input-error"
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/Components/ui/dropdown-menu"
-import { Check, Download, MoreHorizontal, ReceiptText, X } from "lucide-react"
+import { MoreHorizontal, ReceiptText } from "lucide-react"
 import { Label } from "@/Components/ui/label"
-import {
-  AlertDialog,
-  AlertDialogAction,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
-  AlertDialogTrigger,
-} from "@/Components/ui/alert-dialog"
-import { Textarea } from "@/Components/ui/textarea"
 import {
   Carousel,
   CarouselContent,
   CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
 } from "@/Components/ui/carousel"
 
 const Approved = () => {
@@ -118,7 +89,7 @@ const Approved = () => {
   }
 
   return (
-    <AuthenticatedLayout title="Approved Payment Transactions">
+    <>
       <div className='space-y-4'>
         <div className='w-full sm:max-w-xs'>
           <Input value={search} onChange={handleSearch} placeholder="Search" />
@@ -211,17 +182,21 @@ const Approved = () => {
             <DialogTitle>Receipt</DialogTitle>
           </DialogHeader>
           <Carousel>
-            <CarouselContent>
+            <CarouselContent className='pb-1'>
               {show?.map((d, i) => (
                 <CarouselItem key={i}>
                   <div className="space-y-4 px-2">
                     <div className="space-y-1">
-                      <Label>{type === 'cash' && 'OR Number' || type === 'e-wallet' && 'Reference Number'}</Label>
+                      <Label>
+                        {type === 'cash' ? 'OR Number' : 'Reference Number'}
+                      </Label>
                       <Input value={d.reference_number} readOnly />
                     </div>
-                    <div className="max-w-[250px] mx-auto h-[300px]">
-                      <img src={`/storage/journal/receipts/${d.receipt_image}`} className="object-contain h-full w-full" />
-                    </div>
+                    {type === 'e-wallet' && (
+                      <div className="max-w-[250px] mx-auto h-[300px]">
+                        <img src={`/storage/journal/receipts/${d.receipt_image}`} className="object-contain h-full w-full" />
+                      </div>
+                    )}
                   </div>
                 </CarouselItem>
               ))}
@@ -229,8 +204,10 @@ const Approved = () => {
           </Carousel>
         </DialogContent>
       </Dialog>
-    </AuthenticatedLayout>
+    </>
   )
 }
+
+Approved.layout = page => <AuthenticatedLayout children={page} title="Approved Payment Transactions" />
 
 export default Approved

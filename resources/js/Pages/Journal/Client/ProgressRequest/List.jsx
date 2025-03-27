@@ -52,8 +52,6 @@ const List = () => {
   const { requests } = usePage().props
   const [search, setSearch] = useState("");
 
-  console.log(requests)
-
   const searchTimeoutRef = useRef(null);
 
   const handleSearch = (e) => {
@@ -82,7 +80,7 @@ const List = () => {
   }
 
   return (
-    <AuthenticatedLayout title="Progress Requests">
+    <>
       <div className='space-y-4'>
         <div className='w-full sm:max-w-xs'>
           <Input value={search} onChange={handleSearch} placeholder="Search" />
@@ -162,8 +160,10 @@ const List = () => {
           </div>
         )}
       </div>
-    </AuthenticatedLayout>
+    </>
   )
 }
+
+List.layout = page => <AuthenticatedLayout children={page} title="Progress Requests" />
 
 export default List

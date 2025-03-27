@@ -98,7 +98,7 @@ const Pending = () => {
   }
 
   return (
-    <AuthenticatedLayout title="Pending Published Documents">
+    <>
       <div className='space-y-4'>
         <div className='w-full sm:max-w-xs'>
           <Input value={search} onChange={handleSearch} placeholder="Search" />
@@ -220,9 +220,10 @@ const Pending = () => {
           </DialogFooter>
         </DialogContent>
       </Dialog>
-
-    </AuthenticatedLayout>
+    </>
   )
 }
+
+Pending.layout = page => <AuthenticatedLayout children={page} title="Pending Published Documents" />
 
 export default Pending

@@ -29,10 +29,10 @@ class UserFactory extends Factory
             'email' => 'admin@gmail.com',
             'email_verified_at' => now(),
             'password' => Hash::make('password'),
+            'is_default' => 1,
             'remember_token' => Str::random(10),
             'role' => 'admin',
             'status' => 'active',
-            'is_default' => 0,
         ];
     }
 

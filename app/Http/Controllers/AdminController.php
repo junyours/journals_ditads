@@ -49,7 +49,7 @@ class AdminController extends Controller
     {
         $search = $request->input('search');
 
-        $editors = User::select('id', 'first_name', 'last_name', 'email', 'status', 'commission_price_rate')
+        $editors = User::select('id', 'first_name', 'last_name', 'email', 'status')
             ->where('role', 'editor')
             ->when($search, function ($query) use ($search) {
                 $query->where(function ($q) use ($search) {
@@ -74,33 +74,21 @@ class AdminController extends Controller
             'first_name' => ['required'],
         ]);
 
-        try {
-            $password = Str::random(8);
+        $password = Str::random(8);
 
-            Mail::to($request->email)->send(new PasswordMail($password, $request->first_name . ' ' . $request->last_name));
+        Mail::to($request->email)->send(new PasswordMail($password, $request->first_name . ' ' . $request->last_name));
 
-            User::create([
-                'last_name' => $request->last_name,
-                'first_name' => $request->first_name,
-                'middle_name' => $request->middle_name,
-                'gender' => $request->gender,
-                'email' => $request->email,
-                'email_verified_at' => now(),
-                'password' => Hash::make($password),
-                'role' => 'editor',
-                'commission_price_rate' => $request->commission_price_rate ? $request->commission_price_rate : null
-            ]);
-        } catch (\Throwable $th) {
-            throw $th;
-        }
-    }
-
-    public function updateEditorCommission(Request $request)
-    {
-        User::findOrFail($request->id)
-            ->update([
-                'commission_price_rate' => $request->commission_price_rate ? $request->commission_price_rate : null
-            ]);
+        User::create([
+            'last_name' => $request->last_name,
+            'first_name' => $request->first_name,
+            'middle_name' => $request->middle_name,
+            'gender' => $request->gender,
+            'email' => $request->email,
+            'email_verified_at' => now(),
+            'password' => Hash::make($password),
+            'is_default' => 1,
+            'role' => 'editor',
+        ]);
     }
 
     public function getClient(Request $request)

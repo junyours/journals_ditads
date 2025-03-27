@@ -14,7 +14,7 @@ const Dashboard = () => {
   const { requestCount } = usePage().props
 
   return (
-    <AuthenticatedLayout title="Dashboard">
+    <>
       <div className="space-y-4">
         <div className="grid grid-cols-4 max-md:grid-cols-1 gap-4">
           <Card>
@@ -49,8 +49,10 @@ const Dashboard = () => {
           </Card>
         </div>
       </div>
-    </AuthenticatedLayout>
+    </>
   )
 }
+
+Dashboard.layout = page => <AuthenticatedLayout children={page} title="Dashboard" />
 
 export default Dashboard

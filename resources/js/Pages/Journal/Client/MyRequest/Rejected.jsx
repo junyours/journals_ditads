@@ -120,7 +120,7 @@ const Rejected = () => {
   }
 
   return (
-    <AuthenticatedLayout title="My Rejected Requests">
+    <>
       <div className='space-y-4'>
         <div className='w-full sm:max-w-xs'>
           <Input value={search} onChange={handleSearch} placeholder="Search" />
@@ -257,8 +257,10 @@ const Rejected = () => {
           </DialogFooter>
         </DialogContent>
       </Dialog>
-    </AuthenticatedLayout>
+    </>
   )
 }
+
+Rejected.layout = page => <AuthenticatedLayout children={page} title="My Rejected Requests" />
 
 export default Rejected

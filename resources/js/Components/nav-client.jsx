@@ -10,7 +10,7 @@ import {
   SidebarMenuSubItem,
   useSidebar,
 } from "@/Components/ui/sidebar"
-import { router } from "@inertiajs/react"
+import { Link } from "@inertiajs/react"
 import {
   ChevronRight,
   ClipboardList,
@@ -20,9 +20,75 @@ import {
   NotebookPen,
 } from "lucide-react"
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "./ui/collapsible";
+import { useIsMobile } from "@/hooks/use-mobile";
+
+const navMain = [
+  {
+    title: 'My Requests',
+    path: '/client/my-requests',
+    icon: NotebookPen,
+    items: [
+      {
+        title: 'Pending',
+        path: '/client/my-requests/pending',
+        route: 'client.my.request.pending'
+      },
+      {
+        title: 'Approved',
+        path: '/client/my-requests/approved',
+        route: 'client.my.request.approved'
+      },
+      {
+        title: 'Rejected',
+        path: '/client/my-requests/rejected',
+        route: 'client.my.request.rejected'
+      },
+    ]
+  },
+  {
+    title: 'Published Documents',
+    path: '/client/published/documents',
+    icon: FolderSync,
+    items: [
+      {
+        title: 'Unpaid',
+        path: '/client/published/documents/unpaid',
+        route: 'client.published.document.unpaid'
+      },
+      {
+        title: 'Paid',
+        path: '/client/published/documents/paid',
+        route: 'client.published.document.paid'
+      },
+    ]
+  },
+  {
+    title: 'Payment Transactions',
+    path: '/client/payments/transactions',
+    icon: ClipboardList,
+    items: [
+      {
+        title: 'Pending',
+        path: '/client/payments/transactions/pending',
+        route: 'client.payment.transaction.pending'
+      },
+      {
+        title: 'Approved',
+        path: '/client/payments/transactions/approved',
+        route: 'client.payment.transaction.approved'
+      },
+      {
+        title: 'Rejected',
+        path: '/client/payments/transactions/rejected',
+        route: 'client.payment.transaction.rejected'
+      },
+    ]
+  },
+]
 
 export function NavClient() {
   const { setOpenMobile } = useSidebar();
+  const isMobile = useIsMobile();
 
   return (
     <SidebarContent>
@@ -32,127 +98,59 @@ export function NavClient() {
         </SidebarGroupLabel>
         <SidebarMenu>
           <SidebarMenuItem onClick={() => {
-            router.visit(route('client.dashboard'))
-            setOpenMobile(false)
+            if (isMobile) {
+              setOpenMobile(false)
+            }
           }}>
-            <SidebarMenuButton tooltip="Dashboard" isActive={location.pathname.startsWith('/client/dashboard') ? true : false}>
-              <LayoutDashboard />
-              <span>Dashboard</span>
+            <SidebarMenuButton tooltip="Dashboard" asChild isActive={location.pathname.startsWith('/client/dashboard') ? true : false}>
+              <Link href={route('client.dashboard')}>
+                <LayoutDashboard />
+                <span>Dashboard</span>
+              </Link>
             </SidebarMenuButton>
           </SidebarMenuItem>
-          <Collapsible asChild className="group/collapsible" defaultOpen={location.pathname.startsWith('/client/my-requests') ? true : false}>
-            <SidebarMenuItem>
-              <CollapsibleTrigger asChild>
-                <SidebarMenuButton tooltip="My Requests" isActive={location.pathname.startsWith('/client/my-requests/pending') ? true : false} onClick={() => {
-                  router.visit(route('client.my.request.pending'))
-                  setOpenMobile(false)
-                }}>
-                  <NotebookPen />
-                  <span>My Requests</span>
-                  <ChevronRight className="ml-auto transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90" />
-                </SidebarMenuButton>
-              </CollapsibleTrigger>
-              <CollapsibleContent>
-                <SidebarMenuSub>
-                  <SidebarMenuSubItem onClick={() => {
-                    router.visit(route('client.my.request.approved'))
-                    setOpenMobile(false)
-                  }} className="cursor-pointer">
-                    <SidebarMenuSubButton asChild isActive={location.pathname.startsWith('/client/my-requests/approved') ? true : false}>
-                      <span>Approved</span>
-                    </SidebarMenuSubButton>
-                  </SidebarMenuSubItem>
-                  <SidebarMenuSubItem onClick={() => {
-                    router.visit(route('client.my.request.rejected'))
-                    setOpenMobile(false)
-                  }} className="cursor-pointer">
-                    <SidebarMenuSubButton asChild isActive={location.pathname.startsWith('/client/my-requests/rejected') ? true : false}>
-                      <span>Rejected</span>
-                    </SidebarMenuSubButton>
-                  </SidebarMenuSubItem>
-                </SidebarMenuSub>
-              </CollapsibleContent>
-            </SidebarMenuItem>
-          </Collapsible>
+          {navMain.map((item, index) => (
+            <Collapsible key={index} asChild className="group/collapsible" defaultOpen={location.pathname.startsWith(item.path) ? true : false}>
+              <SidebarMenuItem>
+                <CollapsibleTrigger asChild>
+                  <SidebarMenuButton tooltip={item.title}>
+                    <item.icon />
+                    <span>{item.title}</span>
+                    <ChevronRight className="ml-auto transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90" />
+                  </SidebarMenuButton>
+                </CollapsibleTrigger>
+                <CollapsibleContent>
+                  <SidebarMenuSub>
+                    {item.items.map((subItem, subIndex) => (
+                      <SidebarMenuSubItem key={subIndex} onClick={() => {
+                        if (isMobile) {
+                          setOpenMobile(false)
+                        }
+                      }} className="cursor-pointer">
+                        <SidebarMenuSubButton asChild isActive={location.pathname.startsWith(subItem.path) ? true : false}>
+                          <Link href={route(subItem.route)}>
+                            <span>{subItem.title}</span>
+                          </Link>
+                        </SidebarMenuSubButton>
+                      </SidebarMenuSubItem>
+                    ))}
+                  </SidebarMenuSub>
+                </CollapsibleContent>
+              </SidebarMenuItem>
+            </Collapsible>
+          ))}
           <SidebarMenuItem onClick={() => {
-            router.visit(route('client.progress.request'))
-            setOpenMobile(false)
+            if (isMobile) {
+              setOpenMobile(false)
+            }
           }}>
-            <SidebarMenuButton tooltip="Progress Requests" isActive={location.pathname.startsWith('/client/progress/requests') ? true : false}>
-              <Loader />
-              <span>Progress Requests</span>
+            <SidebarMenuButton tooltip="Dashboard" asChild isActive={location.pathname.startsWith('/client/progress/requests') ? true : false}>
+              <Link href={route('client.progress.request')}>
+                <Loader />
+                <span>Progress Requests</span>
+              </Link>
             </SidebarMenuButton>
           </SidebarMenuItem>
-          <Collapsible asChild className="group/collapsible" defaultOpen={location.pathname.startsWith('/client/published/documents') ? true : false}>
-            <SidebarMenuItem>
-              <CollapsibleTrigger asChild>
-                <SidebarMenuButton tooltip="Published Documents">
-                  <FolderSync />
-                  <span>Published Documents</span>
-                  <ChevronRight className="ml-auto transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90" />
-                </SidebarMenuButton>
-              </CollapsibleTrigger>
-              <CollapsibleContent>
-                <SidebarMenuSub>
-                  <SidebarMenuSubItem onClick={() => {
-                    router.visit(route('client.published.document.unpaid'))
-                    setOpenMobile(false)
-                  }} className="cursor-pointer">
-                    <SidebarMenuSubButton asChild isActive={location.pathname.startsWith('/client/published/documents/unpaid') ? true : false}>
-                      <span>Unpaid</span>
-                    </SidebarMenuSubButton>
-                  </SidebarMenuSubItem>
-                  <SidebarMenuSubItem onClick={() => {
-                    router.visit(route('client.published.document.paid'))
-                    setOpenMobile(false)
-                  }} className="cursor-pointer">
-                    <SidebarMenuSubButton asChild isActive={location.pathname.startsWith('/client/published/documents/paid') ? true : false}>
-                      <span>Paid</span>
-                    </SidebarMenuSubButton>
-                  </SidebarMenuSubItem>
-                </SidebarMenuSub>
-              </CollapsibleContent>
-            </SidebarMenuItem>
-          </Collapsible>
-          <Collapsible asChild className="group/collapsible" defaultOpen={location.pathname.startsWith('/client/payments/transactions') ? true : false}>
-            <SidebarMenuItem>
-              <CollapsibleTrigger asChild>
-                <SidebarMenuButton tooltip="Payment Transactions">
-                  <ClipboardList />
-                  <span>Payment Transactions</span>
-                  <ChevronRight className="ml-auto transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90" />
-                </SidebarMenuButton>
-              </CollapsibleTrigger>
-              <CollapsibleContent>
-                <SidebarMenuSub>
-                  <SidebarMenuSubItem onClick={() => {
-                    router.visit(route('client.payment.transaction.pending'))
-                    setOpenMobile(false)
-                  }} className="cursor-pointer">
-                    <SidebarMenuSubButton asChild isActive={location.pathname.startsWith('/client/payments/transactions/pending') ? true : false}>
-                      <span>Pending</span>
-                    </SidebarMenuSubButton>
-                  </SidebarMenuSubItem>
-                  <SidebarMenuSubItem onClick={() => {
-                    router.visit(route('client.payment.transaction.approved'))
-                    setOpenMobile(false)
-                  }} className="cursor-pointer">
-                    <SidebarMenuSubButton asChild isActive={location.pathname.startsWith('/client/payments/transactions/approved') ? true : false}>
-                      <span>Approved</span>
-                    </SidebarMenuSubButton>
-                  </SidebarMenuSubItem>
-                  <SidebarMenuSubItem onClick={() => {
-                    router.visit(route('client.payment.transaction.rejected'))
-                    setOpenMobile(false)
-                  }} className="cursor-pointer">
-                    <SidebarMenuSubButton asChild isActive={location.pathname.startsWith('/client/payments/transactions/rejected') ? true : false}>
-                      <span>Rejected</span>
-                    </SidebarMenuSubButton>
-                  </SidebarMenuSubItem>
-                </SidebarMenuSub>
-              </CollapsibleContent>
-            </SidebarMenuItem>
-          </Collapsible>
         </SidebarMenu>
       </SidebarGroup>
     </SidebarContent>

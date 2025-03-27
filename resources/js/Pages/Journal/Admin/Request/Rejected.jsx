@@ -87,7 +87,7 @@ const Rejected = () => {
   }
 
   return (
-    <AuthenticatedLayout title="Rejected Requests">
+    <>
       <div className='space-y-4'>
         <div className='w-full sm:max-w-xs'>
           <Input value={search} onChange={handleSearch} placeholder="Search" />
@@ -186,8 +186,10 @@ const Rejected = () => {
           <Textarea value={message} />
         </DialogContent>
       </Dialog>
-    </AuthenticatedLayout>
+    </>
   )
 }
+
+Rejected.layout = page => <AuthenticatedLayout children={page} title="Rejected Requests" />
 
 export default Rejected

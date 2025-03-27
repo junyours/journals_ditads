@@ -109,7 +109,7 @@ const Unpaid = () => {
   }
 
   return (
-    <AuthenticatedLayout title="Unpaid Published Documents">
+    <>
       <div className='space-y-4'>
         <div className='w-full sm:max-w-xs'>
           <Input value={search} onChange={handleSearch} placeholder="Search" />
@@ -221,8 +221,10 @@ const Unpaid = () => {
           </DialogFooter>
         </DialogContent>
       </Dialog>
-    </AuthenticatedLayout>
+    </>
   )
 }
+
+Unpaid.layout = page => <AuthenticatedLayout children={page} title="Unpaid Published Documents" />
 
 export default Unpaid

@@ -1,8 +1,8 @@
 import { Card } from "@/Components/ui/card";
-import Logo from '../../../public/images/logo.png';
 import { Link } from "@inertiajs/react";
 import { ModeToggle } from "@/Components/mode-toggle";
 import { Label } from "@/Components/ui/label";
+import AppLogo from "@/Components/app-logo";
 
 export default function GuestLayout({ children }) {
     return (
@@ -10,7 +10,7 @@ export default function GuestLayout({ children }) {
             <Card className="w-full max-w-4xl max-sm:rounded-none">
                 <div className="grid grid-cols-2 items-center max-md:p-6 md:grid-cols-1">
                     <Link href='/' className="flex items-center gap-2 md:hidden">
-                        <img src={Logo} className="object-contain size-16" />
+                        <AppLogo className="size-14" />
                         <Label className="font-bold text-lg">DITADS</Label>
                     </Link>
                     <div className="flex justify-end md:px-6 md:pt-6">
@@ -25,7 +25,7 @@ export default function GuestLayout({ children }) {
                     </div>
                     <div className="flex items-center justify-center max-md:hidden">
                         <Link href='/'>
-                            <img src={Logo} className="object-contain size-72" />
+                            <AppLogo className="size-72" />
                         </Link>
                     </div>
                 </div>

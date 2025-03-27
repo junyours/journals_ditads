@@ -61,7 +61,7 @@ const Published = () => {
   }
 
   return (
-    <AuthenticatedLayout title="Published Documents Reports">
+    <>
       <div className='space-y-4'>
         <div className='w-full sm:max-w-xs'>
           <Input value={search} onChange={handleSearch} placeholder="Search" />
@@ -143,8 +143,10 @@ const Published = () => {
           </div>
         )}
       </div>
-    </AuthenticatedLayout>
+    </>
   )
 }
+
+Published.layout = page => <AuthenticatedLayout children={page} title="Published Documents Reports" />
 
 export default Published

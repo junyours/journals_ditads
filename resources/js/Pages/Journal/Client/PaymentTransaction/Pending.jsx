@@ -103,7 +103,7 @@ const Pending = () => {
   }
 
   return (
-    <AuthenticatedLayout title="Pending Payment Transactions">
+    <>
       <div className='space-y-4'>
         <div className='w-full sm:max-w-xs'>
           <Input value={search} onChange={handleSearch} placeholder="Search" />
@@ -210,8 +210,10 @@ const Pending = () => {
           </Carousel>
         </DialogContent>
       </Dialog>
-    </AuthenticatedLayout>
+    </>
   )
 }
+
+Pending.layout = page => <AuthenticatedLayout children={page} title="Pending Payment Transactions" />
 
 export default Pending

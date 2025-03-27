@@ -51,7 +51,7 @@ const List = () => {
   }
 
   return (
-    <AuthenticatedLayout title="Clients">
+    <>
       <div className='space-y-4'>
         <div className='w-full sm:max-w-xs'>
           <Input value={search} onChange={handleSearch} placeholder="Search" />
@@ -115,8 +115,10 @@ const List = () => {
           </div>
         )}
       </div>
-    </AuthenticatedLayout>
+    </>
   )
 }
+
+List.layout = page => <AuthenticatedLayout children={page} title="Clients" />
 
 export default List

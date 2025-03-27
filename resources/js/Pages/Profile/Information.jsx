@@ -16,7 +16,7 @@ const tabs = ["Personal Details", "Change Password"]
 
 const Information = () => {
   const user = usePage().props.auth.user;
-  const [activeTab, setActiveTab] = useState(user.is_default === 0 ? "Change Password" : "Personal Details")
+  const [activeTab, setActiveTab] = useState(user.is_default === 1 ? "Change Password" : "Personal Details")
   const { data, setData, post, processing, errors, reset, setError } = useForm({
     current_password: '',
     password: '',
@@ -35,9 +35,9 @@ const Information = () => {
   }
 
   return (
-    <Tabs defaultValue={activeTab}>
-      <AuthenticatedLayout title="My Profile" tab={
-        <div className="flex justify-start mb-2">
+    <>
+      <Tabs defaultValue={activeTab}>
+        <div className="flex justify-start mb-4">
           <TabsList>
             {tabs.map((tab, index) => (
               <TabsTrigger key={index} value={tab} onClick={() => setActiveTab(tab)}>
@@ -46,7 +46,6 @@ const Information = () => {
             ))}
           </TabsList>
         </div>
-      }>
         <TabsContent value="Personal Details">
           <div className="max-w-[800px] mx-auto space-y-4">
             <Card>
@@ -120,7 +119,7 @@ const Information = () => {
               <CardContent>
                 <form onSubmit={handleSave}>
                   <div className="space-y-4">
-                    {user.is_default === 1 && (
+                    {user.is_default === 0 && (
                       <div className="grid grid-cols-2">
                         <div className="space-y-1">
                           <Label>Current Password</Label>
@@ -154,9 +153,11 @@ const Information = () => {
             </Card>
           </div>
         </TabsContent>
-      </AuthenticatedLayout>
-    </Tabs>
+      </Tabs>
+    </>
   )
 }
+
+Information.layout = page => <AuthenticatedLayout children={page} title="My Profile" />
 
 export default Information

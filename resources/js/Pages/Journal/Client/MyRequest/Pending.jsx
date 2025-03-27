@@ -45,7 +45,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/Components/ui/dropdown-menu"
-import { Download, MoreHorizontal, Upload } from "lucide-react"
+import { Download, MoreHorizontal, Plus, Upload } from "lucide-react"
 import Word from '../../../../../../public/images/word.png'
 
 const Pending = () => {
@@ -108,14 +108,15 @@ const Pending = () => {
   }
 
   return (
-    <AuthenticatedLayout title="My Requests" button={
-      <Button onClick={handleOpen}>
-        Request
-      </Button>
-    }>
+    <>
       <div className='space-y-4'>
-        <div className='w-full sm:max-w-xs'>
-          <Input value={search} onChange={handleSearch} placeholder="Search" />
+        <div className="flex items-center justify-between">
+          <div className='w-full sm:max-w-xs'>
+            <Input value={search} onChange={handleSearch} placeholder="Search" />
+          </div>
+          <Button onClick={handleOpen} variant='outline'>
+            <Plus />Request
+          </Button>
         </div>
         <div className="overflow-x-auto">
           <Table>
@@ -348,8 +349,10 @@ const Pending = () => {
           </DialogFooter>
         </DialogContent>
       </Dialog>
-    </AuthenticatedLayout>
+    </>
   )
 }
+
+Pending.layout = page => <AuthenticatedLayout children={page} title="My Requests" />
 
 export default Pending

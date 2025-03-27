@@ -3,7 +3,6 @@
 namespace App\Models;
 
 use App\Models\Journal\AssignEditor;
-use App\Models\Journal\Commission;
 use App\Models\Journal\Request;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -33,14 +32,13 @@ class User extends Authenticatable implements MustVerifyEmail
         'email',
         'email_verified_at',
         'password',
+        'is_default',
         'contact_number',
         'course',
         'school',
         'school_type',
         'role',
         'status',
-        'is_default',
-        'commission_price_rate',
     ];
 
     /**
@@ -74,10 +72,5 @@ class User extends Authenticatable implements MustVerifyEmail
     public function assign_editor(): HasOne
     {
         return $this->hasOne(AssignEditor::class, 'editor_id');
-    }
-
-    public function commission(): HasMany
-    {
-        return $this->hasMany(Commission::class, 'editor_id');
     }
 }

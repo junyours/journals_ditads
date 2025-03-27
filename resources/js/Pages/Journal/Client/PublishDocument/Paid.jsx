@@ -87,7 +87,7 @@ const Paid = () => {
   }
 
   return (
-    <AuthenticatedLayout title="Paid Published Documents">
+    <>
       <div className='space-y-4'>
         <div className='w-full sm:max-w-xs'>
           <Input value={search} onChange={handleSearch} placeholder="Search" />
@@ -169,8 +169,10 @@ const Paid = () => {
           </div>
         )}
       </div>
-    </AuthenticatedLayout>
+    </>
   )
 }
+
+Paid.layout = page => <AuthenticatedLayout children={page} title="Paid Published Documents" />
 
 export default Paid

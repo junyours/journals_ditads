@@ -52,7 +52,7 @@ const Dashboard = () => {
   }
 
   return (
-    <AuthenticatedLayout title="Dashboard">
+    <>
       <div className="grid sm:grid-cols-4 gap-4">
         <Card>
           <CardHeader>
@@ -149,8 +149,10 @@ const Dashboard = () => {
           </ChartContainer>
         </CardContent>
       </Card>
-    </AuthenticatedLayout>
+    </>
   )
 }
+
+Dashboard.layout = page => <AuthenticatedLayout children={page} title="Dashboard" />
 
 export default Dashboard

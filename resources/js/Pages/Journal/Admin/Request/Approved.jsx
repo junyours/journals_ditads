@@ -66,7 +66,7 @@ const Approved = () => {
   }
 
   return (
-    <AuthenticatedLayout title="Approved Requests">
+    <>
       <div className='space-y-4'>
         <div className='w-full sm:max-w-xs'>
           <Input value={search} onChange={handleSearch} placeholder="Search" />
@@ -152,8 +152,10 @@ const Approved = () => {
           </div>
         )}
       </div>
-    </AuthenticatedLayout>
+    </>
   )
 }
+
+Approved.layout = page => <AuthenticatedLayout children={page} title="Approved Requests" />
 
 export default Approved
