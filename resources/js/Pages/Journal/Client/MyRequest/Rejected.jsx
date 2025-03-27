@@ -4,20 +4,11 @@ import { Input } from "@/Components/ui/input"
 import {
   Dialog,
   DialogContent,
-  DialogDescription,
   DialogFooter,
   DialogHeader,
   DialogTitle,
 } from "@/Components/ui/dialog"
 import { useEffect, useRef, useState } from "react"
-import {
-  Select,
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/Components/ui/select"
 import { router, useForm, usePage } from "@inertiajs/react"
 import {
   Table,
@@ -34,14 +25,11 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from "@/Components/ui/pagination"
-import { toast } from "sonner"
-import { Badge } from "@/Components/ui/badge"
 import InputError from "@/Components/input-error"
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/Components/ui/dropdown-menu"
@@ -59,7 +47,7 @@ const Rejected = () => {
   }).format(parseFloat(amount))
   const [open, setOpen] = useState(false)
   const [message, setMessage] = useState("")
-  const { data, processing, errors, post, reset, setData, setError } = useForm({
+  const { data, processing, errors, post, reset, setData, clearErrors } = useForm({
     id: null,
     uploaded_file: null
   })
@@ -72,7 +60,7 @@ const Rejected = () => {
       reset()
     }
     setOpenSubmit(!openSubmit)
-    setError({ uploaded_file: null })
+    clearErrors()
   }
 
   const handleOpen = (message) => {

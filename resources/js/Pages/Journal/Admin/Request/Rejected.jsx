@@ -20,22 +20,17 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/Components/ui/dropdown-menu"
 import { Input } from "@/Components/ui/input";
-import { Badge } from "@/Components/ui/badge";
 import { Button } from "@/Components/ui/button";
-import { Download, MessageSquareMore, MoreHorizontal, Settings2 } from "lucide-react";
+import { Download, MessageSquareMore, Settings2 } from "lucide-react";
 import {
   Dialog,
   DialogContent,
-  DialogDescription,
-  DialogFooter,
   DialogHeader,
   DialogTitle,
-  DialogTrigger,
 } from "@/Components/ui/dialog"
 import { Textarea } from "@/Components/ui/textarea";
 

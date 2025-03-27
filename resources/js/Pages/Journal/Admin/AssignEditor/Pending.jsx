@@ -24,7 +24,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/Components/ui/dropdown-menu"
-import { Download, Settings2, UserPen } from "lucide-react"
+import { Download, LoaderCircle, Settings2, UserPen } from "lucide-react"
 import { Button } from "@/Components/ui/button"
 import {
   Dialog,
@@ -41,12 +41,13 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/Components/ui/select"
+import InputError from "@/Components/input-error"
 
 const Pending = () => {
   const { assigns, editors } = usePage().props
   const [search, setSearch] = useState("");
   const [open, setOpen] = useState(false)
-  const { processing, setData, post, reset } = useForm({
+  const { processing, setData, post, reset, errors } = useForm({
     editor_id: null,
     id: null
   })
@@ -179,27 +180,35 @@ const Pending = () => {
         )}
       </div>
 
-      <Dialog open={open} onOpenChange={() => handleOpen()}>
+      <Dialog open={open} onOpenChange={() => {
+        if (!processing) {
+          handleOpen()
+        }
+      }}>
         <DialogContent>
           <DialogHeader>
             <DialogTitle>Change Editor</DialogTitle>
           </DialogHeader>
-          <Select onValueChange={(val) => setData('editor_id', val)}>
-            <SelectTrigger>
-              <SelectValue placeholder="Select" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectGroup>
-                {editors.map((editor, index) => (
-                  <SelectItem key={index} value={editor.id}>
-                    {editor.first_name} {editor.last_name}
-                  </SelectItem>
-                ))}
-              </SelectGroup>
-            </SelectContent>
-          </Select>
+          <div className="space-y-1">
+            <Select onValueChange={(val) => setData('editor_id', val)}>
+              <SelectTrigger>
+                <SelectValue placeholder="Select" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectGroup>
+                  {editors.map((editor, index) => (
+                    <SelectItem key={index} value={editor.id}>
+                      {editor.first_name} {editor.last_name}
+                    </SelectItem>
+                  ))}
+                </SelectGroup>
+              </SelectContent>
+            </Select>
+            <InputError message={errors.editor_id} />
+          </div>
           <DialogFooter>
             <Button onClick={handleChangeEditor} disabled={processing}>
+              {processing && <LoaderCircle className="size-4 animate-spin" />}
               Save
             </Button>
           </DialogFooter>

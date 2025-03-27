@@ -1,5 +1,5 @@
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout"
-import { router, useForm, usePage } from "@inertiajs/react"
+import { router, usePage } from "@inertiajs/react"
 import {
   Table,
   TableBody,
@@ -21,11 +21,9 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/Components/ui/dropdown-menu"
-import { Check, Download, Settings2, X } from "lucide-react"
+import { Download, Settings2 } from "lucide-react"
 import { Button } from "@/Components/ui/button"
 
 const Published = () => {

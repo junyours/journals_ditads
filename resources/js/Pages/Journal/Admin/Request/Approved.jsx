@@ -20,14 +20,11 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/Components/ui/dropdown-menu"
 import { Input } from "@/Components/ui/input";
-import { Badge } from "@/Components/ui/badge";
 import { Button } from "@/Components/ui/button";
-import { Download, MoreHorizontal, Settings2 } from "lucide-react";
+import { Download, Settings2 } from "lucide-react";
 
 const Approved = () => {
   const { requests } = usePage().props

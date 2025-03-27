@@ -4,20 +4,10 @@ import { Input } from "@/Components/ui/input"
 import {
   Dialog,
   DialogContent,
-  DialogDescription,
-  DialogFooter,
   DialogHeader,
   DialogTitle,
 } from "@/Components/ui/dialog"
 import { useEffect, useRef, useState } from "react"
-import {
-  Select,
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/Components/ui/select"
 import { router, useForm, usePage } from "@inertiajs/react"
 import {
   Table,
@@ -34,37 +24,29 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from "@/Components/ui/pagination"
-import { toast } from "sonner"
-import { Badge } from "@/Components/ui/badge"
 import InputError from "@/Components/input-error"
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/Components/ui/dropdown-menu"
-import { Check, Download, MoreHorizontal, ReceiptText, X } from "lucide-react"
+import { Check, LoaderCircle, MoreHorizontal, ReceiptText, X } from "lucide-react"
 import { Label } from "@/Components/ui/label"
 import {
   AlertDialog,
-  AlertDialogAction,
   AlertDialogCancel,
   AlertDialogContent,
-  AlertDialogDescription,
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTitle,
-  AlertDialogTrigger,
 } from "@/Components/ui/alert-dialog"
 import { Textarea } from "@/Components/ui/textarea"
 import {
   Carousel,
   CarouselContent,
   CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
 } from "@/Components/ui/carousel"
 
 const Pending = () => {
@@ -77,7 +59,7 @@ const Pending = () => {
   }).format(parseFloat(amount))
   const [openShow, setOpenShow] = useState(false)
   const [show, setShow] = useState([])
-  const { data, errors, processing, setData, post, reset, setError } = useForm({
+  const { data, errors, processing, setData, post, reset, clearErrors } = useForm({
     id: null,
     message: null,
     status: null
@@ -93,7 +75,7 @@ const Pending = () => {
     } else {
       reset()
     }
-    setError({ message: null })
+    clearErrors()
     setOpen(!open)
   }
 
@@ -134,7 +116,7 @@ const Pending = () => {
   }
 
   const handleStatus = () => {
-    setError({ message: null })
+    clearErrors()
     post(route('admin.payment.transaction.update.status'), {
       onSuccess: () => {
         handleOpen()
@@ -262,7 +244,11 @@ const Pending = () => {
         </DialogContent>
       </Dialog>
 
-      <AlertDialog open={open} onOpenChange={() => handleOpen()}>
+      <AlertDialog open={open} onOpenChange={() => {
+        if (!processing) {
+          handleOpen()
+        }
+      }}>
         <AlertDialogContent>
           <AlertDialogHeader>
             <AlertDialogTitle>Are you sure you want to {data.status === 'approved' && 'approve' || data.status === 'rejected' && 'reject'}?</AlertDialogTitle>
@@ -275,8 +261,9 @@ const Pending = () => {
             </div>
           )}
           <AlertDialogFooter>
-            <AlertDialogCancel>Cancel</AlertDialogCancel>
+            <AlertDialogCancel disabled={processing}>Cancel</AlertDialogCancel>
             <Button onClick={handleStatus} disabled={processing}>
+              {processing && <LoaderCircle className="size-4 animate-spin" />}
               {data.status === 'approved' && 'Approve' || data.status === 'rejected' && 'Reject'}
             </Button>
           </AlertDialogFooter>

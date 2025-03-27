@@ -21,20 +21,17 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/Components/ui/dropdown-menu"
-import { Check, Download, FileUp, Settings2, Upload, X } from "lucide-react"
+import { Download, FileUp, LoaderCircle, Settings2, Upload } from "lucide-react"
 import { Button } from "@/Components/ui/button"
 import {
   Dialog,
   DialogContent,
-  DialogDescription,
   DialogFooter,
   DialogHeader,
   DialogTitle,
-  DialogTrigger,
 } from "@/Components/ui/dialog"
 import InputError from "@/Components/input-error"
 import { Label } from "@/Components/ui/label"
@@ -44,7 +41,7 @@ import { toast } from "sonner"
 const Pending = () => {
   const { assigns } = usePage().props
   const [search, setSearch] = useState("");
-  const { data, errors, processing, setData, post, reset, setError } = useForm({
+  const { data, errors, processing, setData, post, reset, clearErrors } = useForm({
     id: null,
     published_file: null
   })
@@ -56,7 +53,7 @@ const Pending = () => {
     } else {
       reset()
     }
-    setError({ published_file: null })
+    clearErrors()
     setOpen(!open)
   }
 
@@ -88,7 +85,7 @@ const Pending = () => {
   }
 
   const handlePublish = () => {
-    setError({ published_file: null })
+    clearErrors()
     post(route('editor.published.document.publish'), {
       onSuccess: () => {
         handleOpen()
@@ -181,7 +178,11 @@ const Pending = () => {
         )}
       </div>
 
-      <Dialog open={open} onOpenChange={() => handleOpen()}>
+      <Dialog open={open} onOpenChange={() => {
+        if (!processing) {
+          handleOpen()
+        }
+      }}>
         <DialogContent>
           <DialogHeader>
             <DialogTitle>Are you sure you want to publish?</DialogTitle>
@@ -215,6 +216,7 @@ const Pending = () => {
           </div>
           <DialogFooter>
             <Button onClick={handlePublish} disabled={processing}>
+              {processing && <LoaderCircle className="size-4 animate-spin" />}
               Publish
             </Button>
           </DialogFooter>

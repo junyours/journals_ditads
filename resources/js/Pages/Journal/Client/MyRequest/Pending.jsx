@@ -35,24 +35,21 @@ import {
   PaginationPrevious,
 } from "@/Components/ui/pagination"
 import { toast } from "sonner"
-import { Badge } from "@/Components/ui/badge"
 import InputError from "@/Components/input-error"
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/Components/ui/dropdown-menu"
-import { Download, MoreHorizontal, Plus, Upload } from "lucide-react"
+import { Download, LoaderCircle, MoreHorizontal, Plus, Upload } from "lucide-react"
 import Word from '../../../../../../public/images/word.png'
 
 const Pending = () => {
   const [open, setOpen] = useState(false)
   const [tab, setTab] = useState("1")
   const { services, requests } = usePage().props
-  const { data, processing, errors, post, reset, setData, setError } = useForm({
+  const { data, processing, errors, post, reset, setData, clearErrors } = useForm({
     service_id: "",
     uploaded_file: null
   })
@@ -67,7 +64,7 @@ const Pending = () => {
     setOpen(!open)
     setTab("1")
     reset()
-    setError({ uploaded_file: null })
+    clearErrors()
   }
 
   const searchTimeoutRef = useRef(null);
@@ -98,7 +95,7 @@ const Pending = () => {
   }
 
   const handleSubmit = () => {
-    setError({ uploaded_file: null })
+    clearErrors()
     post(route('client.my.request.submit.request'), {
       onSuccess: () => {
         handleOpen()
@@ -198,7 +195,11 @@ const Pending = () => {
         )}
       </div>
 
-      <Dialog open={open} onOpenChange={handleOpen}>
+      <Dialog open={open} onOpenChange={() => {
+        if (!processing) {
+          handleOpen()
+        }
+      }}>
         <DialogContent>
           <DialogHeader>
             <DialogTitle>
@@ -341,6 +342,7 @@ const Pending = () => {
                     Back
                   </Button>
                   <Button onClick={handleSubmit} disabled={processing}>
+                    {processing && <LoaderCircle className="size-4 animate-spin" />}
                     Submit
                   </Button>
                 </>

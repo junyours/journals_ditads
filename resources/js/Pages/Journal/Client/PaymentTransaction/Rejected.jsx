@@ -4,20 +4,11 @@ import { Input } from "@/Components/ui/input"
 import {
   Dialog,
   DialogContent,
-  DialogDescription,
   DialogFooter,
   DialogHeader,
   DialogTitle,
 } from "@/Components/ui/dialog"
 import { useEffect, useRef, useState } from "react"
-import {
-  Select,
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/Components/ui/select"
 import { router, useForm, usePage } from "@inertiajs/react"
 import {
   Table,
@@ -34,26 +25,21 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from "@/Components/ui/pagination"
-import { toast } from "sonner"
-import { Badge } from "@/Components/ui/badge"
 import InputError from "@/Components/input-error"
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/Components/ui/dropdown-menu"
-import { Download, HandCoins, MessageSquareMore, MoreHorizontal, ReceiptText, Upload } from "lucide-react"
+import { HandCoins, MessageSquareMore, MoreHorizontal, ReceiptText, Upload } from "lucide-react"
 import { Label } from "@/Components/ui/label"
 import { Textarea } from "@/Components/ui/textarea"
 import {
   Carousel,
   CarouselContent,
   CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
 } from "@/Components/ui/carousel"
 
 const Rejected = () => {
@@ -68,7 +54,7 @@ const Rejected = () => {
   const [show, setShow] = useState([])
   const [open, setOpen] = useState(false)
   const [message, setMessage] = useState("")
-  const { data, errors, processing, setData, post, reset, setError } = useForm({
+  const { data, errors, processing, setData, post, reset, clearErrors } = useForm({
     payment_id: null,
     reference_number: "",
     receipt: null
@@ -104,7 +90,7 @@ const Rejected = () => {
       reset()
       setPayment(null)
     }
-    setError({ reference_number: null, receipt: null })
+    clearErrors()
     setOpenRepay(!openRepay)
     setTab("1")
   }

@@ -21,11 +21,9 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/Components/ui/dropdown-menu"
-import { Banknote, Check, Download, HandCoins, PhilippinePeso, ReceiptText, Settings2, Upload, Wallet, X } from "lucide-react"
+import { Banknote, HandCoins, LoaderCircle, ReceiptText, Settings2, Upload, Wallet } from "lucide-react"
 import { Button } from "@/Components/ui/button"
 import {
   Dialog,
@@ -34,7 +32,6 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
-  DialogTrigger,
 } from "@/Components/ui/dialog"
 import {
   Card,
@@ -59,7 +56,7 @@ const Unpaid = () => {
     currency: "PHP",
   }).format(parseFloat(amount))
   const [open, setOpen] = useState(false)
-  const { data, errors, processing, setData, post, reset, setError } = useForm({
+  const { data, errors, processing, setData, post, reset, clearErrors } = useForm({
     id: null,
     payment_method_id: null,
     type: null,
@@ -77,7 +74,7 @@ const Unpaid = () => {
       reset()
       setPreviewReceipt(null)
     }
-    setError({ reference_number: null, receipt: null })
+    clearErrors()
     setOpen(!open)
     setTab("1")
   }
@@ -201,7 +198,11 @@ const Unpaid = () => {
         )}
       </div>
 
-      <Dialog open={open} onOpenChange={() => handleOpen()}>
+      <Dialog open={open} onOpenChange={() => {
+        if (!processing) {
+          handleOpen()
+        }
+      }}>
         <DialogContent className="max-h-full overflow-y-auto">
           <DialogHeader>
             {tab === '1' && <DialogTitle>Select Payment Method</DialogTitle>}
@@ -352,6 +353,7 @@ const Unpaid = () => {
                     Back
                   </Button>
                   <Button onClick={handlePay} disabled={processing}>
+                    {processing && <LoaderCircle className="size-4 animate-spin" />}
                     Pay
                   </Button>
                 </>

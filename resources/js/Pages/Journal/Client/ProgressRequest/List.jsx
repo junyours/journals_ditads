@@ -1,24 +1,8 @@
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout"
 import { Button } from "@/Components/ui/button"
 import { Input } from "@/Components/ui/input"
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-} from "@/Components/ui/dialog"
 import { useEffect, useRef, useState } from "react"
-import {
-  Select,
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/Components/ui/select"
-import { router, useForm, usePage } from "@inertiajs/react"
+import { router, usePage } from "@inertiajs/react"
 import {
   Table,
   TableBody,
@@ -34,18 +18,7 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from "@/Components/ui/pagination"
-import { toast } from "sonner"
-import { Badge } from "@/Components/ui/badge"
-import InputError from "@/Components/input-error"
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/Components/ui/dropdown-menu"
-import { CircleCheckBig, Download, FileCheck, FileCheck2, FilePen, MoreHorizontal, UserPen } from "lucide-react"
+import { FileCheck2, FilePen, UserPen } from "lucide-react"
 import { Separator } from "@/Components/ui/separator"
 
 const List = () => {

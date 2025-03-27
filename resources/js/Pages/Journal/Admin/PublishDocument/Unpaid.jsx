@@ -21,32 +21,18 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/Components/ui/dropdown-menu"
-import { Banknote, Check, Download, HandCoins, PhilippinePeso, ReceiptText, Settings2, Upload, Wallet, X } from "lucide-react"
+import { Download, HandCoins, Settings2 } from "lucide-react"
 import { Button } from "@/Components/ui/button"
 import {
   Dialog,
   DialogContent,
-  DialogDescription,
   DialogFooter,
   DialogHeader,
   DialogTitle,
-  DialogTrigger,
 } from "@/Components/ui/dialog"
-import {
-  Card,
-  CardTitle,
-} from "@/Components/ui/card"
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/Components/ui/select"
 import { Label } from "@/Components/ui/label"
 import InputError from "@/Components/input-error"
 

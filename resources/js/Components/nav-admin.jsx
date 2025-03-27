@@ -16,7 +16,7 @@ import {
   useSidebar,
 } from "@/Components/ui/sidebar"
 import { useIsMobile } from "@/hooks/use-mobile"
-import { Link, router } from "@inertiajs/react"
+import { Link } from "@inertiajs/react"
 import {
   ChevronRight,
   ClipboardList,

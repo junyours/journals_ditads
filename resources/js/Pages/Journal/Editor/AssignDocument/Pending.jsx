@@ -21,15 +21,13 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/Components/ui/dropdown-menu"
-import { Check, Download, Settings2, X } from "lucide-react"
+import { Check, Download, LoaderCircle, Settings2, X } from "lucide-react"
 import { Button } from "@/Components/ui/button"
 import {
   AlertDialog,
-  AlertDialogAction,
   AlertDialogCancel,
   AlertDialogContent,
   AlertDialogFooter,
@@ -188,8 +186,9 @@ const Pending = () => {
             </AlertDialogTitle>
           </AlertDialogHeader>
           <AlertDialogFooter>
-            <AlertDialogCancel>Cancel</AlertDialogCancel>
+            <AlertDialogCancel disabled={processing}>Cancel</AlertDialogCancel>
             <Button onClick={handleStatus} disabled={processing}>
+              {processing && <LoaderCircle className="size-4 animate-spin" />}
               {data.status === 'approved' && 'Approve' || data.status === 'rejected' && 'Reject'}
             </Button>
           </AlertDialogFooter>

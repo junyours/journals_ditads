@@ -384,6 +384,12 @@ class AdminController extends Controller
 
     public function changeEditor(Request $request)
     {
+        $request->validate([
+            'editor_id' => ['required']
+        ], [
+            'editor_id.required' => 'The editor field is required.'
+        ]);
+
         AssignEditor::findOrFail($request->id)
             ->update([
                 'editor_id' => $request->editor_id,

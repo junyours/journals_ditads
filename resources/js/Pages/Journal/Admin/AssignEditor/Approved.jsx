@@ -29,11 +29,6 @@ import { Button } from "@/Components/ui/button"
 const Approved = () => {
   const { assigns } = usePage().props
   const [search, setSearch] = useState("");
-  const [open, setOpen] = useState(false)
-
-  const handleOpen = () => {
-    setOpen(!open)
-  }
 
   const searchTimeoutRef = useRef(null);
 

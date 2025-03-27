@@ -17,24 +17,20 @@ import {
   PaginationPrevious,
 } from "@/Components/ui/pagination"
 import { Input } from "@/Components/ui/input";
-import { Badge } from "@/Components/ui/badge";
 import { Button } from "@/Components/ui/button";
-import { Check, CheckCircle, CircleCheck, CircleX, Download, MoreHorizontal, Settings2, Upload, View, X } from "lucide-react";
+import { Check, Download, LoaderCircle, Settings2, Upload, X } from "lucide-react";
 import {
   Dialog,
   DialogContent,
-  DialogDescription,
   DialogFooter,
   DialogHeader,
   DialogTitle,
-  DialogTrigger,
 } from "@/Components/ui/dialog"
 import { Label } from "@/Components/ui/label";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/Components/ui/dropdown-menu"
@@ -54,7 +50,7 @@ const Pending = () => {
   }).format(parseFloat(amount))
   const [open, setOpen] = useState(false)
   const [status, setStatus] = useState(null)
-  const { data, errors, processing, post, setData, reset, setError } = useForm({
+  const { data, errors, processing, post, setData, reset, clearErrors } = useForm({
     request_id: null,
     editor_id: null,
     edited_file: null,
@@ -63,13 +59,7 @@ const Pending = () => {
   })
 
   const handleOpen = (status, request_id) => {
-    if (status === 'approved') {
-      setStatus(status)
-      setData({
-        request_id: request_id,
-        status: status
-      })
-    } else if (status === 'rejected') {
+    if (status === 'approved' || status === 'rejected') {
       setStatus(status)
       setData({
         request_id: request_id,
@@ -80,7 +70,7 @@ const Pending = () => {
       reset()
     }
     setOpen(!open)
-    setError({ edited_file: null, editor_id: null, message: null })
+    clearErrors()
   }
 
   const searchTimeoutRef = useRef(null);
@@ -111,18 +101,17 @@ const Pending = () => {
   }
 
   const handleApprove = () => {
-    setError({ edited_file: null, editor_id: null })
+    clearErrors()
     post(route('admin.approved.request'), {
       onSuccess: () => {
         handleOpen()
         toast.success('Request approved successfully.')
-        router.visit(route('admin.request.approved'))
       }
     })
   }
 
   const handleReject = () => {
-    setError({ message: null })
+    clearErrors()
     post(route('admin.rejected.request'), {
       onSuccess: () => {
         handleOpen()
@@ -227,7 +216,11 @@ const Pending = () => {
         )}
       </div>
 
-      <Dialog open={open} onOpenChange={() => handleOpen()}>
+      <Dialog open={open} onOpenChange={() => {
+        if (!processing) {
+          handleOpen()
+        }
+      }}>
         <DialogContent>
           <DialogHeader>
             <DialogTitle>Are you sure you want to {status === 'approved' && 'approve' || status === 'rejected' && 'reject'}?</DialogTitle>
@@ -289,16 +282,10 @@ const Pending = () => {
             </div>
           )}
           <DialogFooter>
-            {status === 'approved' && (
-              <Button onClick={handleApprove} disabled={processing}>
-                Approve
-              </Button>
-            )}
-            {status === 'rejected' && (
-              <Button onClick={handleReject} disabled={processing}>
-                Reject
-              </Button>
-            )}
+            <Button onClick={status === 'approved' ? handleApprove : handleReject} disabled={processing}>
+              {processing && <LoaderCircle className="size-4 animate-spin" />}
+              {status === 'approved' ? 'Approve' : 'Reject'}
+            </Button>
           </DialogFooter>
         </DialogContent>
       </Dialog>
