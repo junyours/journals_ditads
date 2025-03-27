@@ -32,7 +32,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/Components/ui/dropdown-menu"
-import { Check, LoaderCircle, MoreHorizontal, ReceiptText, X } from "lucide-react"
+import { Check, LoaderCircle, ReceiptText, Settings2, X } from "lucide-react"
 import { Label } from "@/Components/ui/label"
 import {
   AlertDialog,
@@ -173,7 +173,7 @@ const Pending = () => {
                       <DropdownMenuTrigger asChild>
                         <Button variant="ghost" className="h-8 w-8 p-0">
                           <span className="sr-only">Open menu</span>
-                          <MoreHorizontal />
+                          <Settings2 />
                         </Button>
                       </DropdownMenuTrigger>
                       <DropdownMenuContent align="end">

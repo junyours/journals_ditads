@@ -30,7 +30,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/Components/ui/dropdown-menu"
-import { MoreHorizontal, ReceiptText } from "lucide-react"
+import { ReceiptText, Settings2 } from "lucide-react"
 import { Label } from "@/Components/ui/label"
 import {
   Carousel,
@@ -137,7 +137,7 @@ const Approved = () => {
                       <DropdownMenuTrigger asChild>
                         <Button variant="ghost" className="h-8 w-8 p-0">
                           <span className="sr-only">Open menu</span>
-                          <MoreHorizontal />
+                          <Settings2 />
                         </Button>
                       </DropdownMenuTrigger>
                       <DropdownMenuContent align="end">
