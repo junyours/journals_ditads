@@ -16,17 +16,20 @@ class EditorController extends Controller
     {
         $user_id = $request->user()->id;
 
-        $pendingAssign = AssignEditor::where('editor_id', $user_id)
-            ->where('status', 'pending')
-            ->count();
-        $publishedDocument = AssignEditor::where('editor_id', $user_id)
-            ->where('status', 'approved')
+        $published = AssignEditor::select(
+            DB::raw("DATE_FORMAT(published_at, '%Y-%m') as month"),
+            DB::raw("COUNT(id) as total_published")
+        )
+            ->whereHas('request', function ($query) use ($user_id) {
+                $query->where('editor_id', $user_id);
+            })
             ->whereNotNull('published_at')
-            ->count();
-        $requestCount = [$pendingAssign, $publishedDocument];
+            ->groupBy('month')
+            ->orderBy('month', 'asc')
+            ->get();
 
         return Inertia::render("Journal/Editor/Dashboard", [
-            "requestCount" => $requestCount,
+            "published" => $published,
         ]);
     }
 
@@ -116,6 +119,7 @@ class EditorController extends Controller
                         });
                 });
             })
+            ->latest()
             ->paginate(10);
 
         return Inertia::render("Journal/Editor/AssignDocument/Approved", [
@@ -158,6 +162,7 @@ class EditorController extends Controller
                         });
                 });
             })
+            ->latest()
             ->paginate(10);
 
         return Inertia::render("Journal/Editor/AssignDocument/Rejected", [
@@ -266,6 +271,7 @@ class EditorController extends Controller
                         });
                 });
             })
+            ->latest('published_at')
             ->paginate(10);
 
         return Inertia::render("Journal/Editor/PublishDocument/Published", [

@@ -608,6 +608,10 @@ class AdminController extends Controller
                         });
                 });
             })
+            ->orderBy(
+                DB::raw('(SELECT published_at FROM assign_editors WHERE assign_editors.request_id = requests.id ORDER BY published_at DESC LIMIT 1)'),
+                'desc'
+            )
             ->paginate(10);
 
         return Inertia::render("Journal/Admin/PublishDocument/Paid", [

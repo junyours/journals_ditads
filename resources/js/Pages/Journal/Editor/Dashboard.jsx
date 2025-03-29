@@ -2,48 +2,93 @@ import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout"
 import {
   Card,
   CardContent,
+  CardDescription,
   CardHeader,
   CardTitle,
 } from "@/Components/ui/card"
 import { usePage } from "@inertiajs/react"
-import { FileInput, FolderSync } from "lucide-react"
+import { Bar, BarChart, CartesianGrid, XAxis, YAxis } from "recharts"
+import {
+  ChartContainer,
+  ChartTooltip,
+  ChartTooltipContent,
+} from "@/Components/ui/chart"
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/Components/ui/select"
+import { useState } from "react"
 
 const Dashboard = () => {
-  const { requestCount } = usePage().props
+  const { published } = usePage().props
+  const currentYear = new Date().getFullYear().toString();
+  const [publishedYear, setPublishedYear] = useState(currentYear);
+  const years = Array.from({ length: currentYear - 2024 }, (_, i) => (2025 + i).toString());
+
+  const filteredPublished = published.filter((r) => r.month.startsWith(publishedYear));
+  const formattedPublishedData = Array.from({ length: 12 }, (_, index) => {
+    const month = new Date(publishedYear, index).toLocaleString("default", { month: "long" });
+    const publishedEntry = filteredPublished.find((r) => r.month === `${publishedYear}-${String(index + 1).padStart(2, "0")}`);
+    return {
+      month,
+      published: publishedEntry ? parseInt(publishedEntry.total_published, 10) : 0
+    };
+  });
+
+  const chartConfig = {
+    published: {
+      label: "Published",
+      color: "hsl(var(--chart-2))",
+    },
+  }
 
   return (
-    <>
-      <div className="space-y-4">
-        <div className="grid grid-cols-4 gap-4">
-          <Card>
-            <CardHeader>
-              <div className="flex items-center justify-between">
-                <CardTitle className="font-medium text-sm">Pending Assign Documents</CardTitle>
-                <FileInput size={16} />
-              </div>
-            </CardHeader>
-            <CardContent>
-              <CardTitle className="font-bold text-2xl">
-                {requestCount[0]}
-              </CardTitle>
-            </CardContent>
-          </Card>
-          <Card>
-            <CardHeader>
-              <div className="flex items-center justify-between">
-                <CardTitle className="font-medium text-sm">Published Documents</CardTitle>
-                <FolderSync size={16} />
-              </div>
-            </CardHeader>
-            <CardContent>
-              <CardTitle className="font-bold text-2xl">
-                {requestCount[1]}
-              </CardTitle>
-            </CardContent>
-          </Card>
+    <div className="grid lg:grid-cols-2 gap-4">
+      <Card>
+        <div className="flex items-center justify-between">
+          <CardHeader>
+            <CardTitle>Published Overview</CardTitle>
+            <CardDescription>
+              Total: {filteredPublished.reduce((sum, r) => sum + parseInt(r.total_published, 10), 0)}
+            </CardDescription>
+          </CardHeader>
+          <CardHeader>
+            <Select value={publishedYear} onValueChange={setPublishedYear}>
+              <SelectTrigger className="w-[180px]">
+                <SelectValue placeholder="Select Year" />
+              </SelectTrigger>
+              <SelectContent>
+                {years.map((year) => (
+                  <SelectItem key={year} value={year}>
+                    {year}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </CardHeader>
         </div>
-      </div>
-    </>
+        <CardContent>
+          <ChartContainer config={chartConfig}>
+            <BarChart accessibilityLayer data={formattedPublishedData}>
+              <CartesianGrid vertical={false} />
+              <YAxis tickLine={false} axisLine={false} />
+              <XAxis
+                dataKey="month"
+                tickLine={false}
+                tickMargin={10}
+                axisLine={false}
+                tickFormatter={(value) => value.slice(0, 3)}
+              />
+              <ChartTooltip cursor={false} content={<ChartTooltipContent />} />
+              <Bar dataKey="published" fill="var(--color-published)" radius={8} />
+            </BarChart>
+          </ChartContainer>
+        </CardContent>
+      </Card>
+    </div>
   )
 }
 

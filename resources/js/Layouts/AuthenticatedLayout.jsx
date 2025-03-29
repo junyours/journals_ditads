@@ -52,7 +52,7 @@ export default function AuthenticatedLayout({ children, title }) {
                                 </span>
                             </div>
                             <div className="flex items-center justify-end">
-                                <div className="flex items-center gap-2">
+                                <div className="flex items-center">
                                     <Button onClick={() => setOpenNotif(true)} size="icon" variant="ghost">
                                         <Bell />
                                     </Button>

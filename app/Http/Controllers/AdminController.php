@@ -16,17 +16,14 @@ class AdminController extends Controller
 {
     public function dashboard()
     {
-        $editor = User::where('role', 'editor')
-            ->count();
-        $client = User::where('role', 'client')
-            ->count();
-        $userCount = [$editor, $client];
-
-        $pendingRequest = \App\Models\Journal\Request::where('status', 'pending')
-            ->count();
-        $publishedDocument = AssignEditor::whereNotNull('published_at')
-            ->count();
-        $requestCount = [$pendingRequest, $publishedDocument];
+        $requests = \App\Models\Journal\Request::select(
+            DB::raw("DATE_FORMAT(created_at, '%Y-%m') as month"),
+            DB::raw("COUNT(id) as total_requests")
+        )
+            ->where('status', 'approved')
+            ->groupBy('month')
+            ->orderBy('month', 'asc')
+            ->get();
 
         $sales = \App\Models\Journal\Request::select(
             DB::raw("DATE_FORMAT(payments.created_at, '%Y-%m') as month"),
@@ -38,10 +35,19 @@ class AdminController extends Controller
             ->orderBy('month', 'asc')
             ->get();
 
+        $published = AssignEditor::select(
+            DB::raw("DATE_FORMAT(published_at, '%Y-%m') as month"),
+            DB::raw("COUNT(id) as total_published")
+        )
+            ->whereNotNull('published_at')
+            ->groupBy('month')
+            ->orderBy('month', 'asc')
+            ->get();
+
         return Inertia::render("Dashboard", [
-            "userCount" => $userCount,
-            "requestCount" => $requestCount,
+            "requests" => $requests,
             "sales" => $sales,
+            "published" => $published
         ]);
     }
 

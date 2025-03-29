@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Journal;
 
 use App\Http\Controllers\Controller;
+use App\Models\Journal\AssignEditor;
 use App\Models\Journal\Payment;
 use App\Models\Journal\PaymentMethod;
 use App\Models\Journal\Receipt;
@@ -19,21 +20,31 @@ class ClientController extends Controller
     {
         $user_id = $request->user()->id;
 
-        $pendingRequest = \App\Models\Journal\Request::where('client_id', $user_id)
-            ->where('status', 'pending')
-            ->count();
-        $publishedDocument = \App\Models\Journal\Request::where('client_id', $user_id)
-            ->whereHas('assign_editor', function ($query) {
-                $query->whereNotNull('published_at');
+        $requests = \App\Models\Journal\Request::select(
+            DB::raw("DATE_FORMAT(created_at, '%Y-%m') as month"),
+            DB::raw("COUNT(id) as total_requests")
+        )
+            ->where("client_id", $user_id)
+            ->where('status', 'approved')
+            ->groupBy('month')
+            ->orderBy('month', 'asc')
+            ->get();
+
+        $published = AssignEditor::select(
+            DB::raw("DATE_FORMAT(published_at, '%Y-%m') as month"),
+            DB::raw("COUNT(id) as total_published")
+        )
+            ->whereHas('request', function ($query) use ($user_id) {
+                $query->where('client_id', $user_id);
             })
-            ->whereHas('payment', function ($query) {
-                $query->where('status', 'approved');
-            })
-            ->count();
-        $requestCount = [$pendingRequest, $publishedDocument];
+            ->whereNotNull('published_at')
+            ->groupBy('month')
+            ->orderBy('month', 'asc')
+            ->get();
 
         return Inertia::render("Journal/Client/Dashboard", [
-            "requestCount" => $requestCount,
+            "requests" => $requests,
+            "published" => $published
         ]);
     }
 
@@ -371,6 +382,10 @@ class ClientController extends Controller
                         });
                 });
             })
+            ->orderBy(
+                DB::raw('(SELECT published_at FROM assign_editors WHERE assign_editors.request_id = requests.id ORDER BY published_at DESC LIMIT 1)'),
+                'desc'
+            )
             ->paginate(10);
 
         return Inertia::render("Journal/Client/PublishDocument/Paid", [
