@@ -44,7 +44,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/Components/ui/dropdown-menu"
-import { FilePenLine, Plus, Settings2, UserCircle } from "lucide-react";
+import { FilePenLine, LoaderCircle, Plus, Settings2, UserCircle } from "lucide-react";
 
 const List = () => {
   const [open, setOpen] = useState(false)
@@ -190,7 +190,11 @@ const List = () => {
         )}
       </div>
 
-      <Dialog open={open} onOpenChange={handleOpen}>
+      <Dialog open={open} onOpenChange={() => {
+        if (!processing) {
+          handleOpen()
+        }
+      }}>
         <DialogContent>
           <DialogHeader>
             <DialogTitle>Add Editor</DialogTitle>
@@ -232,6 +236,7 @@ const List = () => {
           </div>
           <DialogFooter>
             <Button onClick={handleAdd} disabled={processing}>
+              {processing && <LoaderCircle className="size-4 animate-spin" />}
               Save
             </Button>
           </DialogFooter>
