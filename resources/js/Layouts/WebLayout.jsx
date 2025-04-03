@@ -9,7 +9,7 @@ import { Link } from "@inertiajs/react"
 import { usePage } from "@inertiajs/react";
 import { Button } from "@/Components/ui/button";
 import AppLogo from "@/Components/app-logo";
-import { Facebook, Instagram, Mail, MapPin, Menu, Phone, Twitter, Youtube } from "lucide-react";
+import { Menu } from "lucide-react";
 import {
   Drawer,
   DrawerContent,
@@ -19,12 +19,8 @@ import { ModeToggle } from "@/Components/mode-toggle";
 
 const NavItems = [
   {
-    title: 'Research Consultants',
-    href: '#'
-  },
-  {
     title: 'Research Journals',
-    href: '#'
+    href: '/research-journals'
   },
   {
     title: 'About Us',

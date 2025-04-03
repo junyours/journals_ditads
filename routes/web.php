@@ -28,9 +28,13 @@ Route::middleware(['auth', 'admin', 'verified'])->group(function () {
 
     Route::get('/admin/users/clients', [AdminController::class, 'getClient'])->name('admin.user.client');
 
+    Route::get('/admin/web/research-journals', [WebController::class, 'getResearchJournal'])->name('admin.web.research.journal');
+    Route::post('/admin/web/research-journals/upload', [WebController::class, 'uploadResearchJournal'])->name('admin.web.research.journal.upload');
+
 });
 
 Route::get('/', [WebController::class, 'welcome'])->name('welcome');
+Route::get('/research-journals', [WebController::class, 'researchJournal'])->name('research.journal');
 
 require __DIR__ . '/auth.php';
 
