@@ -15,7 +15,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/notifications', [NotificationController::class, 'getNotification'])->name('notification');
     Route::post('/notifications/read', [NotificationController::class, 'readNotification'])->name('notification.read');
 
-    Route::get('/users/profile/{id}', [AdminController::class, 'getUserProfile'])->name('user.profile');
+    Route::get('/users/profile', [AdminController::class, 'getUserProfile'])->name('user.profile');
 
 });
 
