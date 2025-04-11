@@ -124,16 +124,14 @@ class ClientController extends Controller
             'amount' => $service->price,
         ]);
 
-        $admin = User::where('role', 'admin')->first();
+        $admin_id = User::where('role', 'admin')->first()->id;
 
         Notification::create([
-            'user_id' => $admin->id,
+            'user_id' => $admin_id,
             'message' => $request->user()->first_name . ' ' . $request->user()->last_name . ' ' . 'has submitted a request',
             'type' => 'request',
             'status' => 'pending',
         ]);
-
-        broadcast(new NotificationEvent($admin->id));
     }
 
     public function resubmitRequest(Request $request)

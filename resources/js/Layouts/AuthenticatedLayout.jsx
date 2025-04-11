@@ -20,7 +20,6 @@ import { ModeToggle } from "@/Components/mode-toggle"
 import { Alert, AlertDescription } from "@/Components/ui/alert"
 import axios from "axios"
 import { formatDistanceToNow } from 'date-fns';
-import { toast } from "sonner"
 
 export default function AuthenticatedLayout({ children, title }) {
     const user = usePage().props.auth.user;
@@ -48,13 +47,8 @@ export default function AuthenticatedLayout({ children, title }) {
     }
 
     useEffect(() => {
-        Echo.private(`notification.${user.id}`)
-            .listen('NotificationEvent', () => {
-                getNotif()
-                toast.info("You've received a new notification")
-            })
         getNotif()
-    }, [user.id])
+    }, [])
 
     return (
         <div>
