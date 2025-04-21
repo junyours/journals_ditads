@@ -19,12 +19,12 @@ import { ModeToggle } from "@/Components/mode-toggle";
 
 const NavItems = [
   {
-    title: 'Research Journals',
-    href: '/research-journals'
+    title: 'About Us',
+    href: '/about-us'
   },
   {
-    title: 'About Us',
-    href: '#'
+    title: 'Research Journals',
+    href: '/research-journals'
   },
   {
     title: 'Contact Us',
@@ -44,7 +44,7 @@ const WebLayout = ({ children }) => {
   return (
     <>
       <header className="h-16 fixed w-full flex items-center bg-background border-b">
-        <div className="w-full max-w-7xl mx-auto flex items-center gap-2 px-4 max-lg:justify-between">
+        <div className="w-full container mx-auto flex items-center gap-2 px-4 max-lg:justify-between">
           <Link href={route('welcome')}>
             <AppLogo className="size-12" />
           </Link>
@@ -95,11 +95,11 @@ const WebLayout = ({ children }) => {
           </div>
         </div>
       </header>
-      <main className="max-w-7xl mx-auto min-h-screen">
+      <main className="container mx-auto min-h-screen">
         {children}
       </main>
       <footer className="bg-primary">
-        <div className="max-w-7xl mx-auto p-4 py-6 lg:py-8">
+        <div className="container mx-auto p-4 py-6 lg:py-8">
           <div className="md:flex md:justify-between">
             <div className="mb-6 md:mb-0">
               <Link href="/" className="flex items-center">

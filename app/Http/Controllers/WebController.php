@@ -71,6 +71,11 @@ class WebController extends Controller
         return Inertia::render("Web/Welcome");
     }
 
+    public function aboutUs()
+    {
+        return Inertia::render("Web/AboutUs");
+    }
+
     public function researchJournal(Request $request)
     {
         $search = $request->input('search');
@@ -89,7 +94,7 @@ class WebController extends Controller
             ->latest()
             ->paginate(50);
 
-        return Inertia::render("Web/ResearchJournal", [
+        return Inertia::render("Web/ResearchJournal/Layout", [
             "journals" => $journals
         ]);
     }
