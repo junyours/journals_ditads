@@ -1,14 +1,14 @@
-import WebHeader from "@/Components/web-header";
 import WebLayout from "@/Layouts/WebLayout";
 import React from "react";
 import AboutUsImage from "../../../../public/images/about-us.png";
 import Vision from "../../../../public/images/vision.jpg";
 import Mission from "../../../../public/images/mission.jpg";
+import WebBanner from "@/Components/web-banner";
 
 export default function AboutUs() {
     return (
         <div className="pt-[64px] min-h-screen">
-            <WebHeader title="About Us" image={AboutUsImage} />
+            <WebBanner title="About Us" image={AboutUsImage} />
             <div className="px-4 py-20 max-w-7xl mx-auto space-y-20">
                 <h1 className="text-center font-medium text-2xl break-words">
                     The Digital Institute Training and Development Services

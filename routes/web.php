@@ -34,8 +34,9 @@ Route::middleware(['auth', 'admin', 'verified'])->group(function () {
 });
 
 Route::get('/', [WebController::class, 'welcome'])->name('welcome');
-Route::get('/about-us', [WebController::class, 'aboutUs'])->name('about.us');
-Route::get('/research-journals', [WebController::class, 'researchJournal'])->name('research.journal');
+Route::get('/about-us', [WebController::class, 'aboutUs']);
+Route::get('/research-journals', [WebController::class, 'researchJournal']);
+Route::get('/contact-us', [WebController::class, 'contactUs']);
 
 require __DIR__ . '/auth.php';
 

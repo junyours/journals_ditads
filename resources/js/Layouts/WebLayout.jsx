@@ -1,12 +1,12 @@
-import Header from "@/Components/web/header";
-import Footer from "@/Components/web/footer";
+import WebFooter from "@/Components/web-footer";
+import WebHeader from "@/Components/web-header";
 
 const WebLayout = ({ children }) => {
     return (
         <>
-            <Header />
+            <WebHeader />
             <main className="container mx-auto min-h-screen">{children}</main>
-            <Footer />
+            <WebFooter />
         </>
     );
 };

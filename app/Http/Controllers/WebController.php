@@ -98,4 +98,9 @@ class WebController extends Controller
             "journals" => $journals
         ]);
     }
+
+    public function contactUs()
+    {
+        return Inertia::render("Web/ContactUs");
+    }
 }

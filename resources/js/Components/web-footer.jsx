@@ -1,7 +1,7 @@
 import { Link } from "@inertiajs/react";
-import AppLogo from "../app-logo";
+import AppLogo from "./app-logo";
 
-export default function Footer() {
+export default function WebFooter() {
     return (
         <footer className="bg-background border-t">
             <div className="container mx-auto px-4 py-8">
@@ -24,18 +24,22 @@ export default function Footer() {
                             <ul className="font-medium">
                                 <li className="mb-4">
                                     <a
-                                        href="#"
+                                        href={`mailto:${
+                                            import.meta.env.VITE_APP_EMAIL
+                                        }`}
                                         className="hover:underline break-words"
                                     >
-                                        example@gmail.com
+                                        {import.meta.env.VITE_APP_EMAIL}
                                     </a>
                                 </li>
                                 <li>
                                     <a
-                                        href="#"
+                                        href={`tel:${
+                                            import.meta.env.VITE_APP_PHONE
+                                        }`}
                                         className="hover:underline break-words"
                                     >
-                                        09123456789
+                                        {import.meta.env.VITE_APP_PHONE}
                                     </a>
                                 </li>
                             </ul>
@@ -47,7 +51,7 @@ export default function Footer() {
                             <ul className="font-medium">
                                 <li className="mb-4">
                                     <a
-                                        href="#"
+                                        href={import.meta.env.VITE_APP_FACEBOOK}
                                         target="_blank"
                                         className="hover:underline break-words"
                                     >
