@@ -9,7 +9,7 @@ export default function AboutUs() {
     return (
         <div className="pt-[64px] min-h-screen">
             <WebBanner title="About Us" image={AboutUsImage} />
-            <div className="px-4 py-20 max-w-7xl mx-auto space-y-20">
+            <div className="px-4 py-10 max-w-7xl mx-auto space-y-10">
                 <h1 className="text-center font-medium text-2xl break-words">
                     The Digital Institute Training and Development Services
                     (DITADS) offers the following services: Research Consultant,
@@ -19,7 +19,7 @@ export default function AboutUs() {
                     necessary skills while promoting fulfillment in their
                     undertakings.
                 </h1>
-                <div className="space-y-10">
+                <div className="space-y-5">
                     <h1 className="font-semibold text-4xl text-primary">
                         History
                     </h1>
@@ -52,7 +52,7 @@ export default function AboutUs() {
                         boost the business’s competitive advantage.”
                     </p>
                 </div>
-                <div className="space-y-10">
+                <div className="space-y-5">
                     <h1 className="font-semibold text-4xl text-primary">
                         Business Profile
                     </h1>
@@ -80,7 +80,7 @@ export default function AboutUs() {
                             <h1 className="font-semibold text-4xl text-primary">
                                 Vision
                             </h1>
-                            <p>
+                            <p className="text-justify">
                                 To be the leading research institute in Mindanao
                                 by 2025.” To create dependable management,
                                 marketing, finance, accounting, hospitality
@@ -96,7 +96,7 @@ export default function AboutUs() {
                             <h1 className="font-semibold text-4xl text-primary">
                                 Mission
                             </h1>
-                            <p>
+                            <p className="text-justify">
                                 To provide customized training services in the
                                 fields of Management, Marketing, Finance,
                                 Accounting, Real Estate, Environmental Planning,

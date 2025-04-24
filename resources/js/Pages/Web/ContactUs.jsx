@@ -7,12 +7,12 @@ export default function ContactUs() {
     return (
         <div className="pt-[64px] min-h-screen">
             <WebBanner image={ContactUsImage} title="Contact Us" />
-            <div className="px-4 py-20 max-w-7xl mx-auto space-y-20">
+            <div className="px-4 py-10 max-w-7xl mx-auto space-y-10">
                 <h1 className="text-center font-medium text-2xl break-words">
                     METRO SQUARE R118 ZONE 2, IPONAN, CDO CITY
                 </h1>
             </div>
-            <div className="grid grid-cols-2 place-items-center">
+            <div className="grid sm:grid-cols-2 gap-10 place-items-center">
                 <div className="flex flex-col items-center gap-1">
                     <Phone size={40} />
                     <span className="font-medium text-lg">

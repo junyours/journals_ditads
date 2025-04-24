@@ -40,7 +40,7 @@ export default function Layout() {
     return (
         <div className="pt-[64px] min-h-screen">
             <WebBanner title="Research Journals" image={ResearchJournalImage} />
-            <div className="px-4 py-20">
+            <div className="px-4 py-10">
                 {contents.map((content, index) => (
                     <Accordion key={index} type="single" collapsible>
                         <AccordionItem value={`item-${index}`}>

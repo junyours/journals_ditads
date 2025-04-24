@@ -71,23 +71,39 @@ export default function NavMenu({ open, onOpenChange }) {
                                                     key={submenu.title}
                                                     className="p-0 flex flex-col"
                                                 >
-                                                    <Button
-                                                        variant="ghost"
-                                                        className="mx-4 justify-start"
-                                                    >
-                                                        {submenu.title}
-                                                    </Button>
+                                                    <Link href={submenu.url}>
+                                                        <Button
+                                                            onClick={() => {
+                                                                if (isMobile) {
+                                                                    onOpenChange(
+                                                                        false
+                                                                    );
+                                                                }
+                                                            }}
+                                                            variant="ghost"
+                                                            className="mx-4 justify-start w-full"
+                                                        >
+                                                            {submenu.title}
+                                                        </Button>
+                                                    </Link>
                                                 </AccordionContent>
                                             ))}
                                         </AccordionItem>
                                     ) : (
-                                        <Button
-                                            key={menu.title}
-                                            variant="ghost"
-                                            className="justify-start"
-                                        >
-                                            {menu.title}
-                                        </Button>
+                                        <Link href={menu.url}>
+                                            <Button
+                                                onClick={() => {
+                                                    if (isMobile) {
+                                                        onOpenChange(false);
+                                                    }
+                                                }}
+                                                key={menu.title}
+                                                variant="ghost"
+                                                className="justify-start w-full"
+                                            >
+                                                {menu.title}
+                                            </Button>
+                                        </Link>
                                     )
                                 )}
                                 <div className="mt-2">
@@ -96,7 +112,14 @@ export default function NavMenu({ open, onOpenChange }) {
                                             <Link
                                                 href={`/${user.role}/dashboard`}
                                             >
-                                                <Button className="w-full">
+                                                <Button
+                                                    onClick={() => {
+                                                        if (isMobile) {
+                                                            onOpenChange(false);
+                                                        }
+                                                    }}
+                                                    className="w-full"
+                                                >
                                                     Dashboard
                                                 </Button>
                                             </Link>
@@ -105,6 +128,11 @@ export default function NavMenu({ open, onOpenChange }) {
                                         <div className="grid grid-cols-2 gap-4">
                                             <Link href={route("login")}>
                                                 <Button
+                                                    onClick={() => {
+                                                        if (isMobile) {
+                                                            onOpenChange(false);
+                                                        }
+                                                    }}
                                                     variant="outline"
                                                     className="w-full"
                                                 >
@@ -112,7 +140,14 @@ export default function NavMenu({ open, onOpenChange }) {
                                                 </Button>
                                             </Link>
                                             <Link href={route("register")}>
-                                                <Button className="w-full">
+                                                <Button
+                                                    onClick={() => {
+                                                        if (isMobile) {
+                                                            onOpenChange(false);
+                                                        }
+                                                    }}
+                                                    className="w-full"
+                                                >
                                                     Get started
                                                 </Button>
                                             </Link>

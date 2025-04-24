@@ -3,7 +3,7 @@ import AppLogo from "./app-logo";
 
 export default function WebFooter() {
     return (
-        <footer className="bg-background border-t">
+        <footer className="border-t bg-primary">
             <div className="container mx-auto px-4 py-8">
                 <div className="md:flex md:justify-between">
                     <div className="mb-6 md:mb-0">
