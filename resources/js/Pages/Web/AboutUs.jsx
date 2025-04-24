@@ -10,7 +10,7 @@ export default function AboutUs() {
         <div className="pt-[64px] min-h-screen">
             <WebHeader title="About Us" image={AboutUsImage} />
             <div className="px-4 py-20 max-w-7xl mx-auto space-y-20">
-                <h1 className="text-center font-medium text-2xl">
+                <h1 className="text-center font-medium text-2xl break-words">
                     The Digital Institute Training and Development Services
                     (DITADS) offers the following services: Research Consultant,
                     Statistics and Data Analyst, Feasibility Studies Consultant,
