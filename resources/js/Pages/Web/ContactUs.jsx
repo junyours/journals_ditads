@@ -1,13 +1,11 @@
-import WebBanner from "@/Components/web-banner";
 import ContactUsImage from "../../../../public/images/contact-us.png";
 import WebLayout from "@/Layouts/WebLayout";
 import { Mail, Phone } from "lucide-react";
 
 export default function ContactUs() {
     return (
-        <div className="pt-[64px] min-h-screen">
-            <WebBanner image={ContactUsImage} title="Contact Us" />
-            <div className="px-4 py-10 max-w-7xl mx-auto space-y-10">
+        <div>
+            <div className="px-4 py-10 container mx-auto space-y-10">
                 <h1 className="text-center font-medium text-2xl break-words">
                     METRO SQUARE R118 ZONE 2, IPONAN, CDO CITY
                 </h1>
@@ -41,4 +39,6 @@ export default function ContactUs() {
     );
 }
 
-ContactUs.layout = (page) => <WebLayout children={page} />;
+ContactUs.layout = (page) => (
+    <WebLayout children={page} image={ContactUsImage} title="Contact Us" />
+);

@@ -99,6 +99,11 @@ class WebController extends Controller
         ]);
     }
 
+    public function bookPublication()
+    {
+        return Inertia::render("Web/BookPublication");
+    }
+
     public function contactUs()
     {
         return Inertia::render("Web/ContactUs");

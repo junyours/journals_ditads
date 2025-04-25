@@ -25,18 +25,14 @@ const menus = [
         collapse: false,
     },
     {
-        title: "Services",
-        collapse: true,
-        submenus: [
-            {
-                title: "Research Journals",
-                url: "/research-journals",
-            },
-            {
-                title: "Book Publications",
-                url: "/",
-            },
-        ],
+        title: "Research Journal",
+        url: "/research-journals",
+        collapse: false,
+    },
+    {
+        title: "Book Publication",
+        url: "/book-publications",
+        collapse: false,
     },
     {
         title: "Contact Us",

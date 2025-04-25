@@ -9,8 +9,7 @@ import SubmissionGuideline from "./SubmissionGuideline";
 import ReviewProcess from "./ReviewProcess";
 import ResearchJournal from "./ResearchJournal";
 import WebLayout from "@/Layouts/WebLayout";
-import ResearchJournalImage from "../../../../../public/images/research-journal.png";
-import WebBanner from "@/Components/web-banner";
+import ResearchJournalImage from "../../../../../public/images/research-journal.jpg";
 import EditorialBoard from "./EditorialBoard";
 
 const contents = [
@@ -38,22 +37,25 @@ const contents = [
 
 export default function Layout() {
     return (
-        <div className="pt-[64px] min-h-screen">
-            <WebBanner title="Research Journals" image={ResearchJournalImage} />
-            <div className="px-4 py-10">
-                {contents.map((content, index) => (
-                    <Accordion key={index} type="single" collapsible>
-                        <AccordionItem value={`item-${index}`}>
-                            <AccordionTrigger>{content.title}</AccordionTrigger>
-                            <AccordionContent className="p-4">
-                                <content.page />
-                            </AccordionContent>
-                        </AccordionItem>
-                    </Accordion>
-                ))}
-            </div>
+        <div className="px-4 py-10">
+            {contents.map((content, index) => (
+                <Accordion key={index} type="single" collapsible>
+                    <AccordionItem value={`item-${index}`}>
+                        <AccordionTrigger>{content.title}</AccordionTrigger>
+                        <AccordionContent className="p-4">
+                            <content.page />
+                        </AccordionContent>
+                    </AccordionItem>
+                </Accordion>
+            ))}
         </div>
     );
 }
 
-Layout.layout = (page) => <WebLayout children={page} />;
+Layout.layout = (page) => (
+    <WebLayout
+        children={page}
+        title="DIT.ADS International Multidisciplinary Research Journal"
+        image={ResearchJournalImage}
+    />
+);
