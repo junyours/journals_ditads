@@ -11,7 +11,7 @@ export default function WebFooter() {
                             <div className="size-16 me-3">
                                 <AppLogo />
                             </div>
-                            <span className="self-center text-2xl font-bold whitespace-nowrap">
+                            <span className="self-center text-2xl font-semibold whitespace-nowrap">
                                 {import.meta.env.VITE_APP_NAME}
                             </span>
                         </Link>

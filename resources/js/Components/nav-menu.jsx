@@ -17,6 +17,7 @@ import {
     AccordionTrigger,
 } from "@/Components/ui/accordion";
 import { Button } from "./ui/button";
+import AppLogo from "./app-logo";
 
 const menus = [
     {
@@ -25,9 +26,22 @@ const menus = [
         collapse: false,
     },
     {
-        title: "Research Journal",
-        url: "/research-journals",
-        collapse: false,
+        title: "Services",
+        collapse: true,
+        submenus: [
+            {
+                title: "Research Journal",
+                description:
+                    "Lorem ipsum dolor sit amet consectetur adipisicing elit. Recusandae delectus, vitae dolorum, reprehenderit tempora illo debitis, optio eaque sequi officia quaerat sit. Tenetur tempora incidunt hic assumenda ratione officia ut?",
+                url: "/research-journals",
+            },
+            {
+                title: "Magazine",
+                description:
+                    "Lorem ipsum dolor sit amet consectetur adipisicing elit. Recusandae delectus, vitae dolorum, reprehenderit tempora illo debitis, optio eaque sequi officia quaerat sit. Tenetur tempora incidunt hic assumenda ratione officia ut?",
+                url: "/",
+            },
+        ],
     },
     {
         title: "Book Publication",
@@ -164,16 +178,40 @@ export default function NavMenu({ open, onOpenChange }) {
                                         {menu.title}
                                     </NavigationMenuTrigger>
                                     <NavigationMenuContent>
-                                        <ul className="grid w-[500px] p-4 grid-cols-2">
+                                        <ul className="grid gap-3 p-4 w-[500px] grid-cols-[.75fr_1fr] items-center">
+                                            <li className="row-span-2">
+                                                <NavigationMenuLink asChild>
+                                                    <Link
+                                                        href="/"
+                                                        className="flex h-full w-full select-none flex-col justify-end rounded-md bg-gradient-to-b from-muted/50 to-muted p-6 no-underline outline-none "
+                                                    >
+                                                        <AppLogo />
+                                                    </Link>
+                                                </NavigationMenuLink>
+                                            </li>
                                             {menu.submenus?.map((submenu) => (
                                                 <li key={submenu.title}>
                                                     <NavigationMenuLink asChild>
                                                         <Link
                                                             href={submenu.url}
-                                                            className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
+                                                            className="block select-none rounded-md p-3 transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
                                                         >
-                                                            <div className="text-sm font-medium leading-none">
-                                                                {submenu.title}
+                                                            <div className="flex items-center gap-2">
+                                                                <div className="size-10 shrink-0">
+                                                                    <AppLogo />
+                                                                </div>
+                                                                <div className="space-y-1">
+                                                                    <div className="text-sm font-medium leading-none">
+                                                                        {
+                                                                            submenu.title
+                                                                        }
+                                                                    </div>
+                                                                    <p className="line-clamp-2 text-xs leading-snug text-muted-foreground">
+                                                                        {
+                                                                            submenu.description
+                                                                        }
+                                                                    </p>
+                                                                </div>
                                                             </div>
                                                         </Link>
                                                     </NavigationMenuLink>

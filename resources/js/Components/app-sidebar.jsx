@@ -15,13 +15,11 @@ import { NavClient } from "./nav-client"
 import NavEditor from "./nav-editor"
 import AppLogo from "./app-logo"
 
-export function AppSidebar({
-  ...props
-}) {
+export function AppSidebar() {
   const user = usePage().props.auth.user;
 
   return (
-    (<Sidebar variant="floating" collapsible="icon" {...props}>
+    (<Sidebar variant="floating" collapsible="icon">
       <SidebarHeader>
         <SidebarMenu>
           <SidebarMenuItem>
@@ -34,7 +32,7 @@ export function AppSidebar({
                 </div>
                 <div className="grid flex-1 text-left text-sm leading-tight">
                   <span className="truncate font-semibold">
-                    DITADS
+                    {import.meta.env.VITE_APP_NAME}
                   </span>
                 </div>
               </SidebarMenuButton>

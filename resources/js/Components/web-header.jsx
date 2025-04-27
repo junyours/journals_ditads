@@ -10,14 +10,14 @@ export default function WebHeader() {
     const user = usePage().props.auth.user;
 
     return (
-        <header className="fixed bg-background w-full border-b">
+        <header className="border-b">
             <div className="h-16 container mx-auto grid grid-cols-3 items-center px-4">
                 <div className="flex justify-start">
                     <Link href="/" className="flex items-center gap-2">
-                        <div className="size-10">
+                        <div className="size-12">
                             <AppLogo />
                         </div>
-                        <span className="font-bold text-lg">
+                        <span className="font-semibold text-base">
                             {import.meta.env.VITE_APP_NAME}
                         </span>
                     </Link>

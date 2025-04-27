@@ -12,6 +12,8 @@ import WebLayout from "@/Layouts/WebLayout";
 import ResearchJournalImage from "../../../../../public/images/research-journal.jpg";
 import EditorialBoard from "./EditorialBoard";
 
+const images = [ResearchJournalImage];
+
 const contents = [
     {
         title: "Aims and Scope",
@@ -52,10 +54,4 @@ export default function Layout() {
     );
 }
 
-Layout.layout = (page) => (
-    <WebLayout
-        children={page}
-        title="DIT.ADS International Multidisciplinary Research Journal"
-        image={ResearchJournalImage}
-    />
-);
+Layout.layout = (page) => <WebLayout children={page} images={images} />;

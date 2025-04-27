@@ -2,6 +2,8 @@ import ContactUsImage from "../../../../public/images/contact-us.png";
 import WebLayout from "@/Layouts/WebLayout";
 import { Mail, Phone } from "lucide-react";
 
+const images = [ContactUsImage];
+
 export default function ContactUs() {
     return (
         <div>
@@ -39,6 +41,4 @@ export default function ContactUs() {
     );
 }
 
-ContactUs.layout = (page) => (
-    <WebLayout children={page} image={ContactUsImage} title="Contact Us" />
-);
+ContactUs.layout = (page) => <WebLayout children={page} images={images} />;

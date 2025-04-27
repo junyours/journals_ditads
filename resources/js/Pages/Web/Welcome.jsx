@@ -1,6 +1,8 @@
 import WebLayout from "@/Layouts/WebLayout";
 import MainBanner from "../../../../public/images/main-banner.png";
 
+const images = [MainBanner];
+
 const Welcome = () => {
     return (
         <div className="px-4 py-10 flex flex-col items-center gap-6 justify-center">
@@ -26,8 +28,6 @@ const Welcome = () => {
     );
 };
 
-Welcome.layout = (page) => (
-    <WebLayout children={page} image={MainBanner} isOpacity={true} />
-);
+Welcome.layout = (page) => <WebLayout children={page} images={images} />;
 
 export default Welcome;

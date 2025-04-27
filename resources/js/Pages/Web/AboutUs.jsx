@@ -4,6 +4,8 @@ import AboutUsImage from "../../../../public/images/about-us.png";
 import Vision from "../../../../public/images/vision.jpg";
 import Mission from "../../../../public/images/mission.jpg";
 
+const images = [AboutUsImage];
+
 export default function AboutUs() {
     return (
         <div className="px-4 py-10 max-w-7xl mx-auto space-y-10">
@@ -112,6 +114,4 @@ export default function AboutUs() {
     );
 }
 
-AboutUs.layout = (page) => (
-    <WebLayout children={page} title="About Us" image={AboutUsImage} />
-);
+AboutUs.layout = (page) => <WebLayout children={page} images={images} />;

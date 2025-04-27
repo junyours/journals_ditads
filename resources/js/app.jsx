@@ -25,7 +25,7 @@ createInertiaApp({
                 <SecurityProvider>
                     <App {...props} />
                 </SecurityProvider>
-                <Toaster />
+                <Toaster position="top-right" />
             </ThemeProvider>
         );
     },

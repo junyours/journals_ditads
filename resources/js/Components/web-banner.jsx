@@ -1,26 +1,36 @@
-export default function WebBanner({
-    image,
-    title = "",
-    className = "",
-    isOpacity = false,
-}) {
-    return (
-        <div
-            className={`w-full h-52 sm:h-96 -z-10 relative flex items-center justify-center ${className}`}
+import {
+    Carousel,
+    CarouselContent,
+    CarouselItem,
+} from "@/components/ui/carousel";
+import Autoplay from "embla-carousel-autoplay";
+
+export default function WebBanner({ images }) {
+    return images.length > 1 ? (
+        <Carousel
+            opts={{
+                loop: true,
+            }}
+            plugins={[
+                Autoplay({
+                    delay: 5000,
+                    stopOnInteraction: false,
+                }),
+            ]}
         >
-            <div
-                className={`absolute bg-black opacity-50 inset-0 ${
-                    isOpacity ? "hidden" : ""
-                }`}
-            ></div>
-            <img
-                src={image}
-                alt={title}
-                className="object-cover h-full w-full"
-            />
-            <h1 className="mx-4 absolute text-white font-semibold text-xl text-center sm:text-4xl">
-                {title}
-            </h1>
-        </div>
+            <CarouselContent>
+                {images.map((image, index) => (
+                    <CarouselItem key={index} className="p-0">
+                        <img
+                            src={image}
+                            alt={`image-${index}`}
+                            className="w-full object-contain"
+                        />
+                    </CarouselItem>
+                ))}
+            </CarouselContent>
+        </Carousel>
+    ) : (
+        <img src={images[0]} alt="image-0" className="w-full object-contain" />
     );
 }

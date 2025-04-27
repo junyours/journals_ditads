@@ -78,9 +78,16 @@ class AdminController extends Controller
             'email' => ['required', 'email', 'unique:users'],
             'last_name' => ['required'],
             'first_name' => ['required'],
+            'position' => ['required'],
         ]);
 
         $password = Str::random(8);
+
+        $file = $request->file('avatar');
+
+        $filename = Str::uuid() . '.' . $file->getClientOriginalExtension();
+
+        $file->storeAs('users/avatar', $filename, 'public');
 
         Mail::to($request->email)->send(new PasswordMail($password, $request->first_name . ' ' . $request->last_name));
 
@@ -94,6 +101,8 @@ class AdminController extends Controller
             'password' => Hash::make($password),
             'is_default' => 1,
             'role' => 'editor',
+            'position' => $request->position,
+            'avatar' => $filename
         ]);
     }
 
