@@ -13,6 +13,10 @@ class ResearchJournal extends Model
         'assign_editor_id',
         'title',
         'author',
+        'abstract',
+        'keyword',
+        'volume',
+        'issue'
     ];
 
     public function assign_editor(): BelongsTo

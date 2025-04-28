@@ -9,35 +9,45 @@ import SubmissionGuideline from "./SubmissionGuideline";
 import ReviewProcess from "./ReviewProcess";
 import ResearchJournal from "./ResearchJournal";
 import WebLayout from "@/Layouts/WebLayout";
-import ResearchJournalImage from "../../../../../public/images/research-journal.jpg";
+import ResearchJournalBanner from "../../../../../public/images/journal-banner.png";
 import EditorialBoard from "./EditorialBoard";
+import { usePage } from "@inertiajs/react";
+import AboutJournal from "./AboutJournal";
 
-const images = [ResearchJournalImage];
-
-const contents = [
-    {
-        title: "Aims and Scope",
-        page: AimScope,
-    },
-    {
-        title: "Submission Guidelines",
-        page: SubmissionGuideline,
-    },
-    {
-        title: "Review Process",
-        page: ReviewProcess,
-    },
-    {
-        title: "Editorial Board",
-        page: EditorialBoard,
-    },
-    {
-        title: "Research Journals",
-        page: ResearchJournal,
-    },
-];
+const images = [ResearchJournalBanner];
 
 export default function Layout() {
+    const { journals, editors } = usePage().props;
+
+    const contents = [
+        {
+            title: "About the Journal",
+            page: AboutJournal,
+        },
+        {
+            title: "Aims and Scope",
+            page: AimScope,
+        },
+        {
+            title: "Submission Guidelines",
+            page: SubmissionGuideline,
+        },
+        {
+            title: "Review Process",
+            page: ReviewProcess,
+        },
+        {
+            title: "Editorial Board",
+            page: EditorialBoard,
+            props: { editors },
+        },
+        {
+            title: "Research Journals",
+            page: ResearchJournal,
+            props: { journals },
+        },
+    ];
+
     return (
         <div className="px-4 py-10">
             {contents.map((content, index) => (
@@ -45,7 +55,7 @@ export default function Layout() {
                     <AccordionItem value={`item-${index}`}>
                         <AccordionTrigger>{content.title}</AccordionTrigger>
                         <AccordionContent className="p-4">
-                            <content.page />
+                            <content.page {...(content.props || {})} />
                         </AccordionContent>
                     </AccordionItem>
                 </Accordion>

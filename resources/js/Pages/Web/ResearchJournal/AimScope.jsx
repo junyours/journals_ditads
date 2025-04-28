@@ -1,30 +1,22 @@
-import AppLogo from "@/Components/app-logo";
-import React from "react";
-
 export default function AimScope() {
     return (
-        <div className="space-y-8">
-            <div>
-                <p className="text-justify">
-                    Zas DIGITAL INSTITUTE TRAINING AND DEVELOPMENT SERVICES
-                    (DIT.ADS) provides Management, Marketing, Finance,
-                    Accounting, Real Estate, Environmental Planning, Production
-                    Planning, Data Analysis, Data Interpretation, Academic and
-                    Business Research, Hospitality consultancy, and Training
-                    services. It also offers customized training sessions to
-                    students, managers, and company owners.
-                </p>
-                <br />
-                <p className="text-justify">
-                    Zas DITADS aims to provide a platform and serve as a medium
-                    for educators and industry practitioners to share their
-                    research findings and take part in the global initiative of
-                    promoting a research-driven culture.
-                </p>
-            </div>
-            <div className="flex justify-center">
-                <AppLogo />
-            </div>
+        <div>
+            <p className="text-justify">
+                The International Multidisciplinary Research Journal (
+                {import.meta.env.VITE_APP_NAME}) aims to advance knowledge by
+                providing an open-access platform for the publication of
+                high-quality, peer-reviewed research across a wide range of
+                disciplines. The journal welcomes original research articles,
+                reviews, and case studies in fields such as science, technology,
+                engineering, applied sciences, social sciences, humanities,
+                health and medical sciences, business, economics, management,
+                education, psychology, and environmental and agricultural
+                sciences. {import.meta.env.VITE_APP_NAME} encourages
+                interdisciplinary research that bridges diverse academic areas
+                and is committed to promoting innovation, maintaining rigorous
+                ethical and peer-review standards, and disseminating scientific
+                discoveries to a global audience.
+            </p>
         </div>
     );
 }

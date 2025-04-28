@@ -16,8 +16,7 @@ import {
     PaginationPrevious,
 } from "@/Components/ui/pagination";
 
-const ResearchJournal = () => {
-    const { journals } = usePage().props;
+const ResearchJournal = ({ journals }) => {
     const [search, setSearch] = useState("");
 
     const searchTimeoutRef = useRef(null);

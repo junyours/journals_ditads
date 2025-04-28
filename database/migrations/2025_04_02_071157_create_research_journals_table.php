@@ -16,6 +16,10 @@ return new class extends Migration
             $table->foreignId('assign_editor_id')->constrained('assign_editors');
             $table->string('title');
             $table->string('author');
+            $table->string('abstract');
+            $table->string('keyword');
+            $table->string('volume');
+            $table->string('issue');
             $table->timestamps();
         });
     }

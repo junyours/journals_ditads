@@ -18,6 +18,8 @@ import {
 } from "@/Components/ui/accordion";
 import { Button } from "./ui/button";
 import AppLogo from "./app-logo";
+import JournalLogo from "./journal-logo";
+import MagazineLogo from "./magazine-logo";
 
 const menus = [
     {
@@ -32,15 +34,17 @@ const menus = [
             {
                 title: "Research Journal",
                 description:
-                    "Lorem ipsum dolor sit amet consectetur adipisicing elit. Recusandae delectus, vitae dolorum, reprehenderit tempora illo debitis, optio eaque sequi officia quaerat sit. Tenetur tempora incidunt hic assumenda ratione officia ut?",
+                    "International Multidisciplinary Research Journal is a peer-reviewed, open-access journal with a broad, multidisciplinary scope. It is dedicated to publishing recent advances across diverse fields, focusing on the structural and functional principles of scientific research. The journal aims to provide an inclusive forum for researchers from all disciplines to share their findings and contribute to the advancement of knowledge across a wide range of subjects.",
                 url: "/research-journals",
+                logo: JournalLogo,
             },
-            {
-                title: "Magazine",
-                description:
-                    "Lorem ipsum dolor sit amet consectetur adipisicing elit. Recusandae delectus, vitae dolorum, reprehenderit tempora illo debitis, optio eaque sequi officia quaerat sit. Tenetur tempora incidunt hic assumenda ratione officia ut?",
-                url: "/",
-            },
+            // {
+            //     title: "Magazine",
+            //     description:
+            //         "Lorem ipsum dolor sit amet consectetur adipisicing elit. Recusandae delectus, vitae dolorum, reprehenderit tempora illo debitis, optio eaque sequi officia quaerat sit. Tenetur tempora incidunt hic assumenda ratione officia ut?",
+            //     url: "/",
+            //     logo: MagazineLogo,
+            // },
         ],
     },
     {
@@ -197,8 +201,8 @@ export default function NavMenu({ open, onOpenChange }) {
                                                             className="block select-none rounded-md p-3 transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
                                                         >
                                                             <div className="flex items-center gap-2">
-                                                                <div className="size-10 shrink-0">
-                                                                    <AppLogo />
+                                                                <div className="size-12 shrink-0">
+                                                                    <submenu.logo />
                                                                 </div>
                                                                 <div className="space-y-1">
                                                                     <div className="text-sm font-medium leading-none">

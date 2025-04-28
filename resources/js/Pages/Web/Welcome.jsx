@@ -1,7 +1,8 @@
 import WebLayout from "@/Layouts/WebLayout";
 import MainBanner from "../../../../public/images/main-banner.png";
+import JournalBanner from "../../../../public/images/journal-banner.png";
 
-const images = [MainBanner];
+const images = [MainBanner, JournalBanner];
 
 const Welcome = () => {
     return (

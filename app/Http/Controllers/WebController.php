@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Journal\AssignEditor;
 use App\Models\Journal\ResearchJournal;
+use App\Models\User;
 use DB;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -94,8 +95,13 @@ class WebController extends Controller
             ->latest()
             ->paginate(50);
 
+        $editors = User::select('name', 'position', 'email', 'school', 'avatar')
+            ->where('role', 'editor')
+            ->get();
+
         return Inertia::render("Web/ResearchJournal/Layout", [
-            "journals" => $journals
+            "journals" => $journals,
+            "editors" => $editors
         ]);
     }
 
