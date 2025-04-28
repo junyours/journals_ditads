@@ -55,12 +55,11 @@ class AdminController extends Controller
     {
         $search = $request->input('search');
 
-        $editors = User::select('id', 'first_name', 'last_name', 'email', 'status')
+        $editors = User::select('id', 'name', 'position', 'email', 'status')
             ->where('role', 'editor')
             ->when($search, function ($query) use ($search) {
                 $query->where(function ($q) use ($search) {
-                    $q->where('last_name', 'like', '%' . $search . '%')
-                        ->orWhere('first_name', 'like', '%' . $search . '%')
+                    $q->where('name', 'like', '%' . $search . '%')
                         ->orWhere('email', 'like', '%' . $search . '%')
                         ->orWhere('status', 'like', '%' . $search . '%');
                 });
@@ -76,8 +75,7 @@ class AdminController extends Controller
     {
         $request->validate([
             'email' => ['required', 'email', 'unique:users'],
-            'last_name' => ['required'],
-            'first_name' => ['required'],
+            'name' => ['required'],
             'position' => ['required'],
         ]);
 
@@ -89,20 +87,18 @@ class AdminController extends Controller
 
         $file->storeAs('users/avatar', $filename, 'public');
 
-        Mail::to($request->email)->send(new PasswordMail($password, $request->first_name . ' ' . $request->last_name));
+        // Mail::to($request->email)->send(new PasswordMail($password, $request->first_name . ' ' . $request->last_name));
 
         User::create([
-            'last_name' => $request->last_name,
-            'first_name' => $request->first_name,
-            'middle_name' => $request->middle_name,
-            'gender' => $request->gender,
+            'name' => $request->name,
             'email' => $request->email,
             'email_verified_at' => now(),
             'password' => Hash::make($password),
             'is_default' => 1,
             'role' => 'editor',
             'position' => $request->position,
-            'avatar' => $filename
+            'avatar' => $filename,
+            'school' => $request->school
         ]);
     }
 

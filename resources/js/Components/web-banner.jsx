@@ -2,7 +2,7 @@ import {
     Carousel,
     CarouselContent,
     CarouselItem,
-} from "@/components/ui/carousel";
+} from "@/Components/ui/carousel";
 import Autoplay from "embla-carousel-autoplay";
 
 export default function WebBanner({ images }) {

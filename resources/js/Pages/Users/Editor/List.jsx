@@ -44,20 +44,20 @@ import {
     SheetFooter,
     SheetHeader,
     SheetTitle,
-} from "@/components/ui/sheet";
+} from "@/Components/ui/sheet";
+
+const positions = ["Editor in chief", "Associate editor", "Editorial board"];
 
 const List = () => {
     const [open, setOpen] = useState(false);
     const { data, setData, post, processing, errors, reset, clearErrors } =
         useForm({
             id: null,
-            last_name: "",
-            first_name: "",
-            middle_name: "",
-            gender: "",
+            name: "",
             email: "",
             avatar: null,
             position: "",
+            school: "",
         });
     const { editors } = usePage().props;
     const [search, setSearch] = useState("");
@@ -67,7 +67,7 @@ const List = () => {
         setOpen(!open);
         reset();
         clearErrors();
-        setPreviewAvatar(null)
+        setPreviewAvatar(null);
     };
 
     const handleAdd = () => {
@@ -132,8 +132,8 @@ const List = () => {
                     <TableHeader>
                         <TableRow>
                             <TableHead>#</TableHead>
-                            <TableHead>Last Name</TableHead>
-                            <TableHead>First Name</TableHead>
+                            <TableHead>Name</TableHead>
+                            <TableHead>Position</TableHead>
                             <TableHead>Email Address</TableHead>
                             <TableHead>Status</TableHead>
                             <TableHead>Action</TableHead>
@@ -146,8 +146,8 @@ const List = () => {
                                     <TableCell className="font-medium">
                                         {index + 1}
                                     </TableCell>
-                                    <TableCell>{editor.last_name}</TableCell>
-                                    <TableCell>{editor.first_name}</TableCell>
+                                    <TableCell>{editor.name}</TableCell>
+                                    <TableCell>{editor.position}</TableCell>
                                     <TableCell>{editor.email}</TableCell>
                                     <TableCell>
                                         <Badge
@@ -307,64 +307,49 @@ const List = () => {
                         </div>
                         <div className="space-y-1">
                             <Label>Position</Label>
-                            <Input
-                                value={data.position}
-                                onChange={(e) =>
-                                    setData("position", e.target.value)
-                                }
-                            />
-                            <InputError message={errors.last_name} />
-                        </div>
-                        <div className="space-y-1">
-                            <Label>Last Name</Label>
-                            <Input
-                                value={data.last_name}
-                                onChange={(e) =>
-                                    setData("last_name", e.target.value)
-                                }
-                            />
-                            <InputError message={errors.last_name} />
-                        </div>
-                        <div className="space-y-1">
-                            <Label>First Name</Label>
-                            <Input
-                                value={data.first_name}
-                                onChange={(e) =>
-                                    setData("first_name", e.target.value)
-                                }
-                            />
-                            <InputError message={errors.first_name} />
-                        </div>
-                        <div className="space-y-1">
-                            <Label>Middle Name</Label>
-                            <Input
-                                value={data.middle_name}
-                                onChange={(e) =>
-                                    setData("middle_name", e.target.value)
-                                }
-                                placeholder="Optional"
-                            />
-                        </div>
-                        <div className="space-y-1">
-                            <Label>Gender</Label>
                             <Select
-                                value={data.gender}
-                                onValueChange={(val) => setData("gender", val)}
+                                value={data.position}
+                                onValueChange={(val) =>
+                                    setData("position", val)
+                                }
                             >
                                 <SelectTrigger>
                                     <SelectValue placeholder="Select" />
                                 </SelectTrigger>
                                 <SelectContent>
                                     <SelectGroup>
-                                        <SelectItem value="male">
-                                            Male
-                                        </SelectItem>
-                                        <SelectItem value="female">
-                                            Female
-                                        </SelectItem>
+                                        {positions.map((position) => (
+                                            <SelectItem
+                                                key={position}
+                                                value={position}
+                                            >
+                                                {position}
+                                            </SelectItem>
+                                        ))}
                                     </SelectGroup>
                                 </SelectContent>
                             </Select>
+                            <InputError message={errors.position} />
+                        </div>
+                        <div className="space-y-1">
+                            <Label>Name</Label>
+                            <Input
+                                value={data.name}
+                                onChange={(e) =>
+                                    setData("name", e.target.value)
+                                }
+                            />
+                            <InputError message={errors.name} />
+                        </div>
+                        <div className="space-y-1">
+                            <Label>School</Label>
+                            <Input
+                                value={data.school}
+                                onChange={(e) =>
+                                    setData("school", e.target.value)
+                                }
+                            />
+                            <InputError message={errors.school} />
                         </div>
                         <div className="space-y-1">
                             <Label>Email Address</Label>
