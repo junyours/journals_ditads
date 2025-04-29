@@ -37,7 +37,7 @@ import {
     DropdownMenuLabel,
     DropdownMenuSeparator,
     DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
+} from "@/Components/ui/dropdown-menu";
 import { ColumnHeader } from "@/Components/table/column-header";
 import Avatar from "../../../../../public/images/user.png";
 
