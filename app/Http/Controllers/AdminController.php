@@ -53,18 +53,9 @@ class AdminController extends Controller
 
     public function getEditor(Request $request)
     {
-        $search = $request->input('search');
-
-        $editors = User::select('id', 'name', 'position', 'email', 'status')
+        $editors = User::select('id', 'name', 'position', 'email', 'avatar')
             ->where('role', 'editor')
-            ->when($search, function ($query) use ($search) {
-                $query->where(function ($q) use ($search) {
-                    $q->where('name', 'like', '%' . $search . '%')
-                        ->orWhere('email', 'like', '%' . $search . '%')
-                        ->orWhere('status', 'like', '%' . $search . '%');
-                });
-            })
-            ->paginate(10);
+            ->get();
 
         return Inertia::render("Users/Editor/List", [
             "editors" => $editors,
@@ -83,9 +74,11 @@ class AdminController extends Controller
 
         $file = $request->file('avatar');
 
-        $filename = Str::uuid() . '.' . $file->getClientOriginalExtension();
+        if ($file) {
+            $filename = Str::uuid() . '.' . $file->getClientOriginalExtension();
 
-        $file->storeAs('users/avatar', $filename, 'public');
+            $file->storeAs('users/avatar', $filename, 'public');
+        }
 
         // Mail::to($request->email)->send(new PasswordMail($password, $request->first_name . ' ' . $request->last_name));
 
@@ -97,26 +90,16 @@ class AdminController extends Controller
             'is_default' => 1,
             'role' => 'editor',
             'position' => $request->position,
-            'avatar' => $filename,
+            'avatar' => $filename ?? null,
             'school' => $request->school
         ]);
     }
 
     public function getClient(Request $request)
     {
-        $search = $request->input('search');
-
-        $clients = User::select('id', 'first_name', 'last_name', 'email', 'status')
+        $clients = User::select('id', 'name', 'email', 'avatar')
             ->where('role', 'client')
-            ->when($search, function ($query) use ($search) {
-                $query->where(function ($q) use ($search) {
-                    $q->where('last_name', 'like', '%' . $search . '%')
-                        ->orWhere('first_name', 'like', '%' . $search . '%')
-                        ->orWhere('email', 'like', '%' . $search . '%')
-                        ->orWhere('status', 'like', '%' . $search . '%');
-                });
-            })
-            ->paginate(10);
+            ->get();
 
         return Inertia::render("Users/Client/List", [
             "clients" => $clients,

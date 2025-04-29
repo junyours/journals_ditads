@@ -4,6 +4,7 @@ import {
     CardHeader,
     CardTitle,
 } from "@/Components/ui/card";
+import User from "../../../../../public/images/user.png";
 
 export default function EditorialBoard({ editors }) {
     return (
@@ -12,7 +13,11 @@ export default function EditorialBoard({ editors }) {
                 <Card key={index} className="shadow-none">
                     <div className="h-[250px] w-full">
                         <img
-                            src={`/storage/users/avatar/${editor.avatar}`}
+                            src={
+                                editor.avatar
+                                    ? `/storage/users/avatar/${editor.avatar}`
+                                    : User
+                            }
                             alt="avatar"
                             className="object-cover size-full rounded-t-lg"
                         />

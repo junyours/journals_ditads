@@ -1,7 +1,5 @@
-"use client";
-
 import { ChevronsUpDown, LogOut, Settings } from "lucide-react";
-import { Avatar, AvatarFallback } from "@/Components/ui/avatar";
+import { Avatar, AvatarFallback, AvatarImage } from "@/Components/ui/avatar";
 import {
     DropdownMenu,
     DropdownMenuContent,
@@ -18,6 +16,7 @@ import {
     useSidebar,
 } from "@/Components/ui/sidebar";
 import { router } from "@inertiajs/react";
+import User from "../../../public/images/user.png";
 
 export function NavUser({ user }) {
     const { isMobile } = useSidebar();
@@ -31,9 +30,17 @@ export function NavUser({ user }) {
                             size="lg"
                             className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
                         >
-                            <Avatar className="h-8 w-8 rounded-lg">
-                                <AvatarFallback className="rounded-lg">
-                                    {user.name.charAt(0)}
+                            <Avatar className="h-8 w-8">
+                                <AvatarImage
+                                    src={`/storage/users/avatar/${user.avatar}`}
+                                    alt={user.name}
+                                />
+                                <AvatarFallback>
+                                    <img
+                                        src={User}
+                                        alt="user"
+                                        className="object-contain"
+                                    />
                                 </AvatarFallback>
                             </Avatar>
                             <div className="grid flex-1 text-left text-sm leading-tight">
@@ -57,9 +64,17 @@ export function NavUser({ user }) {
                     >
                         <DropdownMenuLabel className="p-0 font-normal">
                             <div className="flex items-center gap-2 px-1 py-1.5 text-left text-sm">
-                                <Avatar className="h-8 w-8 rounded-lg">
-                                    <AvatarFallback className="rounded-lg">
-                                        {user.name.charAt(0)}
+                                <Avatar className="h-8 w-8">
+                                    <AvatarImage
+                                        src={`/storage/users/avatar/${user.avatar}`}
+                                        alt={user.name}
+                                    />
+                                    <AvatarFallback>
+                                        <img
+                                            src={User}
+                                            alt="user"
+                                            className="object-contain"
+                                        />
                                     </AvatarFallback>
                                 </Avatar>
                                 <div className="grid flex-1 text-left text-sm leading-tight">

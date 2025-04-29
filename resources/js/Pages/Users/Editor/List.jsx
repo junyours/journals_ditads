@@ -1,6 +1,6 @@
 import { Button } from "@/Components/ui/button";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
 import { Input } from "@/Components/ui/input";
 import { Label } from "@/Components/ui/label";
 import {
@@ -11,32 +11,16 @@ import {
     SelectTrigger,
     SelectValue,
 } from "@/Components/ui/select";
-import { router, useForm, usePage } from "@inertiajs/react";
+import { useForm, usePage } from "@inertiajs/react";
 import InputError from "@/Components/input-error";
 import { toast } from "sonner";
 import {
-    Table,
-    TableBody,
-    TableCell,
-    TableHead,
-    TableHeader,
-    TableRow,
-} from "@/Components/ui/table";
-import {
-    Pagination,
-    PaginationContent,
-    PaginationItem,
-    PaginationNext,
-    PaginationPrevious,
-} from "@/Components/ui/pagination";
-import { Badge } from "@/Components/ui/badge";
-import {
-    DropdownMenu,
-    DropdownMenuContent,
-    DropdownMenuItem,
-    DropdownMenuTrigger,
-} from "@/Components/ui/dropdown-menu";
-import { LoaderCircle, Plus, Settings2, User, UserCircle } from "lucide-react";
+    LoaderCircle,
+    User,
+    MoreHorizontal,
+    ArrowUpDown,
+    Plus,
+} from "lucide-react";
 import {
     Sheet,
     SheetContent,
@@ -45,8 +29,56 @@ import {
     SheetHeader,
     SheetTitle,
 } from "@/Components/ui/sheet";
+import { DataTable } from "@/Components/table/data-table";
+import {
+    DropdownMenu,
+    DropdownMenuContent,
+    DropdownMenuItem,
+    DropdownMenuLabel,
+    DropdownMenuSeparator,
+    DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { ColumnHeader } from "@/Components/table/column-header";
+import Avatar from "../../../../../public/images/user.png";
 
 const positions = ["Editor in chief", "Associate editor", "Editorial board"];
+
+export const columns = [
+    {
+        accessorKey: "avatar",
+        header: "",
+        cell: ({ row }) => {
+            const editor = row.original;
+            return (
+                <div className="size-8">
+                    <img
+                        src={
+                            editor.avatar
+                                ? `/storage/users/avatar/${editor.avatar}`
+                                : Avatar
+                        }
+                        alt="user"
+                        className="rounded-full object-cover"
+                    />
+                </div>
+            );
+        },
+    },
+    {
+        accessorKey: "name",
+        header: "Name",
+    },
+    {
+        accessorKey: "position",
+        header: ({ column }) => (
+            <ColumnHeader column={column} title="Position" />
+        ),
+    },
+    {
+        accessorKey: "email",
+        header: ({ column }) => <ColumnHeader column={column} title="Email" />,
+    },
+];
 
 const List = () => {
     const [open, setOpen] = useState(false);
@@ -60,7 +92,6 @@ const List = () => {
             school: "",
         });
     const { editors } = usePage().props;
-    const [search, setSearch] = useState("");
     const [previewAvatar, setPreviewAvatar] = useState(null);
 
     const handleOpen = () => {
@@ -81,167 +112,18 @@ const List = () => {
         });
     };
 
-    const searchTimeoutRef = useRef(null);
-
-    const handleSearch = (e) => {
-        const value = e.target.value;
-        setSearch(value);
-
-        if (searchTimeoutRef.current) {
-            clearTimeout(searchTimeoutRef.current);
-        }
-
-        searchTimeoutRef.current = setTimeout(() => {
-            router.get(
-                route("admin.user.editor"),
-                { search: value },
-                { preserveState: true }
-            );
-        }, 1000);
-    };
-
-    useEffect(() => {
-        return () => {
-            if (searchTimeoutRef.current) {
-                clearTimeout(searchTimeoutRef.current);
-            }
-        };
-    }, []);
-
-    const handlePage = (url) => {
-        router.get(url, {}, { preserveState: true });
-    };
-
     return (
         <>
-            <div className="space-y-4">
-                <div className="flex items-center justify-between">
-                    <div className="w-full sm:max-w-xs">
-                        <Input
-                            value={search}
-                            onChange={handleSearch}
-                            placeholder="Search"
-                        />
-                    </div>
-                    <Button onClick={handleOpen} variant="outline">
+            <DataTable
+                columns={columns}
+                data={editors}
+                button={
+                    <Button variant="outline" size="sm" onClick={handleOpen}>
                         <Plus />
                         Add
                     </Button>
-                </div>
-                <Table>
-                    <TableHeader>
-                        <TableRow>
-                            <TableHead>#</TableHead>
-                            <TableHead>Name</TableHead>
-                            <TableHead>Position</TableHead>
-                            <TableHead>Email Address</TableHead>
-                            <TableHead>Status</TableHead>
-                            <TableHead>Action</TableHead>
-                        </TableRow>
-                    </TableHeader>
-                    <TableBody>
-                        {editors.data.length > 0 ? (
-                            editors.data.map((editor, index) => (
-                                <TableRow key={index}>
-                                    <TableCell className="font-medium">
-                                        {index + 1}
-                                    </TableCell>
-                                    <TableCell>{editor.name}</TableCell>
-                                    <TableCell>{editor.position}</TableCell>
-                                    <TableCell>{editor.email}</TableCell>
-                                    <TableCell>
-                                        <Badge
-                                            variant={
-                                                editor.status === "active"
-                                                    ? "default"
-                                                    : "destructive"
-                                            }
-                                        >
-                                            <span className="capitalize">
-                                                {editor.status}
-                                            </span>
-                                        </Badge>
-                                    </TableCell>
-                                    <TableCell>
-                                        <DropdownMenu>
-                                            <DropdownMenuTrigger asChild>
-                                                <Button
-                                                    variant="ghost"
-                                                    className="h-8 w-8 p-0"
-                                                >
-                                                    <span className="sr-only">
-                                                        Open menu
-                                                    </span>
-                                                    <Settings2 />
-                                                </Button>
-                                            </DropdownMenuTrigger>
-                                            <DropdownMenuContent align="end">
-                                                <DropdownMenuItem
-                                                    onClick={() =>
-                                                        router.visit(
-                                                            route(
-                                                                "user.profile",
-                                                                {
-                                                                    id: editor.id,
-                                                                }
-                                                            )
-                                                        )
-                                                    }
-                                                    className="cursor-pointer"
-                                                >
-                                                    <UserCircle />
-                                                    Show Profile
-                                                </DropdownMenuItem>
-                                            </DropdownMenuContent>
-                                        </DropdownMenu>
-                                    </TableCell>
-                                </TableRow>
-                            ))
-                        ) : (
-                            <TableRow>
-                                <TableCell
-                                    colSpan={6}
-                                    className="h-24 text-center"
-                                >
-                                    {search
-                                        ? `No matching found for "${search}"`
-                                        : "No data available."}
-                                </TableCell>
-                            </TableRow>
-                        )}
-                    </TableBody>
-                </Table>
-                {editors.data.length > 0 && (
-                    <div className="flex justify-end">
-                        <div>
-                            <Pagination>
-                                <PaginationContent>
-                                    <PaginationItem>
-                                        <PaginationPrevious
-                                            onClick={() =>
-                                                handlePage(
-                                                    editors.prev_page_url
-                                                )
-                                            }
-                                            className="cursor-pointer"
-                                        />
-                                    </PaginationItem>
-                                    <PaginationItem>
-                                        <PaginationNext
-                                            onClick={() =>
-                                                handlePage(
-                                                    editors.next_page_url
-                                                )
-                                            }
-                                            className="cursor-pointer"
-                                        />
-                                    </PaginationItem>
-                                </PaginationContent>
-                            </Pagination>
-                        </div>
-                    </div>
-                )}
-            </div>
+                }
+            />
 
             <Sheet
                 open={open}
@@ -267,7 +149,7 @@ const List = () => {
                                         <img
                                             src={previewAvatar}
                                             alt="profile-picture"
-                                            className="object-contain size-full"
+                                            className="object-cover size-full"
                                         />
                                     ) : (
                                         <div className="flex items-center justify-center size-full bg-muted">
