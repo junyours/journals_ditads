@@ -2,8 +2,9 @@ import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { usePage } from "@inertiajs/react";
 import { DataTable } from "@/Components/table/data-table";
 import { ColumnHeader } from "@/Components/table/column-header";
+import Avatar from "../../../../../public/images/user.png";
 
-export const columns = [
+const columns = [
     {
         accessorKey: "avatar",
         header: "",

@@ -31,9 +31,9 @@ const ResearchJournal = ({ journals }) => {
 
         searchTimeoutRef.current = setTimeout(() => {
             router.get(
-                route("research.journal"),
+                "research-journals",
                 { search: value },
-                { preserveState: true }
+                { preserveState: true, preserveScroll: true }
             );
         }, 1000);
     };
@@ -74,17 +74,53 @@ const ResearchJournal = ({ journals }) => {
                                 </div>
                             </AccordionTrigger>
                             <AccordionContent>
-                                <a
-                                    href={`/storage/journal/published_files/${journal.assign_editor.published_file}`}
-                                    target="_blank"
-                                >
-                                    <div className="group flex items-center gap-2">
-                                        <img src={PDF} className="size-8" />
-                                        <span className="group-hover:underline">
-                                            Read Full Document
-                                        </span>
+                                <div className="flex flex-col gap-4">
+                                    <div className="flex flex-col">
+                                        <h1 className="font-medium">
+                                            Author/s:
+                                        </h1>
+                                        <p className="italic">
+                                            {journal.author}
+                                        </p>
                                     </div>
-                                </a>
+                                    <div className="flex max-sm:flex-col sm:gap-2 whitespace-nowrap">
+                                        <h1 className="font-medium">
+                                            Volume & Issue:
+                                        </h1>
+                                        <div className="flex gap-2">
+                                            <p>Volume: {journal.volume},</p>
+                                            <p>Issue: {journal.issue},</p>
+                                            <p>
+                                                {new Date(
+                                                    journal.created_at
+                                                ).toLocaleString("en-US", {
+                                                    month: "long",
+                                                    year: "numeric",
+                                                })}
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div className="flex flex-col">
+                                        <h1 className="font-medium">
+                                            Abstract:
+                                        </h1>
+                                        <p className="text-justify">
+                                            {journal.abstract}
+                                        </p>
+                                    </div>
+                                    <a
+                                        href={`/storage/journal/published_files/${journal.assign_editor.published_file}`}
+                                        target="_blank"
+                                        className="w-fit"
+                                    >
+                                        <div className="group flex items-center gap-2">
+                                            <img src={PDF} className="size-8" />
+                                            <span className="group-hover:underline">
+                                                Read Full Document
+                                            </span>
+                                        </div>
+                                    </a>
+                                </div>
                             </AccordionContent>
                         </AccordionItem>
                     </Accordion>

@@ -49,7 +49,7 @@ class EditorController extends Controller
                     $query->select('id', 'client_id', 'service_id', 'request_number');
                     $query->with([
                         'user' => function ($query) {
-                            $query->select('id', 'last_name', 'first_name');
+                            $query->select('id', 'name');
                         },
                         'service' => function ($query) {
                             $query->select('id', 'name');
@@ -63,8 +63,7 @@ class EditorController extends Controller
                         ->orWhereHas('request', function ($q) use ($search) {
                             $q->where('request_number', 'like', '%' . $search . '%');
                         })->orWhereHas('request.user', function ($q) use ($search) {
-                            $q->where('last_name', 'like', '%' . $search . '%')
-                                ->orWhere('first_name', 'like', '%' . $search . '%');
+                            $q->where('name', 'like', '%' . $search . '%');
                         })->orWhereHas('request.service', function ($q) use ($search) {
                             $q->where('name', 'like', '%' . $search . '%');
                         });
@@ -89,7 +88,7 @@ class EditorController extends Controller
 
         Notification::create([
             'user_id' => $admin_id,
-            'message' => $request->user()->first_name . ' ' . $request->user()->last_name . ' ' . 'has' . ' ' . $request->status . ' ' . 'the assigned document',
+            'message' => $request->user()->name . ' ' . 'has' . ' ' . $request->status . ' ' . 'the assigned document',
             'type' => 'assign',
             'status' => $request->status,
         ]);
@@ -99,7 +98,7 @@ class EditorController extends Controller
 
             Notification::create([
                 'user_id' => $req->client_id,
-                'message' => $request->user()->first_name . ' ' . $request->user()->last_name . ' ' . 'is working on editing your document' . ' ' . '(' . basename($req->uploaded_file) . ')',
+                'message' => $request->user()->name . ' ' . 'is working on editing your document' . ' ' . '(' . basename($req->uploaded_file) . ')',
                 'type' => 'progress',
             ]);
         }
@@ -119,7 +118,7 @@ class EditorController extends Controller
                     $query->select('id', 'client_id', 'service_id', 'request_number');
                     $query->with([
                         'user' => function ($query) {
-                            $query->select('id', 'last_name', 'first_name');
+                            $query->select('id', 'name');
                         },
                         'service' => function ($query) {
                             $query->select('id', 'name');
@@ -133,8 +132,7 @@ class EditorController extends Controller
                         ->orWhereHas('request', function ($q) use ($search) {
                             $q->where('request_number', 'like', '%' . $search . '%');
                         })->orWhereHas('request.user', function ($q) use ($search) {
-                            $q->where('last_name', 'like', '%' . $search . '%')
-                                ->orWhere('first_name', 'like', '%' . $search . '%');
+                            $q->where('name', 'like', '%' . $search . '%');
                         })->orWhereHas('request.service', function ($q) use ($search) {
                             $q->where('name', 'like', '%' . $search . '%');
                         });
@@ -162,7 +160,7 @@ class EditorController extends Controller
                     $query->select('id', 'client_id', 'service_id', 'request_number');
                     $query->with([
                         'user' => function ($query) {
-                            $query->select('id', 'last_name', 'first_name');
+                            $query->select('id', 'name');
                         },
                         'service' => function ($query) {
                             $query->select('id', 'name');
@@ -176,8 +174,7 @@ class EditorController extends Controller
                         ->orWhereHas('request', function ($q) use ($search) {
                             $q->where('request_number', 'like', '%' . $search . '%');
                         })->orWhereHas('request.user', function ($q) use ($search) {
-                            $q->where('last_name', 'like', '%' . $search . '%')
-                                ->orWhere('first_name', 'like', '%' . $search . '%');
+                            $q->where('name', 'like', '%' . $search . '%');
                         })->orWhereHas('request.service', function ($q) use ($search) {
                             $q->where('name', 'like', '%' . $search . '%');
                         });
@@ -206,7 +203,7 @@ class EditorController extends Controller
                     $query->select('id', 'client_id', 'service_id', 'request_number');
                     $query->with([
                         'user' => function ($query) {
-                            $query->select('id', 'last_name', 'first_name');
+                            $query->select('id', 'name');
                         },
                         'service' => function ($query) {
                             $query->select('id', 'name');
@@ -221,8 +218,7 @@ class EditorController extends Controller
                             $q->where('request_number', 'like', '%' . $search . '%');
                         })
                         ->orWhereHas('request.user', function ($q) use ($search) {
-                            $q->where('last_name', 'like', '%' . $search . '%')
-                                ->orWhere('first_name', 'like', '%' . $search . '%');
+                            $q->where('name', 'like', '%' . $search . '%');
                         })->orWhereHas('request.service', function ($q) use ($search) {
                             $q->where('name', 'like', '%' . $search . '%');
                         });
@@ -260,13 +256,13 @@ class EditorController extends Controller
 
         Notification::create([
             'user_id' => $admin_id,
-            'message' => $request->user()->first_name . ' ' . $request->user()->last_name . ' ' . 'has published the document' . ' ' . '(' . $file->getClientOriginalName() . ')',
+            'message' => $request->user()->name . ' ' . 'has published the document' . ' ' . '(' . $file->getClientOriginalName() . ')',
             'type' => 'publish',
         ]);
 
         Notification::create([
             'user_id' => $req->client_id,
-            'message' => $request->user()->first_name . ' ' . $request->user()->last_name . ' ' . 'has published the document' . ' ' . '(' . $file->getClientOriginalName() . ')',
+            'message' => $request->user()->name . ' ' . 'has published the document' . ' ' . '(' . $file->getClientOriginalName() . ')',
             'type' => 'publish',
         ]);
     }
@@ -286,7 +282,7 @@ class EditorController extends Controller
                     $query->select('id', 'client_id', 'service_id', 'request_number');
                     $query->with([
                         'user' => function ($query) {
-                            $query->select('id', 'last_name', 'first_name');
+                            $query->select('id', 'name');
                         },
                         'service' => function ($query) {
                             $query->select('id', 'name');
@@ -301,8 +297,7 @@ class EditorController extends Controller
                             $q->where('request_number', 'like', '%' . $search . '%');
                         })
                         ->orWhereHas('request.user', function ($q) use ($search) {
-                            $q->where('last_name', 'like', '%' . $search . '%')
-                                ->orWhere('first_name', 'like', '%' . $search . '%');
+                            $q->where('name', 'like', '%' . $search . '%');
                         })->orWhereHas('request.service', function ($q) use ($search) {
                             $q->where('name', 'like', '%' . $search . '%');
                         });

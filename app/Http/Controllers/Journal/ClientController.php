@@ -238,7 +238,7 @@ class ClientController extends Controller
                     $query->where('status', 'approved');
                     $query->with([
                         'user' => function ($query) {
-                            $query->select('id', 'last_name', 'first_name');
+                            $query->select('id', 'name');
                         }
                     ]);
                 },

@@ -18,8 +18,6 @@ import {
 } from "@/Components/ui/accordion";
 import { Button } from "./ui/button";
 import AppLogo from "./app-logo";
-import JournalLogo from "./journal-logo";
-import MagazineLogo from "./magazine-logo";
 
 const menus = [
     {
@@ -27,29 +25,19 @@ const menus = [
         url: "/about-us",
         collapse: false,
     },
+    // {
+    //     title: "Book Publication",
+    //     url: "/book-publications",
+    //     collapse: false,
+    // },
+    // {
+    //     title: "Magazine",
+    //     url: "/magazines",
+    //     collapse: false,
+    // },
     {
-        title: "Services",
-        collapse: true,
-        submenus: [
-            {
-                title: "Research Journal",
-                description:
-                    "International Multidisciplinary Research Journal is a peer-reviewed, open-access journal with a broad, multidisciplinary scope. It is dedicated to publishing recent advances across diverse fields, focusing on the structural and functional principles of scientific research. The journal aims to provide an inclusive forum for researchers from all disciplines to share their findings and contribute to the advancement of knowledge across a wide range of subjects.",
-                url: "/research-journals",
-                logo: JournalLogo,
-            },
-            // {
-            //     title: "Magazine",
-            //     description:
-            //         "Lorem ipsum dolor sit amet consectetur adipisicing elit. Recusandae delectus, vitae dolorum, reprehenderit tempora illo debitis, optio eaque sequi officia quaerat sit. Tenetur tempora incidunt hic assumenda ratione officia ut?",
-            //     url: "/",
-            //     logo: MagazineLogo,
-            // },
-        ],
-    },
-    {
-        title: "Book Publication",
-        url: "/book-publications",
+        title: "Research Journal",
+        url: "/research-journals",
         collapse: false,
     },
     {

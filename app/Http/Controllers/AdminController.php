@@ -80,7 +80,7 @@ class AdminController extends Controller
             $file->storeAs('users/avatar', $filename, 'public');
         }
 
-        // Mail::to($request->email)->send(new PasswordMail($password, $request->first_name . ' ' . $request->last_name));
+        Mail::to($request->email)->send(new PasswordMail($password, $request->name));
 
         User::create([
             'name' => $request->name,

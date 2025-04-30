@@ -6,8 +6,10 @@ const WebLayout = ({ children, images }) => {
     return (
         <div className="min-h-screen">
             <WebHeader />
-            <WebBanner images={images} />
-            <main className="container mx-auto">{children}</main>
+            <main className="min-h-svh">
+                <WebBanner images={images} />
+                <div className="container mx-auto p-4">{children}</div>
+            </main>
             <WebFooter />
         </div>
     );

@@ -1,50 +1,29 @@
-import AimScope from "./AimScope";
 import {
     Accordion,
     AccordionContent,
     AccordionItem,
     AccordionTrigger,
 } from "@/Components/ui/accordion";
-import SubmissionGuideline from "./SubmissionGuideline";
-import ReviewProcess from "./ReviewProcess";
-import ResearchJournal from "./ResearchJournal";
 import WebLayout from "@/Layouts/WebLayout";
-import ResearchJournalBanner from "../../../../../public/images/journal-banner.png";
+import MagazineBanner from "../../../../../public/images/magazine-banner.png";
+import AimScope from "./AimScope";
 import EditorialBoard from "./EditorialBoard";
 import { usePage } from "@inertiajs/react";
-import AboutJournal from "./AboutJournal";
 
-const images = [ResearchJournalBanner];
+const images = [MagazineBanner];
 
 export default function Layout() {
-    const { journals, editors } = usePage().props;
+    const { editors } = usePage().props;
 
     const contents = [
-        {
-            title: "About the Journal",
-            page: AboutJournal,
-        },
         {
             title: "Aims and Scope",
             page: AimScope,
         },
         {
-            title: "Submission Guidelines",
-            page: SubmissionGuideline,
-        },
-        {
-            title: "Review Process",
-            page: ReviewProcess,
-        },
-        {
             title: "Editorial Board",
             page: EditorialBoard,
             props: { editors },
-        },
-        {
-            title: "Research Journals",
-            page: ResearchJournal,
-            props: { journals },
         },
     ];
 

@@ -191,7 +191,7 @@ class AdminController extends Controller
                     $query->select('id', 'name');
                 },
                 'user' => function ($query) {
-                    $query->select('id', 'last_name', 'first_name');
+                    $query->select('id', 'name');
                 }
             ])
             ->when($search, function ($query) use ($search) {
@@ -203,14 +203,13 @@ class AdminController extends Controller
                             $q->where('name', 'like', '%' . $search . '%');
                         })
                         ->orWhereHas('user', function ($q) use ($search) {
-                            $q->where('last_name', 'like', '%' . $search . '%')
-                                ->orWhere('first_name', 'like', '%' . $search . '%');
+                            $q->where('name', 'like', '%' . $search . '%');
                         });
                 });
             })
             ->paginate(10);
 
-        $editors = User::select('id', 'last_name', 'first_name')
+        $editors = User::select('id', 'name')
             ->where('role', 'editor')
             ->where('status', 'active')
             ->get();
@@ -295,7 +294,7 @@ class AdminController extends Controller
                     $query->select('id', 'name');
                 },
                 'user' => function ($query) {
-                    $query->select('id', 'last_name', 'first_name');
+                    $query->select('id', 'name');
                 }
             ])
             ->when($search, function ($query) use ($search) {
@@ -307,8 +306,7 @@ class AdminController extends Controller
                             $q->where('name', 'like', '%' . $search . '%');
                         })
                         ->orWhereHas('user', function ($q) use ($search) {
-                            $q->where('last_name', 'like', '%' . $search . '%')
-                                ->orWhere('first_name', 'like', '%' . $search . '%');
+                            $q->where('name', 'like', '%' . $search . '%');
                         });
                 });
             })
@@ -331,7 +329,7 @@ class AdminController extends Controller
                     $query->select('id', 'name');
                 },
                 'user' => function ($query) {
-                    $query->select('id', 'last_name', 'first_name');
+                    $query->select('id', 'name');
                 }
             ])
             ->when($search, function ($query) use ($search) {
@@ -343,8 +341,7 @@ class AdminController extends Controller
                             $q->where('name', 'like', '%' . $search . '%');
                         })
                         ->orWhereHas('user', function ($q) use ($search) {
-                            $q->where('last_name', 'like', '%' . $search . '%')
-                                ->orWhere('first_name', 'like', '%' . $search . '%');
+                            $q->where('name', 'like', '%' . $search . '%');
                         });
                 });
             })
@@ -367,34 +364,32 @@ class AdminController extends Controller
                     $query->select('id', 'client_id', 'service_id', 'request_number');
                     $query->with([
                         'user' => function ($query) {
-                            $query->select('id', 'last_name', 'first_name');
+                            $query->select('id', 'name');
                         },
                     ]);
                 },
                 'user' => function ($query) {
-                    $query->select('id', 'last_name', 'first_name');
+                    $query->select('id', 'name');
                 }
             ])
             ->when($search, function ($query) use ($search) {
                 $query->where(function ($q) use ($search) {
                     $q->where(DB::raw("SUBSTRING_INDEX(edited_file, '/', -1)"), 'like', '%' . $search . '%')
                         ->orWhereHas('user', function ($q) use ($search) {
-                            $q->where('last_name', 'like', '%' . $search . '%')
-                                ->orWhere('first_name', 'like', '%' . $search . '%');
+                            $q->where('name', 'like', '%' . $search . '%');
                         })
                         ->orWhereHas('request', function ($q) use ($search) {
                             $q->where('request_number', 'like', '%' . $search . '%');
                         })
                         ->orWhereHas('request.user', function ($q) use ($search) {
-                            $q->where('last_name', 'like', '%' . $search . '%')
-                                ->orWhere('first_name', 'like', '%' . $search . '%');
+                            $q->where('name', 'like', '%' . $search . '%');
                         });
                 });
             })
             ->latest()
             ->paginate(10);
 
-        $editors = User::select('id', 'last_name', 'first_name')
+        $editors = User::select('id', 'name')
             ->where('role', 'editor')
             ->get();
 
@@ -437,27 +432,25 @@ class AdminController extends Controller
                     $query->select('id', 'client_id', 'service_id', 'request_number');
                     $query->with([
                         'user' => function ($query) {
-                            $query->select('id', 'last_name', 'first_name');
+                            $query->select('id', 'name');
                         },
                     ]);
                 },
                 'user' => function ($query) {
-                    $query->select('id', 'last_name', 'first_name');
+                    $query->select('id', 'name');
                 }
             ])
             ->when($search, function ($query) use ($search) {
                 $query->where(function ($q) use ($search) {
                     $q->where(DB::raw("SUBSTRING_INDEX(edited_file, '/', -1)"), 'like', '%' . $search . '%')
                         ->orWhereHas('user', function ($q) use ($search) {
-                            $q->where('last_name', 'like', '%' . $search . '%')
-                                ->orWhere('first_name', 'like', '%' . $search . '%');
+                            $q->where('name', 'like', '%' . $search . '%');
                         })
                         ->orWhereHas('request', function ($q) use ($search) {
                             $q->where('request_number', 'like', '%' . $search . '%');
                         })
                         ->orWhereHas('request.user', function ($q) use ($search) {
-                            $q->where('last_name', 'like', '%' . $search . '%')
-                                ->orWhere('first_name', 'like', '%' . $search . '%');
+                            $q->where('name', 'like', '%' . $search . '%');
                         });
                 });
             })
@@ -480,34 +473,32 @@ class AdminController extends Controller
                     $query->select('id', 'client_id', 'service_id', 'request_number');
                     $query->with([
                         'user' => function ($query) {
-                            $query->select('id', 'last_name', 'first_name');
+                            $query->select('id', 'name');
                         },
                     ]);
                 },
                 'user' => function ($query) {
-                    $query->select('id', 'last_name', 'first_name');
+                    $query->select('id', 'name');
                 }
             ])
             ->when($search, function ($query) use ($search) {
                 $query->where(function ($q) use ($search) {
                     $q->where(DB::raw("SUBSTRING_INDEX(edited_file, '/', -1)"), 'like', '%' . $search . '%')
                         ->orWhereHas('user', function ($q) use ($search) {
-                            $q->where('last_name', 'like', '%' . $search . '%')
-                                ->orWhere('first_name', 'like', '%' . $search . '%');
+                            $q->where('name', 'like', '%' . $search . '%');
                         })
                         ->orWhereHas('request', function ($q) use ($search) {
                             $q->where('request_number', 'like', '%' . $search . '%');
                         })
                         ->orWhereHas('request.user', function ($q) use ($search) {
-                            $q->where('last_name', 'like', '%' . $search . '%')
-                                ->orWhere('first_name', 'like', '%' . $search . '%');
+                            $q->where('name', 'like', '%' . $search . '%');
                         });
                 });
             })
             ->latest()
             ->paginate(10);
 
-        $editors = User::select('id', 'last_name', 'first_name')
+        $editors = User::select('id', 'name')
             ->where('role', 'editor')
             ->get();
 
@@ -528,7 +519,7 @@ class AdminController extends Controller
             ->whereDoesntHave('payment')
             ->with([
                 'user' => function ($query) {
-                    $query->select('id', 'last_name', 'first_name');
+                    $query->select('id', 'name');
                 },
                 'service' => function ($query) {
                     $query->select('id', 'name');
@@ -537,7 +528,7 @@ class AdminController extends Controller
                     $query->select('editor_id', 'request_id', 'published_file', 'published_at');
                     $query->with([
                         'user' => function ($query) {
-                            $query->select('id', 'last_name', 'first_name');
+                            $query->select('id', 'name');
                         }
                     ]);
                 }
@@ -547,8 +538,7 @@ class AdminController extends Controller
                     $q->where('request_number', 'like', '%' . $search . '%')
                         ->orWhere('amount', 'like', '%' . $search . '%')
                         ->orWhereHas('user', function ($q) use ($search) {
-                            $q->where('last_name', 'like', '%' . $search . '%')
-                                ->orWhere('first_name', 'like', '%' . $search . '%');
+                            $q->where('name', 'like', '%' . $search . '%');
                         })
                         ->orWhereHas('service', function ($q) use ($search) {
                             $q->where('name', 'like', '%' . $search . '%');
@@ -557,8 +547,7 @@ class AdminController extends Controller
                             $q->where(DB::raw("SUBSTRING_INDEX(published_file, '/', -1)"), 'like', '%' . $search . '%');
                         })
                         ->orWhereHas('assign_editor.user', function ($q) use ($search) {
-                            $q->where('last_name', 'like', '%' . $search . '%')
-                                ->orWhere('first_name', 'like', '%' . $search . '%');
+                            $q->where('name', 'like', '%' . $search . '%');
                         });
                 });
             })
@@ -612,7 +601,7 @@ class AdminController extends Controller
             })
             ->with([
                 'user' => function ($query) {
-                    $query->select('id', 'last_name', 'first_name');
+                    $query->select('id', 'name');
                 },
                 'service' => function ($query) {
                     $query->select('id', 'name');
@@ -621,7 +610,7 @@ class AdminController extends Controller
                     $query->select('editor_id', 'request_id', 'published_file', 'published_at');
                     $query->with([
                         'user' => function ($query) {
-                            $query->select('id', 'last_name', 'first_name');
+                            $query->select('id', 'name');
                         }
                     ]);
                 }
@@ -631,8 +620,7 @@ class AdminController extends Controller
                     $q->where('request_number', 'like', '%' . $search . '%')
                         ->orWhere('amount', 'like', '%' . $search . '%')
                         ->orWhereHas('user', function ($q) use ($search) {
-                            $q->where('last_name', 'like', '%' . $search . '%')
-                                ->orWhere('first_name', 'like', '%' . $search . '%');
+                            $q->where('name', 'like', '%' . $search . '%');
                         })
                         ->orWhereHas('service', function ($q) use ($search) {
                             $q->where('name', 'like', '%' . $search . '%');
@@ -641,8 +629,7 @@ class AdminController extends Controller
                             $q->where(DB::raw("SUBSTRING_INDEX(published_file, '/', -1)"), 'like', '%' . $search . '%');
                         })
                         ->orWhereHas('assign_editor.user', function ($q) use ($search) {
-                            $q->where('last_name', 'like', '%' . $search . '%')
-                                ->orWhere('first_name', 'like', '%' . $search . '%');
+                            $q->where('name', 'like', '%' . $search . '%');
                         });
                 });
             })
@@ -670,7 +657,7 @@ class AdminController extends Controller
             })
             ->with([
                 'user' => function ($query) {
-                    $query->select('id', 'last_name', 'first_name');
+                    $query->select('id', 'name');
                 },
                 'service' => function ($query) {
                     $query->select('id', 'name');
@@ -692,8 +679,7 @@ class AdminController extends Controller
                     $q->where('request_number', 'like', '%' . $search . '%')
                         ->orWhere('amount', 'like', '%' . $search . '%')
                         ->orWhereHas('user', function ($q) use ($search) {
-                            $q->where('last_name', 'like', '%' . $search . '%')
-                                ->orWhere('first_name', 'like', '%' . $search . '%');
+                            $q->where('name', 'like', '%' . $search . '%');
                         })
                         ->orWhereHas('service', function ($q) use ($search) {
                             $q->where('name', 'like', '%' . $search . '%');
@@ -763,7 +749,7 @@ class AdminController extends Controller
             })
             ->with([
                 'user' => function ($query) {
-                    $query->select('id', 'last_name', 'first_name');
+                    $query->select('id', 'name');
                 },
                 'service' => function ($query) {
                     $query->select('id', 'name');
@@ -785,8 +771,7 @@ class AdminController extends Controller
                     $q->where('request_number', 'like', '%' . $search . '%')
                         ->orWhere('amount', 'like', '%' . $search . '%')
                         ->orWhereHas('user', function ($q) use ($search) {
-                            $q->where('last_name', 'like', '%' . $search . '%')
-                                ->orWhere('first_name', 'like', '%' . $search . '%');
+                            $q->where('name', 'like', '%' . $search . '%');
                         })
                         ->orWhereHas('service', function ($q) use ($search) {
                             $q->where('name', 'like', '%' . $search . '%');
@@ -816,7 +801,7 @@ class AdminController extends Controller
             })
             ->with([
                 'user' => function ($query) {
-                    $query->select('id', 'last_name', 'first_name');
+                    $query->select('id', 'name');
                 },
                 'service' => function ($query) {
                     $query->select('id', 'name');
@@ -838,8 +823,7 @@ class AdminController extends Controller
                     $q->where('request_number', 'like', '%' . $search . '%')
                         ->orWhere('amount', 'like', '%' . $search . '%')
                         ->orWhereHas('user', function ($q) use ($search) {
-                            $q->where('last_name', 'like', '%' . $search . '%')
-                                ->orWhere('first_name', 'like', '%' . $search . '%');
+                            $q->where('name', 'like', '%' . $search . '%');
                         })
                         ->orWhereHas('service', function ($q) use ($search) {
                             $q->where('name', 'like', '%' . $search . '%');

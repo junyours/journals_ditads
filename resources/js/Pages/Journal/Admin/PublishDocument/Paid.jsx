@@ -93,10 +93,10 @@ const Paid = () => {
                     {request.request_number}
                   </TableCell>
                   <TableCell>
-                    {request.user.first_name} {request.user.last_name}
+                    {request.user.name}
                   </TableCell>
                   <TableCell>
-                    {request.assign_editor.user.first_name} {request.assign_editor.user.last_name}
+                    {request.assign_editor.user.name}
                   </TableCell>
                   <TableCell>
                     {request.service.name}

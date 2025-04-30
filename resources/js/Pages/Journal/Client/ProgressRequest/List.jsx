@@ -88,7 +88,7 @@ const List = () => {
                           <FileCheck2 />
                         </Button>
                         <p className="text-center">
-                          {request.assign_editor ? `Editor: ${request.assign_editor.user.first_name} ${request.assign_editor.user.last_name}` : 'Waiting for Editor'}
+                          {request.assign_editor ? `Editor: ${request.assign_editor.user.name}` : 'Waiting for Editor'}
                         </p>
                         <div></div>
                         {request.assign_editor && (

@@ -123,10 +123,10 @@ const Rejected = () => {
                     {assign.request.request_number}
                   </TableCell>
                   <TableCell>
-                    {assign.request.user.first_name} {assign.request.user.last_name}
+                    {assign.request.user.name}
                   </TableCell>
                   <TableCell>
-                    {assign.user.first_name} {assign.user.last_name}
+                    {assign.user.name}
                   </TableCell>
                   <TableCell>
                     {assign.edited_file.split('/').pop()}

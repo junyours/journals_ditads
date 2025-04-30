@@ -14,13 +14,7 @@ import {
 import { useForm, usePage } from "@inertiajs/react";
 import InputError from "@/Components/input-error";
 import { toast } from "sonner";
-import {
-    LoaderCircle,
-    User,
-    MoreHorizontal,
-    ArrowUpDown,
-    Plus,
-} from "lucide-react";
+import { LoaderCircle, User, Plus } from "lucide-react";
 import {
     Sheet,
     SheetContent,
@@ -30,20 +24,12 @@ import {
     SheetTitle,
 } from "@/Components/ui/sheet";
 import { DataTable } from "@/Components/table/data-table";
-import {
-    DropdownMenu,
-    DropdownMenuContent,
-    DropdownMenuItem,
-    DropdownMenuLabel,
-    DropdownMenuSeparator,
-    DropdownMenuTrigger,
-} from "@/Components/ui/dropdown-menu";
 import { ColumnHeader } from "@/Components/table/column-header";
 import Avatar from "../../../../../public/images/user.png";
 
 const positions = ["Editor in chief", "Associate editor", "Editorial board"];
 
-export const columns = [
+const columns = [
     {
         accessorKey: "avatar",
         header: "",

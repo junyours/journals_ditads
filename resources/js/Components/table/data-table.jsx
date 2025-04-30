@@ -39,7 +39,7 @@ export function DataTable({ columns, data, button }) {
 
     return (
         <div className="space-y-4">
-            <div className="flex items-center justify-between">
+            <div className="flex items-center justify-between gap-4">
                 <Input
                     placeholder="Search for name"
                     value={table.getColumn("name")?.getFilterValue() ?? ""}

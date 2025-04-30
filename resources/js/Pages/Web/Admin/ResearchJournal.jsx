@@ -18,24 +18,7 @@ import {
 } from "@/Components/ui/pagination";
 import { Input } from "@/Components/ui/input";
 import { Button } from "@/Components/ui/button";
-import {
-    Check,
-    Download,
-    File,
-    FileUp,
-    LoaderCircle,
-    MonitorUp,
-    Settings2,
-    Upload,
-    X,
-} from "lucide-react";
-import {
-    Dialog,
-    DialogContent,
-    DialogFooter,
-    DialogHeader,
-    DialogTitle,
-} from "@/Components/ui/dialog";
+import { File, LoaderCircle, Plus, Settings2 } from "lucide-react";
 import { Label } from "@/Components/ui/label";
 import { Textarea } from "@/Components/ui/textarea";
 import {
@@ -75,9 +58,11 @@ const ResearchJournal = () => {
 
     const handleOpen = () => {
         setOpen(!open);
+        clearErrors();
     };
 
     const handleSave = () => {
+        clearErrors();
         post(route("admin.web.research.journal.upload"), {
             onSuccess: () => {
                 handleOpen();
@@ -128,7 +113,7 @@ const ResearchJournal = () => {
                         />
                     </div>
                     <Button onClick={() => handleOpen()} variant="outline">
-                        <FileUp />
+                        <Plus />
                         Upload
                     </Button>
                 </div>
@@ -281,7 +266,7 @@ const ResearchJournal = () => {
                         </div>
                         <div className="space-y-1">
                             <Label>Author/s</Label>
-                            <Textarea
+                            <Input
                                 value={data.author}
                                 onChange={(e) =>
                                     setData("author", e.target.value)
@@ -300,7 +285,7 @@ const ResearchJournal = () => {
                             <InputError message={errors.abstract} />
                         </div>
                         <div className="space-y-1">
-                            <Label>Keywords</Label>
+                            <Label>Keyword/s</Label>
                             <Input
                                 value={data.keyword}
                                 onChange={(e) =>

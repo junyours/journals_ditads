@@ -55,16 +55,46 @@ class WebController extends Controller
         $request->validate([
             'id' => ['required'],
             'title' => ['required'],
-            'author' => ['required']
+            'author' => ['required'],
+            'abstract' => ['required'],
+            'keyword' => ['required']
         ], [
             'id.required' => 'The document field is required.'
         ]);
+
+        // Set base year for volume tracking
+        $baseYear = 2025;
+        $currentYear = now()->year;
+        $currentMonth = now()->month;
+
+        // Determine volume (e.g., 2025 = Volume 1)
+        $volume = $currentYear - $baseYear + 1;
+
+        // Determine issue based on current quarter
+        if ($currentMonth >= 1 && $currentMonth <= 3) {
+            $issue = 1;
+        } elseif ($currentMonth >= 4 && $currentMonth <= 6) {
+            $issue = 2;
+        } elseif ($currentMonth >= 7 && $currentMonth <= 9) {
+            $issue = 3;
+        } else {
+            $issue = 4;
+        }
 
         ResearchJournal::create([
             'assign_editor_id' => $request->id,
             'title' => $request->title,
             'author' => $request->author,
+            'abstract' => $request->abstract,
+            'keyword' => $request->keyword,
+            'volume' => $volume,
+            'issue' => $issue
         ]);
+    }
+
+    public function getMagazine()
+    {
+        return Inertia::render("Web/Admin/Magazine");
     }
 
     public function welcome()
@@ -81,7 +111,7 @@ class WebController extends Controller
     {
         $search = $request->input('search');
 
-        $journals = ResearchJournal::select('assign_editor_id', 'title', 'author')
+        $journals = ResearchJournal::select('assign_editor_id', 'title', 'author', 'abstract', 'keyword', 'volume', 'issue', 'created_at')
             ->with([
                 'assign_editor' => function ($query) {
                     $query->select('id', 'published_file');
@@ -101,6 +131,17 @@ class WebController extends Controller
 
         return Inertia::render("Web/ResearchJournal/Layout", [
             "journals" => $journals,
+            "editors" => $editors
+        ]);
+    }
+
+    public function magazine()
+    {
+        $editors = User::select('name', 'position', 'email', 'school', 'avatar')
+            ->where('role', 'editor')
+            ->get();
+
+        return Inertia::render("Web/Magazine/Layout", [
             "editors" => $editors
         ]);
     }

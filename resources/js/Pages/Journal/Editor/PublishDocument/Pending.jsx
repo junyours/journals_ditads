@@ -122,7 +122,7 @@ const Pending = () => {
                     {assign.request.request_number}
                   </TableCell>
                   <TableCell>
-                    {assign.request.user.first_name} {assign.request.user.last_name}
+                    {assign.request.user.name}
                   </TableCell>
                   <TableCell>
                     {assign.request.service.name}
