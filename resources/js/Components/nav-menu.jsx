@@ -25,11 +25,11 @@ const menus = [
         url: "/about-us",
         collapse: false,
     },
-    // {
-    //     title: "Book Publication",
-    //     url: "/book-publications",
-    //     collapse: false,
-    // },
+    {
+        title: "Book Publication",
+        url: "/book-publications",
+        collapse: false,
+    },
     {
         title: "Magazine",
         url: "/magazines",
