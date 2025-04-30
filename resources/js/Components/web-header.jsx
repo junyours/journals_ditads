@@ -18,7 +18,7 @@ export default function WebHeader() {
                             <AppLogo />
                         </div>
                         <span className="font-semibold text-base">
-                            {import.meta.env.VITE_APP_NAME}
+                            DIT.ADS
                         </span>
                     </Link>
                 </div>

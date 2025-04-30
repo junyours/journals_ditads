@@ -12,7 +12,7 @@ export default function WebFooter() {
                                 <AppLogo />
                             </div>
                             <span className="self-center text-2xl font-semibold whitespace-nowrap">
-                                {import.meta.env.VITE_APP_NAME}
+                                DIT.ADS
                             </span>
                         </Link>
                     </div>
