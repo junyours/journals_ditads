@@ -9,6 +9,8 @@ import MagazineBanner from "../../../../../public/images/magazine-banner.png";
 import AimScope from "./AimScope";
 import EditorialBoard from "./EditorialBoard";
 import { usePage } from "@inertiajs/react";
+import ReviewProcess from "./ReviewProcess";
+import Magazine from "./Magazine";
 
 const images = [MagazineBanner];
 
@@ -21,9 +23,17 @@ export default function Layout() {
             page: AimScope,
         },
         {
+            title: "Review Process",
+            page: ReviewProcess,
+        },
+        {
             title: "Editorial Board",
             page: EditorialBoard,
             props: { editors },
+        },
+        {
+            title: "Magazine",
+            page: Magazine,
         },
     ];
 

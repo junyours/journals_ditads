@@ -1,5 +1,5 @@
 import { Input } from "@/Components/ui/input";
-import BookPublicationImage from "../../../../public/images/book-publication.jpg";
+import BookPublicationImage from "../../../../public/images/book-publication.png";
 import WebLayout from "@/Layouts/WebLayout";
 import { Calendar, Search } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/Components/ui/card";

@@ -30,11 +30,11 @@ const menus = [
     //     url: "/book-publications",
     //     collapse: false,
     // },
-    // {
-    //     title: "Magazine",
-    //     url: "/magazines",
-    //     collapse: false,
-    // },
+    {
+        title: "Magazine",
+        url: "/magazines",
+        collapse: false,
+    },
     {
         title: "Research Journal",
         url: "/research-journals",
