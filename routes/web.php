@@ -29,8 +29,9 @@ Route::middleware(['auth', 'admin', 'verified'])->group(function () {
     Route::get('/admin/users/clients', [AdminController::class, 'getClient'])->name('admin.user.client');
 
     Route::get('/admin/web/research-journals', [WebController::class, 'getResearchJournal'])->name('admin.web.research.journal');
-    Route::get('/admin/web/magazines', [WebController::class, 'getMagazine'])->name('admin.web.magazine');
     Route::post('/admin/web/research-journals/upload', [WebController::class, 'uploadResearchJournal'])->name('admin.web.research.journal.upload');
+    Route::get('/admin/web/magazines', [WebController::class, 'getMagazine'])->name('admin.web.magazine');
+    Route::get('/admin/web/book-publications', [WebController::class, 'getBookPublication'])->name('admin.web.book.publication');
 
 });
 

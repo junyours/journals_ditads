@@ -97,6 +97,11 @@ class WebController extends Controller
         return Inertia::render("Web/Admin/Magazine");
     }
 
+    public function getBookPublication()
+    {
+        return Inertia::render("Web/Admin/BookPublication");
+    }
+
     public function welcome()
     {
         return Inertia::render("Web/Welcome");

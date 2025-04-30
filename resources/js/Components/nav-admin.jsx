@@ -4,7 +4,6 @@ import {
     CollapsibleTrigger,
 } from "@/Components/ui/collapsible";
 import {
-    SidebarContent,
     SidebarGroup,
     SidebarGroupLabel,
     SidebarMenu,
@@ -19,6 +18,7 @@ import { useIsMobile } from "@/hooks/use-mobile";
 import { Link } from "@inertiajs/react";
 import {
     BookOpenText,
+    BookText,
     ChevronRight,
     ClipboardList,
     FolderCog,
@@ -30,124 +30,151 @@ import {
     Users,
 } from "lucide-react";
 
-const navMain = [
+const menugroups = [
     {
-        title: "Users",
-        path: "/admin/users",
-        icon: Users,
-        items: [
+        name: "Main",
+        menus: [
             {
-                title: "Editors",
-                path: "/admin/users/editors",
-                route: "admin.user.editor",
+                title: "Dashboard",
+                url: "/admin/dashboard",
+                icon: LayoutDashboard,
+                collapse: false,
             },
             {
-                title: "Clients",
-                path: "/admin/users/clients",
-                route: "admin.user.client",
-            },
-        ],
-    },
-];
-
-const navJournal = [
-    {
-        title: "Services & Payments",
-        path: "/admin/services_&_payments",
-        icon: FolderCog,
-        items: [
-            {
-                title: "Services",
-                path: "/admin/services_&_payments/services",
-                route: "admin.service&payment.service",
-            },
-            {
-                title: "Payment Methods",
-                path: "/admin/services_&_payments/payment_methods",
-                route: "admin.service&payment.payment.method",
+                title: "Users",
+                url: "/admin/users",
+                icon: Users,
+                collapse: true,
+                submenus: [
+                    {
+                        title: "Editors",
+                        url: "/editors",
+                    },
+                    {
+                        title: "Clients",
+                        url: "/clients",
+                    },
+                ],
             },
         ],
     },
     {
-        title: "Requests",
-        path: "/admin/requests",
-        icon: NotebookPen,
-        items: [
+        name: "Journal",
+        menus: [
             {
-                title: "Pending",
-                path: "/admin/requests/pending",
-                route: "admin.request.pending",
+                title: "Services & Payments",
+                url: "/admin/services_&_payments",
+                icon: FolderCog,
+                collapse: true,
+                submenus: [
+                    {
+                        title: "Services",
+                        url: "/services",
+                    },
+                    {
+                        title: "Payment Methods",
+                        url: "/payment_methods",
+                    },
+                ],
             },
             {
-                title: "Approved",
-                path: "/admin/requests/approved",
-                route: "admin.request.approved",
+                title: "Requests",
+                url: "/admin/requests",
+                icon: NotebookPen,
+                collapse: true,
+                submenus: [
+                    {
+                        title: "Pending",
+                        url: "/pending",
+                    },
+                    {
+                        title: "Approved",
+                        url: "/approved",
+                    },
+                    {
+                        title: "Rejected",
+                        url: "/rejected",
+                    },
+                ],
             },
             {
-                title: "Rejected",
-                path: "/admin/requests/rejected",
-                route: "admin.request.rejected",
+                title: "Assigned Editors",
+                url: "/admin/assigned/editors",
+                icon: UserPen,
+                collapse: true,
+                submenus: [
+                    {
+                        title: "Pending",
+                        url: "/pending",
+                    },
+                    {
+                        title: "Approved",
+                        url: "/approved",
+                    },
+                    {
+                        title: "Rejected",
+                        url: "/rejected",
+                    },
+                ],
+            },
+            {
+                title: "Published Documents",
+                url: "/admin/published/documents",
+                icon: FolderSync,
+                collapse: true,
+                submenus: [
+                    {
+                        title: "Unpaid",
+                        url: "/unpaid",
+                    },
+                    {
+                        title: "Paid",
+                        url: "/paid",
+                    },
+                ],
+            },
+            {
+                title: "Payment Transactions",
+                url: "/admin/payments/transactions",
+                icon: ClipboardList,
+                collapse: true,
+                submenus: [
+                    {
+                        title: "Pending",
+                        url: "/pending",
+                    },
+                    {
+                        title: "Approved",
+                        url: "/approved",
+                    },
+                    {
+                        title: "Rejected",
+                        url: "/rejected",
+                    },
+                ],
             },
         ],
     },
     {
-        title: "Assigned Editors",
-        path: "/admin/assigned/editors",
-        icon: UserPen,
-        items: [
+        name: "Web",
+        menus: [
             {
-                title: "Pending",
-                path: "/admin/assigned/editors/pending",
-                route: "admin.assigned.editor.pending",
+                title: "Research Journals",
+                url: "/admin/web/research-journals",
+                icon: Layers,
+                collapse: false,
             },
             {
-                title: "Approved",
-                path: "/admin/assigned/editors/approved",
-                route: "admin.assigned.editor.approved",
+                title: "Magazines",
+                url: "/admin/web/magazines",
+                icon: BookOpenText,
+                collapse: false,
             },
             {
-                title: "Rejected",
-                path: "/admin/assigned/editors/rejected",
-                route: "admin.assigned.editor.rejected",
-            },
-        ],
-    },
-    {
-        title: "Published Documents",
-        path: "/admin/published/documents",
-        icon: FolderSync,
-        items: [
-            {
-                title: "Unpaid",
-                path: "/admin/published/documents/unpaid",
-                route: "admin.published.document.unpaid",
-            },
-            {
-                title: "Paid",
-                path: "/admin/published/documents/paid",
-                route: "admin.published.document.paid",
-            },
-        ],
-    },
-    {
-        title: "Payment Transactions",
-        path: "/admin/payments/transactions",
-        icon: ClipboardList,
-        items: [
-            {
-                title: "Pending",
-                path: "/admin/payments/transactions/pending",
-                route: "admin.payment.transaction.pending",
-            },
-            {
-                title: "Approved",
-                path: "/admin/payments/transactions/approved",
-                route: "admin.payment.transaction.approved",
-            },
-            {
-                title: "Rejected",
-                path: "/admin/payments/transactions/rejected",
-                route: "admin.payment.transaction.rejected",
+                title: "Book Publications",
+                url: "/admin/web/book-publications",
+                icon: BookText,
+                collapse: false,
             },
         ],
     },
@@ -158,79 +185,58 @@ export function NavAdmin() {
     const isMobile = useIsMobile();
     const currentPath = window.location.pathname;
 
-    return (
-        <SidebarContent>
-            <SidebarGroup>
-                <SidebarGroupLabel>Main</SidebarGroupLabel>
-                <SidebarMenu>
-                    <SidebarMenuItem
-                        onClick={() => {
-                            if (isMobile) {
-                                setOpenMobile(false);
-                            }
-                        }}
-                    >
-                        <SidebarMenuButton
-                            tooltip="Dashboard"
-                            asChild
-                            isActive={
-                                currentPath.startsWith("/admin/dashboard")
-                                    ? true
-                                    : false
-                            }
-                        >
-                            <Link href={route("admin.dashboard")}>
-                                <LayoutDashboard />
-                                <span>Dashboard</span>
-                            </Link>
-                        </SidebarMenuButton>
-                    </SidebarMenuItem>
-                    {navMain.map((item, index) => (
+    return menugroups.map((menugroup) => (
+        <SidebarGroup key={menugroup.name}>
+            <SidebarGroupLabel>{menugroup.name}</SidebarGroupLabel>
+            <SidebarMenu>
+                {menugroup.menus.map((menu) =>
+                    menu.collapse ? (
                         <Collapsible
-                            key={index}
+                            key={menu.title}
                             asChild
                             className="group/collapsible"
                             defaultOpen={
-                                currentPath.startsWith(item.path) ? true : false
+                                currentPath.startsWith(menu.url) ? true : false
                             }
                         >
                             <SidebarMenuItem>
                                 <CollapsibleTrigger asChild>
-                                    <SidebarMenuButton tooltip={item.title}>
-                                        <item.icon />
-                                        <span>{item.title}</span>
+                                    <SidebarMenuButton tooltip={menu.title}>
+                                        <menu.icon />
+                                        <span>{menu.title}</span>
                                         <ChevronRight className="ml-auto transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90" />
                                     </SidebarMenuButton>
                                 </CollapsibleTrigger>
                                 <CollapsibleContent>
                                     <SidebarMenuSub>
-                                        {item.items.map((subItem, subIndex) => (
+                                        {menu.submenus?.map((submenu) => (
                                             <SidebarMenuSubItem
-                                                key={subIndex}
+                                                key={submenu.title}
                                                 onClick={() => {
                                                     if (isMobile) {
                                                         setOpenMobile(false);
                                                     }
                                                 }}
-                                                className="cursor-pointer"
                                             >
                                                 <SidebarMenuSubButton
                                                     asChild
                                                     isActive={
                                                         currentPath.startsWith(
-                                                            subItem.path
+                                                            menu.url +
+                                                                submenu.url
                                                         )
                                                             ? true
                                                             : false
                                                     }
                                                 >
                                                     <Link
-                                                        href={route(
-                                                            subItem.route
-                                                        )}
+                                                        href={
+                                                            menu.url +
+                                                            submenu.url
+                                                        }
                                                     >
                                                         <span>
-                                                            {subItem.title}
+                                                            {submenu.title}
                                                         </span>
                                                     </Link>
                                                 </SidebarMenuSubButton>
@@ -240,121 +246,33 @@ export function NavAdmin() {
                                 </CollapsibleContent>
                             </SidebarMenuItem>
                         </Collapsible>
-                    ))}
-                </SidebarMenu>
-            </SidebarGroup>
-            <SidebarGroup>
-                <SidebarGroupLabel>Journal</SidebarGroupLabel>
-                <SidebarMenu>
-                    {navJournal.map((item, index) => (
-                        <Collapsible
-                            key={index}
-                            asChild
-                            className="group/collapsible"
-                            defaultOpen={
-                                currentPath.startsWith(item.path) ? true : false
-                            }
+                    ) : (
+                        <SidebarMenuItem
+                            key={menu.title}
+                            onClick={() => {
+                                if (isMobile) {
+                                    setOpenMobile(false);
+                                }
+                            }}
                         >
-                            <SidebarMenuItem>
-                                <CollapsibleTrigger asChild>
-                                    <SidebarMenuButton tooltip={item.title}>
-                                        <item.icon />
-                                        <span>{item.title}</span>
-                                        <ChevronRight className="ml-auto transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90" />
-                                    </SidebarMenuButton>
-                                </CollapsibleTrigger>
-                                <CollapsibleContent>
-                                    <SidebarMenuSub>
-                                        {item.items.map((subItem, subIndex) => (
-                                            <SidebarMenuSubItem
-                                                key={subIndex}
-                                                onClick={() => {
-                                                    if (isMobile) {
-                                                        setOpenMobile(false);
-                                                    }
-                                                }}
-                                                className="cursor-pointer"
-                                            >
-                                                <SidebarMenuSubButton
-                                                    asChild
-                                                    isActive={
-                                                        currentPath.startsWith(
-                                                            subItem.path
-                                                        )
-                                                            ? true
-                                                            : false
-                                                    }
-                                                >
-                                                    <Link
-                                                        href={route(
-                                                            subItem.route
-                                                        )}
-                                                    >
-                                                        <span>
-                                                            {subItem.title}
-                                                        </span>
-                                                    </Link>
-                                                </SidebarMenuSubButton>
-                                            </SidebarMenuSubItem>
-                                        ))}
-                                    </SidebarMenuSub>
-                                </CollapsibleContent>
-                            </SidebarMenuItem>
-                        </Collapsible>
-                    ))}
-                </SidebarMenu>
-            </SidebarGroup>
-            <SidebarGroup>
-                <SidebarGroupLabel>Web</SidebarGroupLabel>
-                <SidebarMenu>
-                    <SidebarMenuItem
-                        onClick={() => {
-                            if (isMobile) {
-                                setOpenMobile(false);
-                            }
-                        }}
-                    >
-                        <SidebarMenuButton
-                            tooltip="Research Journals"
-                            asChild
-                            isActive={
-                                currentPath.startsWith(
-                                    "/admin/web/research-journals"
-                                )
-                                    ? true
-                                    : false
-                            }
-                        >
-                            <Link href={route("admin.web.research.journal")}>
-                                <Layers />
-                                <span>Research Journals</span>
-                            </Link>
-                        </SidebarMenuButton>
-                    </SidebarMenuItem>
-                    <SidebarMenuItem
-                        onClick={() => {
-                            if (isMobile) {
-                                setOpenMobile(false);
-                            }
-                        }}
-                    >
-                        <SidebarMenuButton
-                            tooltip="Magazines"
-                            asChild
-                            isActive={
-                                currentPath.startsWith("/admin/web/magazines")
-                                    ? true
-                                    : false
-                            }
-                        >
-                            <Link href={route("admin.web.magazine")}>
-                                <BookOpenText />
-                                <span>Magazines</span>
-                            </Link>
-                        </SidebarMenuButton>
-                    </SidebarMenuItem>
-                </SidebarMenu>
-            </SidebarGroup>
-        </SidebarContent>
-    );
+                            <SidebarMenuButton
+                                tooltip={menu.title}
+                                asChild
+                                isActive={
+                                    currentPath.startsWith(menu.url)
+                                        ? true
+                                        : false
+                                }
+                            >
+                                <Link href={menu.url}>
+                                    <menu.icon />
+                                    <span>{menu.title}</span>
+                                </Link>
+                            </SidebarMenuButton>
+                        </SidebarMenuItem>
+                    )
+                )}
+            </SidebarMenu>
+        </SidebarGroup>
+    ));
 }
