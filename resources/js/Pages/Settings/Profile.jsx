@@ -15,20 +15,8 @@ const Profile = () => {
       <div className='space-y-6'>
         <div className='grid sm:grid-cols-2 gap-4'>
           <div className="space-y-1">
-            <Label>Last name</Label>
-            <Input value={user.last_name} readOnly />
-          </div>
-          <div className="space-y-1">
-            <Label>First name</Label>
-            <Input value={user.first_name} readOnly />
-          </div>
-          <div className="space-y-1">
-            <Label>Middle name</Label>
-            <Input value={user.middle_name ? user.middle_name : '-'} readOnly />
-          </div>
-          <div className="space-y-1">
-            <Label>Gender</Label>
-            <Input value={user.gender ? user.gender : '-'} readOnly />
+            <Label>Name</Label>
+            <Input value={user.name} readOnly />
           </div>
           <div className="space-y-1">
             <Label>Email address</Label>

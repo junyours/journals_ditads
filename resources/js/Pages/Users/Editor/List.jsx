@@ -14,7 +14,14 @@ import {
 import { useForm, usePage } from "@inertiajs/react";
 import InputError from "@/Components/input-error";
 import { toast } from "sonner";
-import { LoaderCircle, User, Plus } from "lucide-react";
+import {
+    LoaderCircle,
+    User,
+    Plus,
+    MoreHorizontal,
+    UserRoundPen,
+    UserPen,
+} from "lucide-react";
 import {
     Sheet,
     SheetContent,
@@ -26,45 +33,15 @@ import {
 import { DataTable } from "@/Components/table/data-table";
 import { ColumnHeader } from "@/Components/table/column-header";
 import Avatar from "../../../../../public/images/user.png";
+import {
+    DropdownMenu,
+    DropdownMenuContent,
+    DropdownMenuItem,
+    DropdownMenuLabel,
+    DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
 const positions = ["Editor in chief", "Associate editor", "Editorial board"];
-
-const columns = [
-    {
-        accessorKey: "avatar",
-        header: "",
-        cell: ({ row }) => {
-            const editor = row.original;
-            return (
-                <div className="size-8">
-                    <img
-                        src={
-                            editor.avatar
-                                ? `/storage/users/avatar/${editor.avatar}`
-                                : Avatar
-                        }
-                        alt="user"
-                        className="rounded-full object-cover"
-                    />
-                </div>
-            );
-        },
-    },
-    {
-        accessorKey: "name",
-        header: "Name",
-    },
-    {
-        accessorKey: "position",
-        header: ({ column }) => (
-            <ColumnHeader column={column} title="Position" />
-        ),
-    },
-    {
-        accessorKey: "email",
-        header: ({ column }) => <ColumnHeader column={column} title="Email" />,
-    },
-];
 
 const List = () => {
     const [open, setOpen] = useState(false);
@@ -79,12 +56,30 @@ const List = () => {
         });
     const { editors } = usePage().props;
     const [previewAvatar, setPreviewAvatar] = useState(null);
+    const [editData, setEditData] = useState(false);
 
-    const handleOpen = () => {
+    const handleOpen = (editor = null) => {
+        if (editor) {
+            setEditData(true);
+            setData({
+                id: editor.id,
+                name: editor.name,
+                email: editor.email,
+                position: editor.position,
+                school: editor.school,
+            });
+            if (editor.avatar) {
+                setPreviewAvatar(`/storage/users/avatar/${editor.avatar}`);
+            } else {
+                setPreviewAvatar(null);
+            }
+        } else {
+            setEditData(false);
+            reset();
+            setPreviewAvatar(null);
+        }
         setOpen(!open);
-        reset();
         clearErrors();
-        setPreviewAvatar(null);
     };
 
     const handleAdd = () => {
@@ -98,13 +93,93 @@ const List = () => {
         });
     };
 
+    const handleUpdate = () => {
+        clearErrors();
+        post(route("admin.user.update.editor"), {
+            onSuccess: () => {
+                reset();
+                handleOpen();
+                toast.success("Editor updated successfully.");
+            },
+        });
+    };
+
+    const columns = [
+        {
+            accessorKey: "avatar",
+            header: "",
+            cell: ({ row }) => {
+                const editor = row.original;
+                return (
+                    <div className="size-8">
+                        <img
+                            src={
+                                editor.avatar
+                                    ? `/storage/users/avatar/${editor.avatar}`
+                                    : Avatar
+                            }
+                            alt="user"
+                            className="rounded-full object-cover"
+                        />
+                    </div>
+                );
+            },
+        },
+        {
+            accessorKey: "name",
+            header: "Name",
+        },
+        {
+            accessorKey: "position",
+            header: ({ column }) => (
+                <ColumnHeader column={column} title="Position" />
+            ),
+        },
+        {
+            accessorKey: "email",
+            header: ({ column }) => (
+                <ColumnHeader column={column} title="Email" />
+            ),
+        },
+        {
+            id: "actions",
+            cell: ({ row }) => {
+                const editor = row.original;
+
+                return (
+                    <DropdownMenu>
+                        <DropdownMenuTrigger asChild>
+                            <Button variant="ghost" className="h-8 w-8 p-0">
+                                <span className="sr-only">Open menu</span>
+                                <MoreHorizontal className="h-4 w-4" />
+                            </Button>
+                        </DropdownMenuTrigger>
+                        <DropdownMenuContent align="end">
+                            <DropdownMenuLabel>Actions</DropdownMenuLabel>
+                            <DropdownMenuItem
+                                onClick={() => handleOpen(editor)}
+                            >
+                                <UserPen />
+                                Edit
+                            </DropdownMenuItem>
+                        </DropdownMenuContent>
+                    </DropdownMenu>
+                );
+            },
+        },
+    ];
+
     return (
         <>
             <DataTable
                 columns={columns}
                 data={editors}
                 button={
-                    <Button variant="outline" size="sm" onClick={handleOpen}>
+                    <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={() => handleOpen()}
+                    >
                         <Plus />
                         Add
                     </Button>
@@ -121,7 +196,9 @@ const List = () => {
             >
                 <SheetContent className="flex flex-col">
                     <SheetHeader>
-                        <SheetTitle>Add Editor</SheetTitle>
+                        <SheetTitle>
+                            {editData ? "Edit Editor" : "Add Editor"}
+                        </SheetTitle>
                         <SheetDescription>
                             Please provide the required information below.
                         </SheetDescription>
@@ -239,11 +316,14 @@ const List = () => {
                         >
                             Cancel
                         </Button>
-                        <Button onClick={handleAdd} disabled={processing}>
+                        <Button
+                            onClick={editData ? handleUpdate : handleAdd}
+                            disabled={processing}
+                        >
                             {processing && (
                                 <LoaderCircle className="size-4 animate-spin" />
                             )}
-                            Save
+                            {editData ? "Update" : "Save"}
                         </Button>
                     </SheetFooter>
                 </SheetContent>

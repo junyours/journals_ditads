@@ -8,6 +8,7 @@ use DB;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Mail;
+use Storage;
 use Str;
 use Hash;
 use App\Mail\PasswordMail;
@@ -53,7 +54,7 @@ class AdminController extends Controller
 
     public function getEditor(Request $request)
     {
-        $editors = User::select('id', 'name', 'position', 'email', 'avatar')
+        $editors = User::select('id', 'name', 'position', 'email', 'avatar', 'school')
             ->where('role', 'editor')
             ->get();
 
@@ -93,6 +94,44 @@ class AdminController extends Controller
             'avatar' => $filename ?? null,
             'school' => $request->school
         ]);
+    }
+
+    public function updateEditor(Request $request)
+    {
+        $editor = User::findOrFail($request->id);
+
+        $request->validate([
+            'email' => ['required', 'email', 'unique:users,email,' . $request->id],
+            'name' => ['required'],
+            'position' => ['required'],
+        ]);
+
+        $editor->update([
+            'name' => $request->name,
+            'email' => $request->email,
+            'position' => $request->position,
+            'school' => $request->school
+        ]);
+
+        if ($request->hasFile('avatar')) {
+            $request->validate([
+                'avatar' => ['mimes:jpeg,jpg,png', 'max:2048']
+            ]);
+
+            if ($editor->avatar && Storage::disk('public')->exists('users/avatar/' . $editor->avatar)) {
+                Storage::disk(name: 'public')->delete('users/avatar/' . $editor->avatar);
+            }
+
+            $file = $request->file('avatar');
+
+            $filename = Str::uuid() . '.' . $file->getClientOriginalExtension();
+
+            $file->storeAs('users/avatar', $filename, 'public');
+
+            $editor->update([
+                'avatar' => $filename,
+            ]);
+        }
     }
 
     public function getClient(Request $request)

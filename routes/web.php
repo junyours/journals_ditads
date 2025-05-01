@@ -24,7 +24,8 @@ Route::middleware(['auth', 'admin', 'verified'])->group(function () {
     Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
 
     Route::get('/admin/users/editors', [AdminController::class, 'getEditor'])->name('admin.user.editor');
-    Route::post('/admin/users/editors', [AdminController::class, 'addEditor'])->name('admin.user.add.editor');
+    Route::post('/admin/users/editors/add', [AdminController::class, 'addEditor'])->name('admin.user.add.editor');
+    Route::post('/admin/users/editors/update', [AdminController::class, 'updateEditor'])->name('admin.user.update.editor');
 
     Route::get('/admin/users/clients', [AdminController::class, 'getClient'])->name('admin.user.client');
 
