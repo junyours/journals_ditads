@@ -19,7 +19,6 @@ import {
     User,
     Plus,
     MoreHorizontal,
-    UserRoundPen,
     UserPen,
 } from "lucide-react";
 import {
@@ -39,7 +38,7 @@ import {
     DropdownMenuItem,
     DropdownMenuLabel,
     DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
+} from "@/Components/ui/dropdown-menu";
 
 const positions = ["Editor in chief", "Associate editor", "Editorial board"];
 
