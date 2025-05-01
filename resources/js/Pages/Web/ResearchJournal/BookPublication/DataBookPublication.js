@@ -2,6 +2,7 @@ export const getBooks = () => {
     return [
         {
             id: 1,
+            ISBN: '978-621-8452-32-9',
             date: "April 26, 2025",
             image: "1.png",
             title: "INTERNATIONAL BUSINESS TRADE: Strategies for Global Success",
@@ -10,6 +11,7 @@ export const getBooks = () => {
         },
         {
             id: 2,
+            ISBN: '978-621-8452-30-5',
             date: "April 26, 2025",
             image: "2.png",
             title: "Monetary Policy and Central Banking: Comprehensive Theories and Practical Applications",
@@ -18,6 +20,7 @@ export const getBooks = () => {
         },
         {
             id: 3,
+            ISBN: '978-621-8452-26-8',
             date: "April 26, 2025",
             image: "3.png",
             title: "BEYOND THE SMILE: ETHICS FOR TOURISM AND HOSPITALITY PROFESSIONALS",
@@ -26,6 +29,7 @@ export const getBooks = () => {
         },
         {
             id: 4,
+            ISBN: '978-621-8452-24-4',
             date: "April 26, 2025",
             image: "4.png",
             title: "PUBLIC PERSONNEL ADMINISTRATION: STRATEGIES FOR EFFECTIVE WORKFORCE MANAGEMENT",
@@ -34,6 +38,7 @@ export const getBooks = () => {
         },
         {
             id: 5,
+            ISBN: '978-621-8452-23-7',
             date: "April 26, 2025",
             image: "5.png",
             title: "Entrepreneurship: Turning Ideas into Reality",
@@ -42,6 +47,7 @@ export const getBooks = () => {
         },
         {
             id: 6,
+            ISBN: '978-621-8452-22-0',
             date: "April 26, 2025",
             image: "6.png",
             title: "Understanding the Self: A Reflective Journey",
@@ -50,6 +56,7 @@ export const getBooks = () => {
         },
         {
             id: 7,
+            ISBN: '978-621-8452-21-3',
             date: "April 26, 2025",
             image: "7.png",
             title: "TOTAL QUALITY MANAGEMENT: Tools and Techniques for Business Success",
@@ -58,6 +65,7 @@ export const getBooks = () => {
         },
         {
             id: 8,
+            ISBN: '978-621-8452-19-0',
             date: "April 26, 2025",
             image: "8.png",
             title: "Entrepreneurial Management: Generating Business Ideas",
@@ -78,6 +86,7 @@ export const getBooks = () => {
         },
         {
             id: 9,
+            ISBN: '978-621-8452-17-6',
             date: "April 26, 2025",
             image: "9.png",
             title: "Human Resource Management: Driving Innovation and Organizational Success",
@@ -86,6 +95,7 @@ export const getBooks = () => {
         },
         {
             id: 10,
+            ISBN: '978-621-8452-15-2',
             date: "April 26, 2025",
             image: "10.png",
             title: "Operation Management: Principles and Practices for Business Success",
@@ -94,6 +104,7 @@ export const getBooks = () => {
         },
         {
             id: 11,
+            ISBN: '978-621-8452-13-8',
             date: "April 26, 2025",
             image: "11.png",
             title: "Investment and Portfolio Management: Strategies for Financial Growth",
@@ -102,6 +113,7 @@ export const getBooks = () => {
         },
         {
             id: 12,
+            ISBN: '978-621-8452-10-7',
             date: "April 26, 2025",
             image: "12.png",
             title: "Credit and Collection: Strategies for Financial Stability",
@@ -110,6 +122,7 @@ export const getBooks = () => {
         },
         {
             id: 13,
+            ISBN: '978-621-8452-05-3',
             date: "April 26, 2025",
             image: "13.png",
             title: "ENTERPRISE DEVELOPMENT AND VALUE CHAIN",
@@ -118,6 +131,7 @@ export const getBooks = () => {
         },
         {
             id: 14,
+            ISBN: '978-621-8452-03-9',
             date: "April 26, 2025",
             image: "14.png",
             title: "FINANCIAL LITERACY AND BUDGETING",
@@ -126,6 +140,7 @@ export const getBooks = () => {
         },
         {
             id: 15,
+            ISBN: '978-621-8452-07-7',
             date: "April 26, 2025",
             image: "15.png",
             title: "INTERNAL CONTROL",
@@ -134,6 +149,7 @@ export const getBooks = () => {
         },
         {
             id: 16,
+            ISBN: '978-621-8452-09-1',
             date: "April 26, 2025",
             image: "16.png",
             title: "PRODUCT DEVELOPMENT",
